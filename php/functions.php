@@ -12,17 +12,6 @@ function getString($arr) {
   return implode(', ', $arr);
 }
 
-// return specified json objects to an array
-// function jsonToArray($attributes, $json) {
-//   $attributes = explode(", ", $attributes);
-//   $arr = [];
-//   foreach ($attributes as $key => $value) {
-//     echo $json -> strval($value);
-//     //array_push($arr, $json -> $value);
-//   }
-//   return $arr;
-// }
-
 // turn sql result into array of rows with actual values
 function sqlToArray($result) {
   $arr = [];
@@ -72,9 +61,6 @@ function addTitle($title) {
   ];
   print_r($values);
   insert($titleColumns, $values, $table);
-
-  //echo $json -> Title;
-
   //addDirectors();
   //addActors();
 }
@@ -90,8 +76,8 @@ function addActors($actors) {
 }
 
 // get details from omdb by id rather then search
-function getTitleByID($id) {
-
+function getElementByID($id, $table) {
+  return query("SELECT * FROM " . $table . " WHERE id = " . $id, true);
 }
 
 // get titles from basic search to display on search results
@@ -107,8 +93,8 @@ function getTitleInfo($titleString) {
 
 }
 
-function checkCache() {
-
+function checkCache($title, $table) {
+  return getElementByID($title['id'], $table);
 }
 
 
