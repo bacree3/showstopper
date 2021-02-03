@@ -12,6 +12,18 @@ function getString($arr) {
   return implode(', ', $arr);
 }
 
+// return specified json objects to an array
+// function jsonToArray($attributes, $json) {
+//   $attributes = explode(", ", $attributes);
+//   $arr = [];
+//   foreach ($attributes as $key => $value) {
+//     echo $json -> strval($value);
+//     //array_push($arr, $json -> $value);
+//   }
+//   return $arr;
+// }
+
+// turn sql result into array of rows with actual values
 function sqlToArray($result) {
   $arr = [];
   while ($row = $result->fetch_assoc()) {
@@ -50,9 +62,21 @@ function steralizeString($str) {
 
 // add title to cache db
 function addTitle($title) {
+  global $titleColumns;
+  $table = "titles";
+  $values = [
+    "'" . $title["imdbID"] . "'",
+    "'" . $title["Title"] . "'",
+    "'" . $title["Poster"] . "'",
+    "'" . $title["Genre"] . "'",
+  ];
+  print_r($values);
+  insert($titleColumns, $values, $table);
 
-  addDirectors();
-  addActors();
+  //echo $json -> Title;
+
+  //addDirectors();
+  //addActors();
 }
 
 // add director cache to db
@@ -72,7 +96,9 @@ function getTitleByID($id) {
 
 // get titles from basic search to display on search results
 function search($titleString) {
-
+  global $omdbURL;
+  $api_url = $omdbURL . "t=" . $titleString;
+  addTitle(json_decode(file_get_contents($api_url), true));
 }
 
 

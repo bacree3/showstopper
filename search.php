@@ -3,9 +3,14 @@
 include 'php/functions.php';
 
 if (isset($_GET['search'])) {
-	$searchString = $_GET['search'];
+	$searchString = steralizeString($_GET['search']);
 }
+//$jsonString = '{"a": "test", "b": "test", "c": "test"}';
+//$json = json_encode($jsonString);
+//jsonToArray("a, b", $json);
+search($searchString);
+//echo $json;
 
-insert($titleColumns, $titleValues, "titles");
+//echo $json -> Title;
 
 ?>
