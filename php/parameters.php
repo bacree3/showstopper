@@ -3,7 +3,7 @@
 $ip = "";
 $user = "";
 $password = "";
-$schema = "";
+$schema = "test";
 $omdbKey = "336afe3";
 
 ?>
