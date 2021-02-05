@@ -65,7 +65,7 @@ print(search_url)
 options = webdriver.ChromeOptions()
 options.add_argument('headless')
 
-driver = webdriver.Chrome("chromedriver/chromedriver.exe", options=options)
+driver = webdriver.Chrome("chromedriver/chromedriver", options=options)
 
 driver.get(search_url)
 
