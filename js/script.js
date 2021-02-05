@@ -1,3 +1,3 @@
 //console.log("test");
-$(".header").load("header.html");
-$(".footer").load("footer.html");
+$(".header").load("/html/header.html");
+$(".footer").load("/html/footer.html");
