@@ -65,7 +65,7 @@ print(search_url)
 options = webdriver.ChromeOptions()
 options.add_argument('headless')
 
-driver = webdriver.Chrome(".\\chromedriver\\chromedriver.exe", options=options)
+driver = webdriver.Chrome("chromedriver/chromedriver.exe", options=options)
 
 driver.get(search_url)
 
@@ -87,4 +87,3 @@ for i in range(indeces):
     ls.append({"name": platforms[i].text, "link": links[i].get('href')})
 
 print(ls)
-
