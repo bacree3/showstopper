@@ -77,13 +77,20 @@ function addActors($actors) {
 
 // get details from omdb by id rather then search
 function getElementByID($id, $table) {
-  return query("SELECT * FROM " . $table . " WHERE id = " . $id, true);
+  $query = "SELECT * FROM " . $table . " WHERE id = '" . $id . "';";
+  //echo $query;
+  $result = query($query, true);
+  return $result[0];
+}
+
+function toSearchString($searchString) {
+  return str_replace(' ', '+', $searchString);
 }
 
 // get titles from basic search to display on search results
 function search($titleString) {
   global $omdbURL;
-  $api_url = $omdbURL . "t=" . $titleString;
+  $api_url = $omdbURL . "t=" . toSearchString($titleString);
   addTitle(json_decode(file_get_contents($api_url), true));
 }
 
