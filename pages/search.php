@@ -1,4 +1,30 @@
-<!DOCTYPE html>
+<?php
+
+include 'php/functions.php';
+
+if (isset($_GET['search'])) {
+	$searchString = steralizeString($_GET['search']);
+} else {
+	header("Location:index.php");
+}
+
+search($searchString);
+
+//$jsonString = '{"a": "test", "b": "test", "c": "test"}';
+//$json = json_encode($jsonString);
+//jsonToArray("a, b", $json);
+//search($searchString);
+
+/* $titleData = getElementByID('tt0848228', 'titles');
+
+print_r($titleData);
+
+echo $titleData['img']; */
+
+//echo $json -> Title;
+
+?>
+
 <html>
   <head>
     <meta charset="utf-8">
