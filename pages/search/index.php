@@ -30,10 +30,10 @@ echo $titleData['img']; */
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <title>ShowStopper</title>
-    <link rel="shortcut icon" href="../img/logo.png" />
+    <link rel="shortcut icon" href="/img/logo.png" />
 
   <body>
     <nav class= "header navbar navbar-expand-lg sticky-top navbar-dark"></nav>
@@ -77,7 +77,7 @@ echo $titleData['img']; */
         <div class="col-9 justify-content-center">
           <div class="row pt-4 bg-light pb-4 rounded">
             <div class="col-xs-12 col-md-4 text-center">
-              <img src="../img/avengers.jpg" class="rounded title" alt="...">
+              <img src="/img/avengers.jpg" class="rounded title" alt="...">
             </div>
             <div class="col-xs-12 col-md-8 text-left">
               <h1 class="display-3">Movie Title</h1>
@@ -91,7 +91,7 @@ echo $titleData['img']; */
 
           <div class="row pt-4 bg-light pb-4 mt-4 rounded">
             <div class="col-xs-12 col-md-4 text-center">
-              <img src="../img/avengers.jpg" class="rounded title" alt="...">
+              <img src="/img/avengers.jpg" class="rounded title" alt="...">
             </div>
             <div class="col-xs-12 col-md-8 text-left">
               <h1 class="display-3">Movie Title</h1>
@@ -105,7 +105,7 @@ echo $titleData['img']; */
 
           <div class="row pt-4 bg-light pb-4 mt-4 rounded">
             <div class="col-xs-12 col-md-4 text-center">
-              <img src="../img/avengers.jpg" class="rounded title" alt="...">
+              <img src="/img/avengers.jpg" class="rounded title" alt="...">
             </div>
             <div class="col-xs-12 col-md-8 text-left">
               <h1 class="display-3">Movie Title</h1>
