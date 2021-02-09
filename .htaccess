@@ -1,5 +1,14 @@
 RewriteEngine On
-RewriteBase /
-RewriteCond %{THE_REQUEST} /pages/([^\s?]*) [NC]
-RewriteRule ^ %1 [L,NE,R=302]
-RewriteRule ^(.*)$ pages/index.php?$1 [L,QSA]
+
+RewriteCond %{THE_REQUEST} /pages/ [NC]
+RewriteRule ^pages/(.*)$ /$1 [L,R=301,NC,NE]
+
+RewriteCond %{HTTP_HOST} ^showstopper\.app$ [NC]
+RewriteRule ^(.*)$ http://www.showstopper.app/$1 [R=301,L]
+
+RewriteCond $1 !js [NC]
+RewriteRule ^((?!pages/)[a-z]{2}/.*)$ /pages/$1 [L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1\.php -f [NC]
+RewriteRule ^([^.]+)/?$ $1.php [NC,L]

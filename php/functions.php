@@ -80,6 +80,9 @@ function getElementByID($id, $table) {
   $query = "SELECT * FROM " . $table . " WHERE id = '" . $id . "';";
   //echo $query;
   $result = query($query, true);
+  if ($result === false) {
+    return false;
+  }
   return $result[0];
 }
 
