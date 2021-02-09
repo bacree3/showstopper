@@ -1,4 +1,5 @@
-Options -MultiViews
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.html [QSA,L]
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www.showstopper.app$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.showstopper.app$
+RewriteCond %{REQUEST_URI} !pages/
+RewriteRule (.*) /pages/$1 [L]
