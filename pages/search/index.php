@@ -5,7 +5,7 @@ include 'php/functions.php';
 if (isset($_GET['search'])) {
 	$searchString = steralizeString($_GET['search']);
 } else {
-	header("Location:index.php");
+	header("Location:/index.php");
 }
 
 search($searchString);
@@ -124,6 +124,6 @@ echo $titleData['img']; */
 		<div class = "footer mt-4 pt-4"></div>
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-		<script src = "js/script.js"></script>
+		<script src = "/js/script.js"></script>
 	</body>
 </html>
