@@ -1,8 +1,6 @@
 <?php
 
-echo realpath('index.php');
-
-include '/php/functions.php';
+include '../php/functions.php';
 
 if (isset($_GET['title']) && !empty($_GET['title'])) {
 	$title = steralizeString($_GET['title']);
