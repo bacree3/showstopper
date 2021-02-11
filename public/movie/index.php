@@ -35,10 +35,10 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
         </div>
         <div class="col-xs-12 col-md-8 text-left">
           <h1 class="display-3"><?php echo $titleData['name'];?></h1>
-          <p class="lead">Cast: </p>
-          <p class="lead">Summary: </p>
-          <p class="lead">Rating: </p>
-          <p class="lead">Release Date: </p>
+          <p class="lead">Cast: <?php echo $titleData['actors'];?></p>
+          <p class="lead">Summary: <?php echo $titleData['summary'];?></p>
+          <p class="lead">Rating on IMDB: <?php echo $titleData['rating'];?></p>
+          <p class="lead">Release Date: <?php echo $titleData['release'];?></p>
           <p class="lead">Platforms: </p>
         </div>
       </div>

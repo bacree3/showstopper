@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/src/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <title>ShowStopper</title>
-    <link rel="shortcut icon" href="/src/logo.png" />
+    <link rel="shortcut icon" href="/src/img/logo.png" />
 
   <body>
     <nav class= "header navbar navbar-expand-lg sticky-top navbar-dark"></nav>
