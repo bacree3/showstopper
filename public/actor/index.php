@@ -2,7 +2,7 @@
   <head></head>
 
   <body>
-    <nav class= " navbar navbar-expand-lg sticky-top navbar-dark"></nav>
+    <nav class= "header navbar navbar-expand-lg sticky-top navbar-dark"></nav>
 		<!-- BODY -->
 
     <div class="container">
