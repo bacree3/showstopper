@@ -86,7 +86,7 @@ echo $titleData['src/src/img']; */
 					$resultsHTML = "";
 					foreach ($results as $key => $title) {
 					  $row = "
-					    <div style = 'cursor: pointer;' class='row pt-4 bg-light pb-4 mt-4 rounded movie " . $title['id'] ."'>
+					    <div onclick = 'location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style = 'cursor: pointer;' class='row pt-4 bg-light pb-4 mt-4 rounded movie " . $title['id'] ."'>
 					      <div class='col-xs-12 col-md-4 text-center'>
 					        <img src='" . $title['img'] . "' class='rounded title' alt='...'>
 					      </div>

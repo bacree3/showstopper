@@ -50,7 +50,6 @@ function update($identifier, $table, $params, $values) {
   }
   $updates = rtrim($updates, ",");
   $query = "UPDATE " . $table . " SET " . $updates . " WHERE id = " . "'" . $identifier . "';";
-  echo $query;
   query($query, false);
 }
 
@@ -126,7 +125,6 @@ function searchByTitle($titleString) {
   if (!inCache($data['imdbID'], 'titles')) {
     addTitle($data);
   } else {
-    echo "check";
     updateTitle($data['imdbID']);
   }
 }
@@ -139,7 +137,8 @@ function getTitleInfo($id) {
 }
 
 function inCache($id, $table) {
-  return getElementByID($id, $table);
+  $query = "SELECT * FROM " . $table . " WHERE id = " . "'" . $id . "'" . ";";
+  return query($query, true);
 }
 
 function extractCommonWords($string){
