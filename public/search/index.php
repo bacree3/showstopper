@@ -8,7 +8,7 @@ if (isset($_GET['search'])) {
 	header("Location:/");
 }
 
-//searchByTitle($searchString); // get data from api if not in cache
+searchByTitle($searchString); // get data from api if not in cache
 
 $likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
 
@@ -92,11 +92,11 @@ echo $titleData['src/src/img']; */
 					      </div>
 					      <div class='col-xs-12 col-md-8 text-left'>
 					        <h1 class='display-3'>" . $title['name'] . "</h1>
-					        <p class='lead'>Cast: " . $title['actors'] . "</p>
-					        <p class='lead'>Summary: " . $title['summary'] . "</p>
-					        <p class='lead'>Rating on IMDB: " . $title['rating'] . "</p>
-					        <p class='lead'>Release Date: " . $title['release'] . "</p>
-					        <p class='lead'>Platforms: </p>
+					        <p class='lead'><span class = 'font-weight-bold'>Cast:</span> " . $title['actors'] . "</p>
+					        <p class='lead'><span class = 'font-weight-bold'>Summary:</span> " . $title['summary'] . "</p>
+					        <p class='lead'><span class = 'font-weight-bold'>IMDB Rating:</span> " . $title['rating'] . "</p>
+					        <p class='lead'><span class = 'font-weight-bold'>Release Date:</span> " . $title['release'] . "</p>
+					        <p class='lead'><span class = 'font-weight-bold'>Platforms:</span> </p>
 					      </div>
 					    </div>"
 					  ;

@@ -34,13 +34,24 @@ function query($query, $return) {
 // takes in an array of columns and an array of values to insert into the corresponding table
 function insert($columns, $values, $table) {
   $query = "INSERT INTO " . $table . " (" . getString($columns) . ") VALUES (" . getString($values) . ");";
-  echo $query;
   query($query, false);
 }
 
-// update line with
+// update entry
 function update($identifier, $table, $params, $values) {
-
+  $updates = $params[0] . "=" . $values[0] . ", ";
+  array_shift($values);
+  if (sizeof($values) > 0) {
+    $count = 1;
+    foreach ($values as $key => $value) {
+      $updates .= $params[$count] . "=" . $value . ",";
+      $count++;
+    }
+  }
+  $updates = rtrim($updates, ",");
+  $query = "UPDATE " . $table . " SET " . $updates . " WHERE id = " . "'" . $identifier . "';";
+  echo $query;
+  query($query, false);
 }
 
 // steralize string for mysql command
@@ -50,27 +61,34 @@ function steralizeString($str) {
 }
 
 function updateTitle($id) {
+  global $titleColumns;
   $updatedData = getTitleInfo($id);
-  if (checkCache($id, 'titles')) {
-    //update($id, 'titles', )
-  }
+  $values = [
+    "'" . $updatedData["imdbID"] . "'",
+    "'" . $updatedData["Title"] . "'",
+    "'" . $updatedData["Year"] . "'",
+    "\"" . $updatedData["Plot"] . "\"",
+    "'" . $updatedData["Ratings"][0]['Value'] . "'",
+    "'" . $updatedData["Poster"] . "'",
+    "'" . $updatedData["Genre"] . "'",
+  ];
+  update($id, 'titles', $titleColumns, $values);
 }
 
 // add title to cache db
-$titleColumns = ['id', 'titles.name', 'release', 'summary', 'rating', 'img', 'genre'];
+$titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'img', 'genre'];
 function addTitle($title) {
   global $titleColumns;
   $table = "titles";
   $values = [
     "'" . $title["imdbID"] . "'",
-    "'" . $title["Year"] . "'",
-    "'" . $title["Plot"] . "'",
-    "'" . $title["Ratings"]['imdbRating'] . "'",
     "'" . $title["Title"] . "'",
+    "'" . $title["Year"] . "'",
+    "\"" . $title["Plot"] . "\"",
+    "'" . $title["Ratings"][0]['Value'] . "'",
     "'" . $title["Poster"] . "'",
     "'" . $title["Genre"] . "'",
   ];
-  print_r($values);
   insert($titleColumns, $values, $table);
   //addDirectors();
   //addActors();
@@ -104,18 +122,24 @@ function toSearchString($searchString) {
 function searchByTitle($titleString) {
   global $omdbURL;
   $api_url = $omdbURL . "t=" . toSearchString($titleString);
-  addTitle(json_decode(file_get_contents($api_url), true));
+  $data = json_decode(file_get_contents($api_url), true);
+  if (!inCache($data['imdbID'], 'titles')) {
+    addTitle($data);
+  } else {
+    echo "check";
+    updateTitle($data['imdbID']);
+  }
 }
 
 // using omdb get details from api
 function getTitleInfo($id) {
   global $omdbURL;
   $api_url = $omdbURL . "i=" . toSearchString($id);
-  addTitle(json_decode(file_get_contents($api_url), true));
+  return json_decode(file_get_contents($api_url), true);
 }
 
-function checkCache($title, $table) {
-  return getElementByID($title['id'], $table);
+function inCache($id, $table) {
+  return getElementByID($id, $table);
 }
 
 function extractCommonWords($string){
