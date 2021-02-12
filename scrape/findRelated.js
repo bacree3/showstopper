@@ -16,7 +16,7 @@ streaming services where the movie is available.
 **/
 
 
-title = "the avengers"
+title = "the avengers 2012"
 
 titleWords = title.split(" ")
 var searchURL = 'https://www.google.com/search?q='
@@ -31,22 +31,18 @@ console.log(searchURL)
 
 nightmare
 .goto(searchURL)
-.wait("div.ellip.bclEt")
+.wait("div.fl.ellip.oBrLN.S1gFKb.rOVRL")
 .evaluate(() => {
-    const container = document.querySelector("div[jsname='gI9xcc']")
-    const links = container.querySelectorAll("a")
+    const containers = document.querySelectorAll("div.fl.ellip.oBrLN.S1gFKb.rOVRL")
+    // const links = container.querySelectorAll("a")
     var num = 0
-    var platforms = []
-    for (var i = 0; i < links.length; i++) {
-        if (links[i].href != null) {
-            num = num + 1
-            var link = links[i].href
-            var name = links[i].querySelector("div.ellip.bclEt").textContent
-            var str = "{ name: " + name + ", link: " + link + " }"
-            platforms.push(str)
-        }
+    var movies = []
+    for (var i = 0; i < containers.length; i++) {
+        // const aContainer = containers[i].querySelector("a")
+        // name = aContainer.querySelector("div.fl.ellip.oBrLN.S1gFKb.rOVRL").textContent
+        movies.push(containers[i].textContent)
     }
-    return platforms
+    return movies
 })
 .end()
 .then(console.log)
@@ -57,6 +53,3 @@ console.error('Search failed:', error)
 //do a wait for div.fl.ellip.oBrLN.SlgFKb.rOVRL
 //idk how to do an if, maybe catch error timeout and that means the search
 //doesnt have that section
-
-
-
