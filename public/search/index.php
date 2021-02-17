@@ -5,7 +5,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/functions.php';
 if (isset($_GET['search'])) {
 	$searchString = steralizeString($_GET['search']);
 } else {
-	header("Location:/");
+	goTo404();
 }
 
 searchByTitle($searchString); // get data from api if not in cache

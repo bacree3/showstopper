@@ -8,6 +8,12 @@ if ($conn->connect_errno) {
   echo "Failed to connect to MySQL: " . $conn->connect_error();
 }
 
+function goTo404() {
+  http_response_code(404);
+	include '../error/404.php';
+	die();
+}
+
 function getString($arr) {
   return implode(', ', $arr);
 }
