@@ -31,6 +31,10 @@ function sqlToArray($result) {
 function query($query, $return) {
   global $conn;
   $result = $conn->query($query);
+  if ($result === false || mysqli_num_rows($result) == 0) {
+    $result = false;
+    return false;
+  }
   if ($return) {
     return sqlToArray($result);
   }
@@ -113,10 +117,9 @@ function addActors($actors) {
 function getElementByID($id, $table) {
   $query = "SELECT * FROM " . $table . " WHERE id = '" . $id . "';";
   $result = query($query, true);
-  if ($result === false) {
-    return false;
+  if ($result) {
+    return $result[0];
   }
-  return $result[0];
 }
 
 function toSearchString($searchString) {
