@@ -6,10 +6,14 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
 	$title = steralizeString($_GET['title']);
 	$titleData = getElementByID($title, 'titles');
 	if (!$titleData) {
-		header("Location:/");
+		http_response_code(404);
+		include '../error/404.php';
+		die();
 	}
 } else {
-	header("Location:/");
+	http_response_code(404);
+	include '../error/404.php';
+	die();
 }
 
 ?>

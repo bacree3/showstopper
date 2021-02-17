@@ -3,4 +3,4 @@ RewriteEngine on
 RewriteCond %{REQUEST_URI} !(.*)public
 RewriteRule ^(.*)$ public/$1 [L]
 
-ErrorDocument 404 /public/404/
+ErrorDocument 404 /public/error/404.php
