@@ -2,27 +2,25 @@
 
 ?>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="stylesheet" href="/src/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <title>ShowStopper</title>
-    <link rel="shortcut icon" href="/src/logo.png" />
-
+  <head></head>
   <body>
     <nav class= "header navbar navbar-expand-lg sticky-top navbar-dark"></nav>
 
     <!-- BODY -->
 
-    <div class="jumbotron jumbotron-fluid text-center">
-      <h1 class="display-3">Hello, group!</h1>
-      <p class="lead">This is filler content, we can put a signup CTA here.</p>
-      <p class="lead">
-        <a class="btn btn-danger btn-lg" href="#" role="button">Learn more</a>
-      </p>
+    <div class="jumbotron jumbotron-fluid d-flex flex-column align-items-center justify-content-start">
+      <h1 class="display-3">ShowStopper</h1>
+      <p class="lead">Get the most out of your streaming services</p>
+      <form action="/search/" method="get" class="form-inline my-2 my-lg-0">
+        <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button name="submit" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <div class="d-flex justify-content-around mt-3">
+        <p class="mr-1">Don't have an account?</p>
+        <a href="/">Sign up today</a>
+      </div>
     </div>
+    
     <div class="container">
       <div class="row text-center">
         <div class="col-xs-6 col-md-3">

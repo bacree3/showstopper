@@ -6,23 +6,17 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
 	$title = steralizeString($_GET['title']);
 	$titleData = getElementByID($title, 'titles');
 	if (!$titleData) {
-		header("Location:/");
+		goTo404();
 	}
 } else {
-	header("Location:/");
+	goTo404();
 }
 
 ?>
 
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="stylesheet" href="/src/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <title>ShowStopper</title>
-    <link rel="shortcut icon" href="/src/img/logo.png" />
+
+  <head></head>
 
   <body>
     <nav class= "header navbar navbar-expand-lg sticky-top navbar-dark"></nav>
@@ -35,11 +29,11 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
         </div>
         <div class="col-xs-12 col-md-8 text-left">
           <h1 class="display-3"><?php echo $titleData['name'];?></h1>
-          <p class="lead">Cast: </p>
-          <p class="lead">Summary: </p>
-          <p class="lead">Rating: </p>
-          <p class="lead">Release Date: </p>
-          <p class="lead">Platforms: </p>
+          <p class="lead"><span class = "font-weight-bold">Cast:</span> <?php echo $titleData['actors'];?></p>
+          <p class="lead"><span class = "font-weight-bold">Summary:</span> <?php echo $titleData['summary'];?></p>
+          <p class="lead"><span class = "font-weight-bold">IMDB Rating:</span> <?php echo $titleData['rating'];?></p>
+          <p class="lead"><span class = "font-weight-bold">Release Date:</span> <?php echo $titleData['release'];?></p>
+          <p class="lead"><span class = "font-weight-bold">Platforms:</span> </p>
         </div>
       </div>
     </div>

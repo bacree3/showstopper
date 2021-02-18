@@ -1,14 +1,20 @@
 <?php
 
-include 'php/functions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/functions.php';
 
 if (isset($_GET['search'])) {
 	$searchString = steralizeString($_GET['search']);
 } else {
-	header("Location:/index.php");
+	goTo404();
 }
 
-search($searchString);
+searchByTitle($searchString); // get data from api if not in cache
+
+$likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
+
+$results = query("SELECT * FROM titles " . $likeStatment . ";", true);
+
+//print_r($results);
 
 //$jsonString = '{"a": "test", "b": "test", "c": "test"}';
 //$json = json_encode($jsonString);
@@ -26,23 +32,15 @@ echo $titleData['src/src/img']; */
 ?>
 
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="stylesheet" href="/src/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <title>ShowStopper</title>
-    <link rel="shortcut icon" href="/src/logo.png" />
-
+  <head></head>
   <body>
     <nav class= "header navbar navbar-expand-lg sticky-top navbar-dark"></nav>
 		<!-- BODY -->
 
 
-    <div class="container">
+		<div class="container">
       <div class="srow rounded">
-        <p class="lead font-weight-bold">Showing Results for: user input</p>
+        <p class="lead font-weight-bold">Showing Results for: <?php echo $searchString; ?></p>
       </div>
       <div class="row pt-4">
         <div class="col-3">
@@ -75,47 +73,30 @@ echo $titleData['src/src/img']; */
           </div>
         </div>
         <div class="col-9 justify-content-center">
-          <div class="row pt-4 bg-light pb-4 rounded">
-            <div class="col-xs-12 col-md-4 text-center">
-              <img src="/src/img/avengers.jpg" class="rounded title" alt="...">
-            </div>
-            <div class="col-xs-12 col-md-8 text-left">
-              <h1 class="display-3">Movie Title</h1>
-              <p class="lead">Cast: </p>
-              <p class="lead">Summary: </p>
-              <p class="lead">Rating: </p>
-              <p class="lead">Release Date: </p>
-              <p class="lead">Platforms: </p>
-            </div>
-          </div>
 
-          <div class="row pt-4 bg-light pb-4 mt-4 rounded">
-            <div class="col-xs-12 col-md-4 text-center">
-              <img src="/src/img/avengers.jpg" class="rounded title" alt="...">
-            </div>
-            <div class="col-xs-12 col-md-8 text-left">
-              <h1 class="display-3">Movie Title</h1>
-              <p class="lead">Cast: </p>
-              <p class="lead">Summary: </p>
-              <p class="lead">Rating: </p>
-              <p class="lead">Release Date: </p>
-              <p class="lead">Platforms: </p>
-            </div>
-          </div>
+					<?php
+					$resultsHTML = "";
+					foreach ($results as $key => $title) {
+					  $row = "
+					    <div onclick = 'location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style = 'cursor: pointer;' class='row pt-4 bg-light pb-4 mt-4 rounded movie " . $title['id'] ."'>
+					      <div class='col-xs-12 col-md-4 text-center'>
+					        <img src='" . $title['img'] . "' class='rounded title' alt='...'>
+					      </div>
+					      <div class='col-xs-12 col-md-8 text-left'>
+					        <h1 class='display-3'>" . $title['name'] . "</h1>
+					        <p class='lead'><span class = 'font-weight-bold'>Cast:</span> " . $title['actors'] . "</p>
+					        <p class='lead'><span class = 'font-weight-bold'>Summary:</span> " . $title['summary'] . "</p>
+					        <p class='lead'><span class = 'font-weight-bold'>IMDB Rating:</span> " . $title['rating'] . "</p>
+					        <p class='lead'><span class = 'font-weight-bold'>Release Date:</span> " . $title['release'] . "</p>
+					        <p class='lead'><span class = 'font-weight-bold'>Platforms:</span> </p>
+					      </div>
+					    </div>"
+					  ;
+					  $resultsHTML .= $row;
+					}
+					echo $resultsHTML;
+					?>
 
-          <div class="row pt-4 bg-light pb-4 mt-4 rounded">
-            <div class="col-xs-12 col-md-4 text-center">
-              <img src="/src/img/avengers.jpg" class="rounded title" alt="...">
-            </div>
-            <div class="col-xs-12 col-md-8 text-left">
-              <h1 class="display-3">Movie Title</h1>
-              <p class="lead">Cast: </p>
-              <p class="lead">Summary: </p>
-              <p class="lead">Rating: </p>
-              <p class="lead">Release Date: </p>
-              <p class="lead">Platforms: </p>
-            </div>
-          </div>
         </div>
       </div>
     </div>

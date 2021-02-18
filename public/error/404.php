@@ -6,16 +6,13 @@
 		<!-- BODY -->
 
     <div class="container">
-      <div class="row pt-4 bg-light pb-4 mt-4 rounded">
-        <div class="col-xs-12 col-md-4 text-center">
-          <img src="/src/img/liam_hemsworth.png" class="rounded title" alt="...">
-        </div>
-        <div class="col-xs-12 col-md-8 text-left">
-          <h1 class="display-3">Actor Name</h1>
-          <p class="lead">Age: </p>
-          <p class="lead">Birthplace: </p>
-          <p class="lead">Movies: </p>
-          <p class="lead">Shows: </p>
+      <div class="row pt-4 bg-light pb-4 mt-4 rounded text-center">
+        <div class="col-xl-12 col-md-4 text-center">
+            <h1>ERROR 404: PAGE NOT FOUND</h1>
+            <p class="lead">The page you are trying to reach does not exist in this dimension.</p>
+            <img src="/src/img/sad_chris.png" class="rounded title" alt="...">
+            <p></p>
+            <p class="lead">While Thor rallies the Avengers to go search the universe for what you were looking for, please try something else...</p>
         </div>
       </div>
     </div>
