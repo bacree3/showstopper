@@ -17,7 +17,7 @@
       </form>
       <div class="d-flex justify-content-around mt-3">
         <p class="mr-1">Don't have an account?</p>
-        <p href="/">Sign up today</p>
+        <a href="/">Sign up today</a>
       </div>
     </div>
     
