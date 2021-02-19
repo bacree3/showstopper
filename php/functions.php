@@ -31,8 +31,7 @@ function sqlToArray($result) {
 function query($query, $return) {
   global $conn;
   $result = $conn->query($query);
-  if ($result === false || mysqli_num_rows($result) == 0) {
-    $result = false;
+  if (!$result) {
     return false;
   }
   if ($return) {
