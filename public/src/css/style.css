@@ -2,7 +2,6 @@
 	background-color: black !important;
 }
 
-
 body {
 	padding-bottom: 100px;
 	background-color: #283a59 !important;
@@ -13,9 +12,9 @@ footer {
 	background-color: black;
 	color: white;
 	position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
 }
 
 .card {
@@ -33,17 +32,16 @@ img {
 }
 
 .filters {
-
 	position: fixed;
 	top: 0;
-  padding: 30px;
+    padding: 30px;
 	margin-top: 200px;
 	color: black;
 	background-color: #AAC1E9;
 	font-family: sans-serif;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
+
 .srow {
 	color: black;
 	text-align: center;
