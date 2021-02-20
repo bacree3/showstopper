@@ -11,7 +11,7 @@
 						<div class="logo col-md-12 text-center">
 							<h1>Register</h1>
 						</div>
-						<form action="" method="post" name="register">
+						<form action="/actsetup" method="post" name="register">
 							<div class="form-group">
 								<label>Email address</label>
 								<input type="email" name="email" id="email" class="form-control validate" placeholder="Enter Email">
