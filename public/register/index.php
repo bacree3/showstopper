@@ -34,7 +34,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<p class="text-center">Already have an account? <a href="/login/index.php" id="login">Login here</a></p>
+								<p class="text-center">Already have an account? <a href="/login" id="login">Login here</a></p>
 							</div>
 						</form>
 					</div>
