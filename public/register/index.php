@@ -7,25 +7,25 @@
     	<div class="container mt-5">
         	<div class="row">
 				<div class="col-md-5 mx-auto">
-					<div class="registerform form">
+					<div class="loginform form">
 						<div class="logo col-md-12 text-center">
 							<h1>Register</h1>
 						</div>
 						<form action="" method="post" name="register">
-							<div class="form-group" >
-								<label for="validationDefault01">Email address</label>
-								<input type="email" name="email" id="validationDefault01" class="form-control validate" placeholder="Enter email">
+							<div class="form-group">
+								<label>Email address</label>
+								<input type="email" name="email" id="email" class="form-control validate" placeholder="Enter Email">
 							</div>
 							<div class="form-group">
-								<label for="validationDefault02">Password</label>
-								<input type="password" name="password" id="validationDefault02" class="form-control validate" placeholder="Enter Password">
+								<label>Password</label>
+								<input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
 							</div>
-              <div class="form-group">
+              				<div class="form-group">
 								<label>Confirm Password</label>
-								<input type="password" name="password" id="password" class="form-control" placeholder="Confirm Password">
+								<input type="password" id="confirmpassword" class="form-control" placeholder="Confirm Password">
 							</div>
 							<div class="col-md-12 text-center">
-								<button type="submit" class="btn btn-block registerbtn btn-primary">Register</button>
+								<button type="submit" class="btn btn-block loginbtn btn-primary">Submit</button>
 							</div>
 							<div class="col-md-12">
 								<div class="login-or">
@@ -34,7 +34,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<p class="text-center">Already have an account? <a href="#" id="login">Login here</a></p>
+								<p class="text-center">Already have an account? <a href="/login/index.php" id="login">Login here</a></p>
 							</div>
 						</form>
 					</div>

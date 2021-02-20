@@ -30,7 +30,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<p class="text-center">Don't have account? <a href="#" id="signup">Sign up here</a></p>
+								<p class="text-center">Don't have account? <a href="/register/index.php" id="signup">Sign up here</a></p>
 							</div>
 						</form>
 					</div>
