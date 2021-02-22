@@ -1,22 +1,36 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/php/functions.php';
 
-function isLoggedIn($userID) {
+session_start();
 
+function isLoggedIn() {
+	return isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'];
+}
+
+function logout() {
+	if (isLoggedIn()) {
+		session_destroy();
+		$_SESSION = [];
+		echo "successful logout";
+	} else {
+		echo "user not logged in";
+	}
 }
 
 function logIn($email, $pass) {
+	$email = strtolower($email);
 	if (emailExists($email)) {
 		$result = query("SELECT id, pass FROM users WHERE email = " . str($email), true)[0];
 		//print_r($result);
 		if (password_verify($pass, $result['pass'])) {
-			echo $result['id'];
-		} else {
-			echo "email or password incorrect";
+			//session_destroy();
+			//session_start();
+			$_SESSION['isLoggedIn'] = true;
+			$_SESSION['userID'] = $result['id'];
+			return true;
 		}
-	} else {
-		echo "email does not exist";
 	}
+	return false;
 }
 
 function emailExists($email) {
@@ -31,9 +45,9 @@ function createUser($email, $pass) {
 		$hashed = password_hash($pass, PASSWORD_DEFAULT);
 		$id = uniqid();
 		insert(['id', 'email', 'pass'], [str($id), str($email), str($hashed)], "users");
-		login($email, $pass);
+		return login($email, $pass);
 	} else {
-		echo "email exists";
+		return false;
 	}
 }
 
@@ -42,7 +56,7 @@ function getUserID() {
 }
 
 function accountSetup($id, $name, $services) {
-	update($id, "users", ['name', 'services'], [str($name), json($services)]);
+	return update($id, "users", ['name', 'services'], [str($name), json($services)]);
 }
 
 //createUser("bryceacree2@gmail.com", "password");
@@ -51,6 +65,6 @@ function accountSetup($id, $name, $services) {
 
 //echo emailExists("bryceacree@gmail.com");
 //
-login("bryceacree@gmail.com", "password");
+//login("bryceacree@gmail.com", "password");
 
 ?>

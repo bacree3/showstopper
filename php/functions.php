@@ -8,6 +8,18 @@ if ($conn->connect_errno) {
   echo "Failed to connect to MySQL: " . $conn->connect_error();
 }
 
+function translateServices($arr) {
+  $services = ["Netflix", "Hulu", "Disney+", "Amazon Prime", "HBO Max"];
+  //echo $services[0];
+  $actualServices = [];
+  foreach ($arr as $key => $value) {
+    if ($value) {
+      array_push($actualServices, $services[$key]);
+    }
+  }
+  return $actualServices;
+}
+
 function goTo404() {
   http_response_code(404);
 	include '../error/404.php';
