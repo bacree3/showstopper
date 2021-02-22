@@ -14,6 +14,14 @@ function goTo404() {
 	die();
 }
 
+function str($str) {
+  return "\"" . $str . "\"";
+}
+
+function json($json) {
+  return "'" . $json . "'";
+}
+
 function getString($arr) {
   return implode(', ', $arr);
 }
@@ -43,6 +51,7 @@ function query($query, $return) {
 // takes in an array of columns and an array of values to insert into the corresponding table
 function insert($columns, $values, $table) {
   $query = "INSERT INTO " . $table . " (" . getString($columns) . ") VALUES (" . getString($values) . ");";
+  //echo $query;
   query($query, false);
 }
 
