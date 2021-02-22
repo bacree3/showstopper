@@ -6,6 +6,8 @@ if (isset($_POST['register'])) {
 	$pass = steralizeString($_POST['password']);
 	if (createUser($email, $pass)) {
 		header("Location:/actsetup");
+	} else {
+		header("Location:/register");
 	}
 }
 

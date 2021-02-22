@@ -5,11 +5,10 @@ if (isset($_POST['login'])) {
 	$email = steralizeString($_POST['email']);
 	$pass = steralizeString($_POST['password']);
 	if (login($email, $pass)) {
-		//header("Location:/");
+		header("Location:/");
 	}
 } else {
-	echo "form not deteced";
-	//header("Location:/login");
+	header("Location:/login");
 }
 
 
