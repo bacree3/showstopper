@@ -11,7 +11,8 @@
 						<div class="logo col-md-12 text-center">
 							<h1>Register</h1>
 						</div>
-						<form action="/actsetup" method="post" name="register">
+						<form action="register.php" method="post" name="register">
+              <input type="hidden" name="register" value=""/>
 							<div class="form-group">
 								<label>Email address</label>
 								<input type="email" name="email" id="email" class="form-control validate" placeholder="Enter Email">

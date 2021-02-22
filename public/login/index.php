@@ -1,3 +1,11 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
+
+if (isLoggedIn()) {
+	echo "logged in";
+}
+?>
+
 <html>
   	<head></head>
 	<body>
@@ -11,7 +19,8 @@
 						<div class="logo col-md-12 text-center">
 							<h1>Login</h1>
 						</div>
-						<form action="" method="post" name="login">
+						<form action="login.php" method="post" name="login">
+              <input type="hidden" name="login" value=""/>
 							<div class="form-group">
 								<label>Email address</label>
 								<input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
@@ -36,7 +45,7 @@
 					</div>
 				</div>
 			</div>
-      	</div>   
+      	</div>
 
 		<!-- END BODY -->
 		<div class = "footer mt-4 pt-4"></div>

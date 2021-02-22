@@ -1,17 +1,14 @@
 <?php
-
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
-//print_r(getTitleInfo('tt0848228'));
+if (isset($_POST['register'])) {
+	$email = steralizeString($_POST['email']);
+	$pass = steralizeString($_POST['password']);
+	if (createUser($email, $pass)) {
+		header("Location:/actsetup");
+	}
+}
 
-/*$titles = query("SELECT id FROM titles;", true);
-
-foreach ($titles as $key => $title) {
-	updateTitle($title['id']);
-} */
-
-//updateTitle('the dark knight');
-//
 if (isset($_POST['setup'])) {
 	$name = steralizeString($_POST['name']);
 
@@ -22,10 +19,10 @@ if (isset($_POST['setup'])) {
 	$hbo = (isset($_POST['hbo'])) ? true : false;
 
 	$services = [$netflix, $hulu, $disney, $prime, $hbo];
-	//echo $name;
-	//print_r($services);
-	//print_r();
-	json_encode(translateServices($services));
+
+	accountSetup($_SESSION['userID'], $name, json_encode(translateServices($services)));
+	header("Location:/");
 }
+
 
 ?>
