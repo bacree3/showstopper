@@ -1,5 +1,6 @@
+<?php
 //display user information like services, name, email, ability to change all of them
-
+?>
 <html>
   <head></head>
 
