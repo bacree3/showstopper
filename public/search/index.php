@@ -84,11 +84,15 @@ echo $titleData['src/src/img']; */
 					      </div>
 					      <div class='col-xs-12 col-md-8 text-left'>
 					        <h1 class='display-3'>" . $title['name'] . "</h1>
-					        <p class='lead'><span class = 'font-weight-bold'>Cast:</span> " . $title['actors'] . "</p>
+									<p class='lead'><span class = 'font-weight-bold'>Release Date:</span> " . $title['release'] . "</p>
 					        <p class='lead'><span class = 'font-weight-bold'>Summary:</span> " . $title['summary'] . "</p>
-					        <p class='lead'><span class = 'font-weight-bold'>IMDB Rating:</span> " . $title['rating'] . "</p>
-					        <p class='lead'><span class = 'font-weight-bold'>Release Date:</span> " . $title['release'] . "</p>
 					        <p class='lead'><span class = 'font-weight-bold'>Platforms:</span> </p>
+									<div class ='platformsyes rounded'>
+										<img src='/src/img/netflix.jpg' class='rounded title' alt=''...''>
+										<img src='/src/img/hulu.png' class='rounded title' alt=''...''>
+										<img src='/src/img/prime.jpg' class='rounded title' alt=''...''>
+										<img src='/src/img/hbo.png' class='rounded title' alt=''...''>
+									</div>
 					      </div>
 					    </div>"
 					  ;

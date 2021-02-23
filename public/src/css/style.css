@@ -101,3 +101,11 @@ img {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
 }
+
+.platformsno img {
+	opacity: 0.25;
+	width: 60px;
+}
+.platformsyes img {
+	width: 60px;
+}
