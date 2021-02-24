@@ -14,7 +14,7 @@
 						<form action="register.php" method="post" name="register">
               <input type="hidden" name="register" value=""/>
               <div class="logo col-md-12 text-center">
-								<p> Enter the email associate with this account and we will send you a link to reset your password </p>
+								<p>Enter the email associate with this account and we will send you a link to reset your password.</p>
 							</div>
 							<div class="form-group">
 								<input type="email" name="email" id="email" class="form-control validate" placeholder="Enter Email">

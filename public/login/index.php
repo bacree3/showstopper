@@ -42,7 +42,7 @@ if (isLoggedIn()) {
 								<p class="text-center">Don't have account? <a href="/register" id="signup">Sign up here</a></p>
 							</div>
 							<div class="form-group">
-								<p class="text-center">Forgot Password? <a href="/register" id="signup">Reset Password</a></p>
+								<p class="text-center">Forgot Password? <a href="/forgotPassword" id="signup">Reset Password</a></p>
 							</div>
 						</form>
 					</div>
