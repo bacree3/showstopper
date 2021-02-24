@@ -102,10 +102,17 @@ img {
     margin-bottom: 0px !important;
 }
 
-.platformsno img {
-	opacity: 0.25;
-	width: 60px;
+.platforms {
 }
-.platformsyes img {
+.platformsno{
+	margin-left: 5px;
+}
+.platformsno img{
+	display: inline;
+	width: 60px;
+	opacity: 0.2 !important;
+}
+.platformsyes img{
+	display: inline;
 	width: 60px;
 }

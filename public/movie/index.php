@@ -31,9 +31,20 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
           <h1 class="display-3"><?php echo $titleData['name'];?></h1>
           <p class="lead"><span class = "font-weight-bold">Cast:</span> <?php echo $titleData['actors'];?></p>
           <p class="lead"><span class = "font-weight-bold">Summary:</span> <?php echo $titleData['summary'];?></p>
-          <p class="lead"><span class = "font-weight-bold">IMDB Rating:</span> <?php echo $titleData['rating'];?></p>
+          <p class="lead"><span class = "font-weight-bold">IMDB Ratings:</span> <?php echo $titleData['rating'];?></p>
           <p class="lead"><span class = "font-weight-bold">Release Date:</span> <?php echo $titleData['release'];?></p>
           <p class="lead"><span class = "font-weight-bold">Platforms:</span> </p>
+					<div class = 'row platforms ml-1'>
+						<div class ='platformsyes rounded'>
+									<img src='/src/img/netflix.jpg' class='rounded title' alt=''...''>
+									<img src='/src/img/hulu.png' class='rounded title' alt=''...''>
+									<img src='/src/img/prime.jpg' class='rounded title' alt=''...''>
+						</div>
+						<div class ='platformsno rounded'>
+							<img src='/src/img/hbo.png' class='rounded title' alt=''...''>
+							<img src='/src/img/disneyplus.jpg' class='rounded title' alt=''...''>
+						</div>
+					</div>
         </div>
       </div>
     </div>

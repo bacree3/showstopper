@@ -11,16 +11,12 @@
     <div class="jumbotron jumbotron-fluid d-flex flex-column align-items-center justify-content-start">
       <h1 class="display-3">ShowStopper</h1>
       <p class="lead">Get the most out of your streaming services</p>
-      <form action="/search/" method="get" class="form-inline my-2 my-lg-0">
-        <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button name="submit" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
-      </form>
       <div class="d-flex justify-content-around mt-3">
         <p class="mr-1">Don't have an account?</p>
         <a href="/register">Sign up today</a>
       </div>
     </div>
-    
+
     <div class="container">
       <div class="row text-center">
         <div class="col-xs-6 col-md-3">
