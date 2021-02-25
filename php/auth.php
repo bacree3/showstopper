@@ -74,6 +74,15 @@ function updateAccount($id, $name, $email, $services) {
 ?>
 
 <script>
-  var loggedin = "<?php echo isset($_SESSION['isLoggedIn']); ?>";
+	<?php
+	  //$loggedIn;
+		if (isset($_SESSION['isLoggedIn'])) {
+			$loggedIn = true;
+		} else {
+			$loggedIn = false;
+		}
+		echo $loggedIn;
+	?>
+  var loggedin = "<?php echo $loggedIn; ?>";
   console.log(loggedin);
 </script>

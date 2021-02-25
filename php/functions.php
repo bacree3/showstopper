@@ -18,12 +18,12 @@ $serviceIMG = array(
 );
 
 function translateServices($arr) {
-  global $services, $serviceIMG;
+  global $servicesReference, $serviceIMG;
   //echo $services[0];
   $actualServices = [];
   foreach ($arr as $key => $value) {
     if ($value) {
-      array_push($actualServices, $services[$key]);
+      array_push($actualServices, $servicesReference[$key]);
     }
   }
   return $actualServices;
@@ -248,17 +248,14 @@ function getServicesHTML($arr) {
   //print_r($temp);
   $html = "<div class = 'row platforms ml-2'><div class ='platformsyes'>";
   foreach ($arr as $key => $service) {
-    if ($service == $temp[$key]) {
-       $temp[$key] = null;
-    }
+    $key = array_search($service, $temp);
+    unset($temp[$key]);
     $html .= "<img src='/src/img/" .  $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
   }
   $html .= "</div><div class ='platformsno'>";
   //print_r($temp);
   foreach ($temp as $key => $service) {
-    if ($service != null) {
-      $html .= "<img src='/src/img/" . $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
-    }
+    $html .= "<img src='/src/img/" . $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
   }
   $html .= "</div></div>";
   return $html;

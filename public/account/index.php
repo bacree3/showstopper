@@ -1,5 +1,4 @@
 <?php
-
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 if (!isLoggedIn()) {
@@ -51,13 +50,13 @@ if (!isLoggedIn()) {
     						</div>
     						<?php echo $servicesHTML; ?>
     					</div>
-    					<div class="col-md-12 text-center">
+    					<div class="col-md-12 mt-2 text-center">
     						<button type="submit" class="btn loginbtn btn-primary" onclick="editDetails()">Edit</button>
     					</div>
     				</div>
     				<div id="edit" style="display:none">
-    					<form action="account.php" type="post" name="edit-account">
-    						<input type="hidden" name="edit-account" value="" />
+							<form action="account.php" method="post" name="register">
+    						<input type="hidden" name="edit" value="" />
     						<div class="form-group">
     							<label>Change Name</label>
     							<input type="name" name="name" id="name" class="form-control validate" value="<?php echo $name; ?>"> </div>

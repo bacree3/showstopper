@@ -30,6 +30,14 @@ foreach ($titles as $key => $title) {
 //print_r($serviceIMG);
 //echo getServicesHTML(["Netflix", "HBO Max"]);
 
-print_r($services);
+//print_r($servicesReference);
+
+//echo getServicesHTML(["Hulu", "HBO Max"]);
+
+if (isset($_SESSION['isLoggedIn'])) {
+	echo "true";
+} else {
+	echo "false";
+}
 
 ?>
