@@ -6,16 +6,54 @@
   <span class="navbar-toggler-icon"></span>
 </button>
 
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-  <ul class="navbar-nav ml-auto">
+<div class="collapse navbar-collapse d-flex" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li id="login" class="nav-item">
+      <a class="nav-link" href="/login">Log in</a>
+    </li>
+    <li id="account" class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Account
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="/editAccount">Account Details</a>
+        <a class="dropdown-item" href="#">Log out</a>
+      </div>
+    </li>
 		<li class="nav-item">
       <a class="nav-link" href="#">Favorites</a>
     </li>
 		<li class="nav-item">
       <a class="nav-link" href="#">Notifications</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/login">Log in</a>
+  </ul>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Genres
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Comedy</a>
+        <a class="dropdown-item" href="#">Horror</a>
+        <a class="dropdown-item" href="#">Romance</a>
+        <a class="dropdown-item" href="#">Science Fiction</a>
+        <a class="dropdown-item" href="#">Documentary</a>
+      </div>
     </li>
+    <form action="/search/" method="get" class="form-inline my-2 my-lg-0">
+      <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button name="submit" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </ul>
 </div>
+
+<script>
+  // NEED SERVER INPUT HERE
+  var loggedin = false;
+  if (!loggedin) {
+    document.getElementById("account").style.display = "none";
+  } else {
+    document.getElementById("login").style.display = "none";
+  }
+</script>

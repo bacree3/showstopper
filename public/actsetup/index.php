@@ -63,7 +63,7 @@
                                 </div>
                             </div>
 							<div class="col-md-12 text-center mb-3">
-								<button type="submit" class="btn btn-block loginbtn btn-primary">Next</button>
+								<button type="submit" class="btn btn-block loginbtn btn-primary">Submit</button>
 							</div>
                             <div class="col-md-12 text-center">
 								<button type="submit" class="btn loginbtn btn-secondary">Skip</button>
