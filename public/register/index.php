@@ -26,7 +26,7 @@
 								<input type="password" id="confirmpassword" class="form-control" placeholder="Confirm Password">
 							</div>
 							<div class="col-md-12 text-center">
-								<button type="submit" class="btn btn-block loginbtn btn-primary">Submit</button>
+								<a href="/actsetup" class="btn btn-block loginbtn btn-primary">Submit</a>
 							</div>
 							<div class="col-md-12">
 								<div class="login-or">
