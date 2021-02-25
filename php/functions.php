@@ -235,7 +235,9 @@ function populateServices() {
 }
 
 function searchByGenre($genre) {
-  return query("SELECT * FROM titles WHERE genre LIKE = " . str('%' . $genre . '%'));
+  $query = "SELECT * FROM titles WHERE genre LIKE " . str('%' . $genre . '%') . ";";
+  //echo $query;
+  return query($query, true);
 }
 
 function getServicesHTML($arr) {

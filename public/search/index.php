@@ -1,6 +1,6 @@
 <?php
 
-include $_SERVER['DOCUMENT_ROOT'] . '/php/functions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 if (isset($_GET['search'])) {
 	$searchString = steralizeString($_GET['search']);
@@ -8,8 +8,8 @@ if (isset($_GET['search'])) {
 	$likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
 	$results = query("SELECT * FROM titles " . $likeStatment . ";", true);
 } else if (isset($_GET['genre'])) {
-	$genre = steralizeString($_GET['genre']);
-	$results = searchByGenre($_GET['genre']);
+	$searchString = steralizeString($_GET['genre']);
+	$results = searchByGenre($searchString);
 } else {
 	goTo404();
 }

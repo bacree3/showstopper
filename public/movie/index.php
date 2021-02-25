@@ -1,6 +1,6 @@
 <?php
 
-include $_SERVER['DOCUMENT_ROOT'] . '/php/functions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 if (isset($_GET['title']) && !empty($_GET['title'])) {
 	$title = steralizeString($_GET['title']);

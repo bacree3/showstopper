@@ -68,3 +68,8 @@ function accountSetup($id, $name, $services) {
 //login("bryceacree@gmail.com", "password");
 
 ?>
+
+<script>
+  var loggedin = "<?php echo isset($_SESSION['isLoggedIn']); ?>";
+  console.log(loggedin);
+</script>

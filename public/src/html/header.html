@@ -16,8 +16,8 @@
         Account
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="/editAccount">Account Details</a>
-        <a class="dropdown-item" href="#">Log out</a>
+        <a class="dropdown-item" href="/account">Account Details</a>
+        <a class="dropdown-item" href="/logout">Log out</a>
       </div>
     </li>
 		<li class="nav-item">
@@ -33,12 +33,12 @@
         Genres
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Comedy</a>
-        <a class="dropdown-item" href="#">Horror</a>
-        <a class="dropdown-item" href="#">Romance</a>
-        <a class="dropdown-item" href="#">Science Fiction</a>
-        <a class="dropdown-item" href="#">Documentary</a>
+        <a class="dropdown-item" href="/search?genre=Action">Action</a>
+        <a class="dropdown-item" href="/search?genre=Comedy">Comedy</a>
+        <a class="dropdown-item" href="/search?genre=Horror">Horror</a>
+        <a class="dropdown-item" href="/search?genre=Romance">Romance</a>
+        <a class="dropdown-item" href="/search?genre=Sci-Fi">Sci-Fi</a>
+        <a class="dropdown-item" href="/search?genre=Thriller">Thriller</a>
       </div>
     </li>
     <form action="/search/" method="get" class="form-inline my-2 my-lg-0">
@@ -49,8 +49,6 @@
 </div>
 
 <script>
-  // NEED SERVER INPUT HERE
-  var loggedin = false;
   if (!loggedin) {
     document.getElementById("account").style.display = "none";
   } else {
