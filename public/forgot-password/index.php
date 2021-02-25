@@ -11,8 +11,8 @@
 						<div class="logo col-md-12 text-center">
 							<h1>Forgot Password</h1>
 						</div>
-						<form action="register.php" method="post" name="register">
-              <input type="hidden" name="register" value=""/>
+						<form action="forgot-password.php" method="post" name="forgot">
+              <input type="hidden" name="forgot" value=""/>
               <div class="logo col-md-12 text-center">
 								<p>Enter the email associated with your account and we will send you a link to reset your password.</p>
 							</div>
@@ -23,7 +23,6 @@
 							<div class="col-md-12 text-center">
 								<button type="submit" class="btn btn-block loginbtn btn-primary">Send Link</button>
 							</div>
-
 						</form>
 					</div>
 				</div>
