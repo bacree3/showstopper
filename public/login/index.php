@@ -32,6 +32,9 @@ if (isLoggedIn()) {
 							<div class="col-md-12 text-center">
 								<button type="submit" class="btn btn-block loginbtn btn-primary">Login</button>
 							</div>
+							<div class="form-group mt-2">
+								<p class="text-center">Forgot Password? <a href="/forgotPassword">Reset Password</a></p>
+							</div>
 							<div class="col-md-12">
 								<div class="login-or">
 									<hr class="hr-or">
@@ -40,9 +43,6 @@ if (isLoggedIn()) {
 							</div>
 							<div class="form-group">
 								<p class="text-center">Don't have account? <a href="/register" id="signup">Sign up here</a></p>
-							</div>
-							<div class="form-group">
-								<p class="text-center">Forgot Password? <a href="/forgotPassword" id="signup">Reset Password</a></p>
 							</div>
 						</form>
 					</div>
