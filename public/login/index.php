@@ -65,7 +65,6 @@ if (isLoggedIn()) {
 			return false;
 		}
 		var password = document.forms["login"]["password"].value;
-		console.log(password);
 		if (password == "") {
 			alert("Password cannot be empty.")
 			return false;
