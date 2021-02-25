@@ -11,8 +11,8 @@
 						<div class="logo col-md-12 text-center">
 							<h1>Register</h1>
 						</div>
-						<form action="register.php" method="post" name="register">
-              <input type="hidden" name="register" value=""/>
+						<form action="register.php" method="post" name="register" onsubmit="return createNewUser()">
+              				<input type="hidden" name="register" value=""/>
 							<div class="form-group">
 								<label>Email address</label>
 								<input type="email" name="email" id="email" class="form-control validate" placeholder="Enter Email">
@@ -23,10 +23,11 @@
 							</div>
               				<div class="form-group">
 								<label>Confirm Password</label>
-								<input type="password" id="confirmpassword" class="form-control" placeholder="Confirm Password">
+								<input type="password" name="confirmpassword" id="confirmpassword" class="form-control" placeholder="Confirm Password">
 							</div>
 							<div class="col-md-12 text-center">
-								<a href="/actsetup" class="btn btn-block loginbtn btn-primary">Next</a>
+								<!-- <a href="/actsetup" type="submit" class="btn btn-block loginbtn btn-primary">Next</a> -->
+								<button type="submit" class="btn btn-block loginbtn btn-primary">Next</button>
 							</div>
 							<div class="col-md-12">
 								<div class="login-or">
@@ -50,3 +51,24 @@
 		<script src = "/src/js/script.js"></script>
 	</body>
 </html>
+
+<script>
+	function createNewUser() {
+		if (!document.forms["register"]["email"].value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+			alert("Please enter a valid email address.");
+			return false;
+		}
+		var password = document.forms["register"]["password"].value;
+		if (password.length < 8) {
+			alert("Password must contain at least 8 characters.")
+			return false;
+		}
+		var confirmpassword = document.forms["register"]["confirmpassword"].value;
+		if (password !== confirmpassword) {
+			alert("Password must match confirm password.")
+			return false;
+		}
+		location.href = '../actsetup/';
+		return true;
+	}
+</script>
