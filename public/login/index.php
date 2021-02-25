@@ -19,8 +19,8 @@ if (isLoggedIn()) {
 						<div class="logo col-md-12 text-center">
 							<h1>Login</h1>
 						</div>
-						<form action="login.php" method="post" name="login">
-              <input type="hidden" name="login" value=""/>
+						<form action="login.php" method="post" name="login" onsubmit="return loginAttempt()">
+              				<input type="hidden" name="login" value=""/>
 							<div class="form-group">
 								<label>Email address</label>
 								<input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
@@ -57,3 +57,19 @@ if (isLoggedIn()) {
 		<script src = "/src/js/script.js"></script>
 	</body>
 </html>
+
+<script>
+	function loginAttempt() {
+		if (!document.forms["login"]["email"].value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+			alert("Invalid email address.");
+			return false;
+		}
+		var password = document.forms["login"]["password"].value;
+		console.log(password);
+		if (password == "") {
+			alert("Password cannot be empty.")
+			return false;
+		}
+		return true;
+	}
+</script>
