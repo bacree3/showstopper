@@ -8,13 +8,13 @@ if ($conn->connect_errno) {
   echo "Failed to connect to MySQL: " . $conn->connect_error();
 }
 
-$services = ["Netflix", "Hulu", "Disney+", "Amazon Prime", "HBO Max"];
+$servicesReference = ["Netflix", "Hulu", "Disney+", "Amazon Prime", "HBO Max"];
 $serviceIMG = array(
-  $services[0] => "netflix.jpg",
-  $services[1] => "hulu.png",
-  $services[2] => "disneyplus.jpg",
-  $services[3] => "prime.jpg",
-  $services[4] => "hbo.png",
+  $servicesReference[0] => "netflix.jpg",
+  $servicesReference[1] => "hulu.png",
+  $servicesReference[2] => "disneyplus.jpg",
+  $servicesReference[3] => "prime.jpg",
+  $servicesReference[4] => "hbo.png",
 );
 
 function translateServices($arr) {
@@ -241,19 +241,23 @@ function searchByGenre($genre) {
 }
 
 function getServicesHTML($arr) {
-  global $services, $serviceIMG;
-  $temp = $services;
-  $html = "<div class = 'row platforms ml-2 mb-3'><div class ='platformsyes rounded'>";
+  global $servicesReference, $serviceIMG;
+  foreach ($servicesReference as $key => $value) {
+    $temp[$key] = $value;
+  }
+  //print_r($temp);
+  $html = "<div class = 'row platforms ml-2'><div class ='platformsyes'>";
   foreach ($arr as $key => $service) {
     if ($service == $temp[$key]) {
-      $temp[$key] = null;
+       $temp[$key] = null;
     }
-    $html .= "<img src='/src/img/" .  $serviceIMG[$service] . "' class='rounded title' alt=''...''>";
+    $html .= "<img src='/src/img/" .  $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
   }
-  $html .= "</div><div class ='platformsno rounded'>";
+  $html .= "</div><div class ='platformsno'>";
+  //print_r($temp);
   foreach ($temp as $key => $service) {
     if ($service != null) {
-      $html .= "<img src='/src/img/" . $serviceIMG[$service] . "' class='rounded title' alt=''...''>";
+      $html .= "<img src='/src/img/" . $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
     }
   }
   $html .= "</div></div>";

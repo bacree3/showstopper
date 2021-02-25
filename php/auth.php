@@ -59,6 +59,10 @@ function accountSetup($id, $name, $services) {
 	return update($id, "users", ['name', 'services'], [str($name), json($services)]);
 }
 
+function updateAccount($id, $name, $email, $services) {
+	return update($id, "users", ['name', 'email', 'services'], [str($name), str($email), json($services)]);
+}
+
 //createUser("bryceacree2@gmail.com", "password");
 
 //accountSetup("6033f04273227", "bryce", $json);

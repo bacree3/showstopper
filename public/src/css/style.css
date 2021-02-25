@@ -102,6 +102,10 @@ img {
     margin-bottom: 0px !important;
 }
 
+.platforms {
+	width: 100% !important;
+}
+
 .platforms img {
 	margin: 5px;
 }
@@ -109,11 +113,11 @@ img {
 	margin-left: 5px;
 }
 .platformsno img{
-	display: inline;
+	display: inline-block;
 	width: 60px;
 	opacity: 0.2 !important;
 }
 .platformsyes img{
-	display: inline;
+	display: inline-block;
 	width: 60px;
 }

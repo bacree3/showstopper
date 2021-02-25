@@ -27,7 +27,9 @@ foreach ($titles as $key => $title) {
 	//print_r();
 	json_encode(translateServices($services));
 } */
+//print_r($serviceIMG);
+//echo getServicesHTML(["Netflix", "HBO Max"]);
 
-print_r($serviceIMG);
+print_r($services);
 
 ?>

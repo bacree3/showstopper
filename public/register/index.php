@@ -51,24 +51,3 @@
 		<script src = "/src/js/script.js"></script>
 	</body>
 </html>
-
-<script>
-	function createNewUser() {
-		if (!document.forms["register"]["email"].value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-			alert("Please enter a valid email address.");
-			return false;
-		}
-		var password = document.forms["register"]["password"].value;
-		if (password.length < 8) {
-			alert("Password must contain at least 8 characters.")
-			return false;
-		}
-		var confirmpassword = document.forms["register"]["confirmpassword"].value;
-		if (password !== confirmpassword) {
-			alert("Password must match confirm password.")
-			return false;
-		}
-		location.href = '../actsetup/';
-		return true;
-	}
-</script>

@@ -57,18 +57,3 @@ if (isLoggedIn()) {
 		<script src = "/src/js/script.js"></script>
 	</body>
 </html>
-
-<script>
-	function loginAttempt() {
-		if (!document.forms["login"]["email"].value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-			alert("Invalid email address.");
-			return false;
-		}
-		var password = document.forms["login"]["password"].value;
-		if (password == "") {
-			alert("Password cannot be empty.")
-			return false;
-		}
-		return true;
-	}
-</script>
