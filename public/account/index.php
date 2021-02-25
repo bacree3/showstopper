@@ -1,5 +1,15 @@
 <?php
-//display user information like services, name, email, ability to change all of them
+include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
+
+if (!isLoggedIn()) {
+	goToLogin();
+} else {
+  $info = getUserInfo($_SESSION['userID'])[0];
+  $name = $info['name'];
+  $email = $info['email'];
+  $servicesHTML = getServicesHTML(json_decode($info['services']));
+}
+
 ?>
 <html>
   <head></head>
@@ -11,16 +21,17 @@
     <div class="container col-md-5 mx-auto">
       <div class="row pt-4 bg-light pb-4 mt-4 rounded">
         <div class="logo col-md-12 text-center">
-          <h1>Your info</h1>
+          <h1>Hi <?php echo $name; ?>! Here's your account details: </h1>
           <hr class="hr-or">
         </div>
         <div class="col-xs-12 col-md-8 text">
-          <p class="lead"><span class = "font-weight-bold">Name: Bryce</span> </p>
-          <p class="lead"><span class = "font-weight-bold">Email: bryceisgoodatphp@gmail.com</span> </p>
+          <p class="lead"><span class = "font-weight-bold">Name: <?php echo $name; ?></span> </p>
+          <p class="lead"><span class = "font-weight-bold">Email: <?php echo $email; ?></span> </p>
           <p class="lead"><span class = "font-weight-bold">Current Subscriptions:</span> </p>
+          <?php echo $servicesHTML; ?>
         </div>
         <div class="col-md-12 text-center">
-          <button type="submit" class="btn btn-block loginbtn btn-primary">Edit Profile</button>
+          <button onclick = "location.href='/edit-account'" type="submit" class="btn btn-block loginbtn btn-primary">Edit Profile</button>
         </div>
       </div>
     </div>

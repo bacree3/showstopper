@@ -51,8 +51,8 @@ function createUser($email, $pass) {
 	}
 }
 
-function getUserID() {
-
+function getUserInfo($id) {
+	return query("SELECT name, email, services FROM users WHERE id = " . str($id), true);
 }
 
 function accountSetup($id, $name, $services) {

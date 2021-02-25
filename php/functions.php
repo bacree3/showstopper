@@ -8,8 +8,17 @@ if ($conn->connect_errno) {
   echo "Failed to connect to MySQL: " . $conn->connect_error();
 }
 
+$services = ["Netflix", "Hulu", "Disney+", "Amazon Prime", "HBO Max"];
+$serviceIMG = array(
+  $services[0] => "netflix.jpg",
+  $services[1] => "hulu.png",
+  $services[2] => "disneyplus.jpg",
+  $services[3] => "prime.jpg",
+  $services[4] => "hbo.png",
+);
+
 function translateServices($arr) {
-  $services = ["Netflix", "Hulu", "Disney+", "Amazon Prime", "HBO Max"];
+  global $services, $serviceIMG;
   //echo $services[0];
   $actualServices = [];
   foreach ($arr as $key => $value) {
@@ -24,6 +33,10 @@ function goTo404() {
   http_response_code(404);
 	include '../error/404.php';
 	die();
+}
+
+function goToLogin() {
+	header("Location:/login");
 }
 
 function str($str) {
@@ -215,6 +228,34 @@ function formLike($str, $col) {
 
 function getTitlePath($id) {
   return "'/movie/?title=" . $id . "'";
+}
+
+function populateServices() {
+
+}
+
+function searchByGenre($genre) {
+  return query("SELECT * FROM titles WHERE genre LIKE = " . str('%' . $genre . '%'));
+}
+
+function getServicesHTML($arr) {
+  global $services, $serviceIMG;
+  $temp = $services;
+  $html = "<div class = 'row platforms ml-2 mb-3'><div class ='platformsyes rounded'>";
+  foreach ($arr as $key => $service) {
+    if ($service == $temp[$key]) {
+      $temp[$key] = null;
+    }
+    $html .= "<img src='/src/img/" .  $serviceIMG[$service] . "' class='rounded title' alt=''...''>";
+  }
+  $html .= "</div><div class ='platformsno rounded'>";
+  foreach ($temp as $key => $service) {
+    if ($service != null) {
+      $html .= "<img src='/src/img/" . $serviceIMG[$service] . "' class='rounded title' alt=''...''>";
+    }
+  }
+  $html .= "</div></div>";
+  return $html;
 }
 
 ?>

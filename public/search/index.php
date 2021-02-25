@@ -4,15 +4,17 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/functions.php';
 
 if (isset($_GET['search'])) {
 	$searchString = steralizeString($_GET['search']);
+	searchByTitle($searchString); // get data from api if not in cache
+	$likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
+	$results = query("SELECT * FROM titles " . $likeStatment . ";", true);
+} else if (isset($_GET['genre'])) {
+	$genre = steralizeString($_GET['genre']);
+	$results = searchByGenre($_GET['genre']);
 } else {
 	goTo404();
 }
 
-searchByTitle($searchString); // get data from api if not in cache
 
-$likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
-
-$results = query("SELECT * FROM titles " . $likeStatment . ";", true);
 
 //print_r($results);
 

@@ -12,7 +12,7 @@ foreach ($titles as $key => $title) {
 
 //updateTitle('the dark knight');
 //
-if (isset($_POST['setup'])) {
+/*if (isset($_POST['setup'])) {
 	$name = steralizeString($_POST['name']);
 
 	$netflix = (isset($_POST['netflix'])) ? true : false;
@@ -26,6 +26,8 @@ if (isset($_POST['setup'])) {
 	//print_r($services);
 	//print_r();
 	json_encode(translateServices($services));
-}
+} */
+
+print_r($serviceIMG);
 
 ?>

@@ -102,7 +102,8 @@ img {
     margin-bottom: 0px !important;
 }
 
-.platforms {
+.platforms img {
+	margin: 5px;
 }
 .platformsno{
 	margin-left: 5px;
