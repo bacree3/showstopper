@@ -67,6 +67,26 @@ function updatePassword($id, $pass) {
 	return update($id, "users", ['pass'], [str($pass)]);
 }
 
+function allowPasswordReset($id) {
+	$query = "UPDATE users SET reset = 1 WHERE id = " . $id . ";";
+	query($query, false);
+}
+
+function disallowPasswordReset($id) {
+	$query = "UPDATE users SET reset = 0 WHERE id = " . $id . ";";
+	query($query, false);
+}
+
+function passwordResetAllowed() {
+	$query = "SELECT reset FROM users WHERE id = " . $id . ";";
+	$reset = query($query, true)[0]['reset'];
+	if ($reset == 1) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 //createUser("bryceacree2@gmail.com", "password");
 
 //accountSetup("6033f04273227", "bryce", $json);

@@ -15,7 +15,9 @@ function sendMail($address, $type) {
 	if (!emailExists($address)) {
 		return;
 	} else {
-		$secureString = query("SELECT pass FROM users WHERE email = " . str($address), true)[0]['pass'];
+		$result = query("SELECT id, pass FROM users WHERE email = " . str($address), true)[0];
+		$secureString = $result['pass'];
+		allowPasswordReset($result['id']);
 	}
 
 	if ($type == "password") {
