@@ -116,6 +116,7 @@ function updateTitle($id) {
   ];
   update($id, 'titles', $titleColumns, $values);
   $actors = explode(", ",$updatedData['Actors']);
+  //print_r($actors);
   $actors = addActors($actors, $updatedData["imdbID"]);
   $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
   query($query, false);
@@ -216,6 +217,7 @@ function addIMDB($personID, $imdbID) {
   $ids = getTitles($personID);
   if (!hasTitle($personID, $imdbID)) {
     if ($ids != null) {
+      $ids = json_decode($ids);
       array_push($ids, $imdbID);
     } else {
       $ids = [$imdbID];

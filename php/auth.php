@@ -88,6 +88,18 @@ function passwordResetAllowed($id) {
 	}
 }
 
+function removeDuplicates($data) {
+	$array = json_decode( $data, TRUE );
+
+	// Only keep unique values, by using array_unique with SORT_REGULAR as flag.
+	// We're using array_values here, to only retrieve the values and not the keys.
+	// This way json_encode will give us a nicely formatted JSON string later on.
+	$array = array_values( array_unique( $array, SORT_REGULAR ) );
+
+	// Make a JSON string from the array.
+	$result = json_encode( $array );
+}
+
 //createUser("bryceacree2@gmail.com", "password");
 
 //accountSetup("6033f04273227", "bryce", $json);

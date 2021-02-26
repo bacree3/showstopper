@@ -9,10 +9,10 @@ echo passwordResetAllowed('6033f04273227');
 //addPeople(["Robert Downey Jr.", "Chris Hemsworth"], "actor", "tt0848228");
 //searchByTitle("The Avengers");
 
-/*$titles = query("SELECT id FROM titles;", true);
+$titles = query("SELECT id FROM titles;", true);
 foreach ($titles as $key => $title) {
   updateTitle($title['id']);
-}*/
+}
 
 //addPeople(["Robert Downey Jr.", "Chris Hemsworth"], "actor", "tt0848228");
 

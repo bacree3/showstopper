@@ -4,6 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 if (isset($_GET['title']) && !empty($_GET['title'])) {
 	$title = steralizeString($_GET['title']);
+	updateTitle($_GET['title']);
 	$titleData = getElementByID($title, 'titles');
 	if (!$titleData) {
 		goTo404();
