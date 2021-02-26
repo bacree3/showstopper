@@ -33,7 +33,7 @@ if (isLoggedIn()) {
 								<button type="submit" class="btn btn-block loginbtn btn-primary">Login</button>
 							</div>
 							<div class="form-group mt-2">
-								<p class="text-center">Forgot Password? <a href="/forgot-pa">Reset Password</a></p>
+								<p class="text-center">Forgot Password? <a href="/forgot-password">Reset Password</a></p>
 							</div>
 							<div class="col-md-12">
 								<div class="login-or">

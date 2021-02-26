@@ -63,6 +63,10 @@ function updateAccount($id, $name, $email, $services) {
 	return update($id, "users", ['name', 'email', 'services'], [str($name), str($email), json($services)]);
 }
 
+function updatePassword($id, $pass) {
+	return update($id, "users", ['pass'], [str($pass)]);
+}
+
 //createUser("bryceacree2@gmail.com", "password");
 
 //accountSetup("6033f04273227", "bryce", $json);
@@ -81,7 +85,7 @@ function updateAccount($id, $name, $email, $services) {
 		} else {
 			$loggedIn = false;
 		}
-		echo $loggedIn;
+		//echo $loggedIn;
 	?>
   var loggedin = "<?php echo $loggedIn; ?>";
   console.log(loggedin);

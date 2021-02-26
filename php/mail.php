@@ -3,17 +3,30 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Aws\Ssm\SsmClient;
 
-include $_SERVER['DOCUMENT_ROOT'] . '/php/parameters.php';
+//include $_SERVER['DOCUMENT_ROOT'] . '/php/parameters.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/PHPMailer/PHPMailer/src/Exception.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/PHPMailer/PHPMailer/src/PHPMailer.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/PHPMailer/PHPMailer/src/SMTP.php';
 
 function sendMail($address, $type) {
 	global $SMTPuser, $SMTPsecret;
+
+	if (!emailExists($address)) {
+		return;
+	} else {
+		$secureString = query("SELECT pass FROM users WHERE email = " . str($address), true)[0]['pass'];
+	}
+
 	if ($type == "password") {
 		$subject = 'Password Reset Confirmation';
+		$bodyHtml = "
+			<h1>Reset Your Password By Clicking the following link.</h1>
+			<p>If this was a mistake, you may want to reset your password.</p>
+			<a href='http://localhost/reset-password?s=" . $secureString . "'>Reset Password</a>";
 	} else if ($type == "verify") {
 		$subject = 'ShowStopper Email Verification';
+		$bodyHtml = '<h1>test</h1>';
 	}
 
 	// Replace sender@example.com with your "From" address.
@@ -41,17 +54,6 @@ function sendMail($address, $type) {
 	$host = 'email-smtp.us-east-1.amazonaws.com';
 	$port = 587;
 
-	// The plain-text body of the email
-	$bodyText =  "Email Test\r\nThis email was sent through the
-	    Amazon SES SMTP interface using the PHPMailer class.";
-
-	// The HTML-formatted body of the email
-	$bodyHtml = '<h1>Email Test</h1>
-	    <p>This email was sent through the
-	    <a href="https://aws.amazon.com/ses">Amazon SES</a> SMTP
-	    interface using the <a href="https://github.com/PHPMailer/PHPMailer">
-	    PHPMailer</a> class.</p>';
-
 	$mail = new PHPMailer(true);
 
 	try {
@@ -74,7 +76,7 @@ function sendMail($address, $type) {
 	    $mail->isHTML(true);
 	    $mail->Subject    = $subject;
 	    $mail->Body       = $bodyHtml;
-	    $mail->AltBody    = $bodyText;
+	    //$mail->AltBody    = $bodyText;
 	    $mail->Send();
 	    echo "Email sent!" , PHP_EOL;
 	} catch (phpmailerException $e) {

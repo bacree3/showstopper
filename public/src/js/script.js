@@ -26,6 +26,19 @@ function createNewUser() {
 	return true;
 }
 
+function checkPasswords() {
+	var password = document.forms["reset"]["password"].value;
+	if (password.length < 8) {
+		alert("Password must contain at least 8 characters.")
+		return false;
+	}
+	var confirmpassword = document.forms["reset"]["confirmpassword"].value;
+	if (password !== confirmpassword) {
+		alert("Password must match confirm password.")
+		return false;
+	}
+}
+
 function loginAttempt() {
 	if (!document.forms["login"]["email"].value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
 		alert("Invalid email address.");

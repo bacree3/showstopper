@@ -1,3 +1,10 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
+
+if (isLoggedIn()) {
+	header("Location:/");
+}
+?>
 <html>
   	<head></head>
 	<body>

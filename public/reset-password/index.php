@@ -1,3 +1,19 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
+
+if (isset($_GET['s']) && !empty($_GET['s'])) {
+  $s = steralizeString($_GET['s']);
+  $result = query("SELECT id, email FROM users WHERE pass = " . str($s) . ";", true)[0];
+  if ($result == null) {
+    header('Location:/');
+  } else {
+    $email = $result['email'];
+  }
+} else {
+  header('Location:/');
+}
+?>
+
 <html>
   	<head></head>
 	<body>
@@ -11,20 +27,22 @@
 						<div class="logo col-md-12 text-center">
 							<h1>Reset Password</h1>
 						</div>
-						<form action="register.php" method="post" name="register">
-              <input type="hidden" name="register" value=""/>
+						<form action="reset-password.php" method="post" name="reset" onsubmit="return checkPasswords()">
+              <input type="hidden" name="reset" value=""/>
+              <input type="hidden" name="email" value="<?php echo $email; ?>"/>
+              <input type="hidden" name="s" value="<?php echo $s; ?>"/>
 							<div class="form-group">
                 <label>New Password</label>
 								<input type="password" name="password" id="password" class="form-control validate" placeholder="Password">
 							</div>
               <div class="form-group">
                 <label>Confirm New Password</label>
-								<input type="password" name="password" id="password" class="form-control validate" placeholder="Confirm Password">
+								<input type="password" name="confirmpassword" id="confirmpassword" class="form-control validate" placeholder="Confirm Password">
 							</div>
 
 
 							<div class="col-md-12 text-center">
-								<button type="submit" class="btn btn-block loginbtn btn-primary">Reset</button>
+								<button type="submit" class="btn btn-block loginbtn btn-primary" onsubmit>Reset</button>
 							</div>
 
 						</form>
