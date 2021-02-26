@@ -68,17 +68,18 @@ function updatePassword($id, $pass) {
 }
 
 function allowPasswordReset($id) {
-	$query = "UPDATE users SET reset = 1 WHERE id = " . $id . ";";
+	$query = "UPDATE users SET reset = 1 WHERE id = " . str($id) . ";";
+	echo $query;
 	query($query, false);
 }
 
 function disallowPasswordReset($id) {
-	$query = "UPDATE users SET reset = 0 WHERE id = " . $id . ";";
+	$query = "UPDATE users SET reset = 0 WHERE id = " . str($id) . ";";
 	query($query, false);
 }
 
-function passwordResetAllowed() {
-	$query = "SELECT reset FROM users WHERE id = " . $id . ";";
+function passwordResetAllowed($id) {
+	$query = "SELECT reset FROM users WHERE id = " . str($id) . ";";
 	$reset = query($query, true)[0]['reset'];
 	if ($reset == 1) {
 		return true;

@@ -1,10 +1,10 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
-if (isset($_GET['s']) && !empty($_GET['s']) && passwordResetAllowed()) {
+if (isset($_GET['s']) && !empty($_GET['s'])) {
   $s = steralizeString($_GET['s']);
   $result = query("SELECT id, email FROM users WHERE pass = " . str($s) . ";", true)[0];
-  if ($result != null && passwordResetAllowed()) {
+  if ($result != null && passwordResetAllowed($result['id'])) {
     $email = $result['email'];
     disallowPasswordReset($result['id']);
   } else {
