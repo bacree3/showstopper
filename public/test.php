@@ -2,6 +2,16 @@
 
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
+//echo $_SERVER['HTTP_HOST'];
+
+//addPeople(["Robert Downey Jr.", "Chris Hemsworth"], "actor", "tt0848228");
+searchByTitle("The Avengers");
+
+//addPeople(["Robert Downey Jr.", "Chris Hemsworth"], "actor", "tt0848228");
+
+//print_r(getElementByID('2147483647', 'people'));
+
+//print_r(findPerson("Robert Downey Jr."));
 //print_r(getTitleInfo('tt0848228'));
 
 /*$titles = query("SELECT id FROM titles;", true);
@@ -87,7 +97,7 @@ echo $result;*/
 </html>
 
 <script>
-function test() {
+/*function test() {
 	console.log("function started");
 	var returnObject = {};
 	var dataObject = {
@@ -114,5 +124,5 @@ function test() {
 	console.log("function ended.");
 	return returnObject;
 }
-console.log(test());
+console.log(test()); */
 </script>

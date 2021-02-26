@@ -103,7 +103,7 @@ function steralizeString($str) {
 }
 
 function updateTitle($id) {
-  global $titleColumns;
+  $titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'img', 'genre'];
   $updatedData = getTitleInfo($id);
   $values = [
     "'" . $updatedData["imdbID"] . "'",
@@ -115,12 +115,37 @@ function updateTitle($id) {
     "'" . $updatedData["Genre"] . "'",
   ];
   update($id, 'titles', $titleColumns, $values);
+  $actors = explode(", ",$updatedData['Actors']);
+  $actors = addActors($actors, $updatedData["imdbID"]);
+  $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
+  query($query, false);
 }
 
+function addActors($actors, $title) {
+  return addPeople($actors, 'actor', $title);
+}
+
+// add director cache to db
+function addDirectors($directors) {
+
+}
+
+function generateActorLinks($actors) {
+  $actors = json_decode($actors);
+  $links = "";
+  foreach ($actors as $key => $id) {
+    $data = getElementByID($id, 'people');
+    $links .= "<a href = '/search?actor=" . $id . "'>" . $data['name'] . "</a>, ";
+  }
+  //$links .= "</p>";
+  $links = rtrim($links, ", ");
+  return $links;
+}
+
+
 // add title to cache db
-$titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'img', 'genre'];
 function addTitle($title) {
-  global $titleColumns;
+  $titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'img', 'genre'];
   $table = "titles";
   $values = [
     "'" . $title["imdbID"] . "'",
@@ -131,19 +156,84 @@ function addTitle($title) {
     "'" . $title["Poster"] . "'",
     "'" . $title["Genre"] . "'",
   ];
-  insert($titleColumns, $values, $table);
+  $actors = explode(", ",$updatedData['Actors']);
+  $actors = addActors($actors, $title["imdbID"]);
+  $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
+  query($query, false);
   //addDirectors();
-  //addActors();
 }
 
-// add director cache to db
-function addDirectors($directors) {
-
+function personExists($name) {
+  $query = "SELECT id, name FROM people WHERE name = " . str($name) . ";";
+  //echo $query;
+  $result = query($query, true);
+  if ($result != null) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
-// add actor cache to db
-function addActors($actors) {
+function addPeople($people, $type, $imdbID) {
+  $titleColumns = ['id', '`name`', 'type'];
+  $peopleIDs = [];
+  foreach ($people as $key => $person) {
+    if (!personExists($person)) {
+      $id = uniqid();
+      array_push($peopleIDs, $id);
+      $values = [
+        str($id),
+        str($person),
+        str($type),
+      ];
+      insert($titleColumns, $values, 'people');
+      addIMDB($id, $imdbID);
+    } else {
+      $id = findPerson($person)['id'];
+      addIMDB($id, $imdbID);
+    }
+    array_push($peopleIDs, $id);
+  }
+  return $peopleIDs;
+}
 
+function findPerson($name) {
+  $query = "SELECT id FROM people WHERE name = " . str($name) . ";";
+  //echo $query;
+  return query($query, true)[0];
+}
+
+function hasTitle($personID, $imdbID) {
+  $ids = getTitles($personID);
+  if ($ids == null) {
+    return false;
+  } else {
+    return in_array($imdbID, json_decode($ids));
+  }
+}
+
+function addIMDB($personID, $imdbID) {
+  $ids = getTitles($personID);
+  if (!hasTitle($personID, $imdbID)) {
+    if ($ids != null) {
+      array_push($ids, $imdbID);
+    } else {
+      $ids = [$imdbID];
+    }
+    //array_push($ids, $imdbID);
+    $query = "UPDATE people SET titles  = " . json(json_encode($ids)) . " WHERE id = " . str($personID) . ";";
+    //echo $query;
+    query($query, false);
+  }
+}
+
+function getTitles($personID) {
+  $result = getElementByID($personID, 'people');
+  if ($result != null) {
+    return $result['titles'];
+  } else {
+    return null;
+  }
 }
 
 // get details from omdb by id rather then search

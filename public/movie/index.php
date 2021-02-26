@@ -29,7 +29,7 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
         </div>
         <div class="col-xs-12 col-md-8 text-left">
           <h1 class="display-3"><?php echo $titleData['name'];?></h1>
-          <p class="lead"><span class = "font-weight-bold">Cast:</span> <?php echo $titleData['actors'];?></p>
+          <p class="lead"><span class = "font-weight-bold">Cast:</span> <?php echo generateActorLinks($titleData['actors']);?></p>
           <p class="lead"><span class = "font-weight-bold">Summary:</span> <?php echo $titleData['summary'];?></p>
           <p class="lead"><span class = "font-weight-bold">IMDB Ratings:</span> <?php echo $titleData['rating'];?></p>
           <p class="lead"><span class = "font-weight-bold">Release Date:</span> <?php echo $titleData['release'];?></p>
