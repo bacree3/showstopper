@@ -330,6 +330,12 @@ function searchByGenre($genre) {
   return query($query, true);
 }
 
+function searchByActor($actor) {
+  $query = "SELECT * FROM titles WHERE actors LIKE " . str('%' . $actor . '%') . ";";
+  //echo $query;
+  return query($query, true);
+}
+
 function getServicesHTML($arr) {
   global $servicesReference, $serviceIMG;
   foreach ($servicesReference as $key => $value) {

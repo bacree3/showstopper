@@ -5,7 +5,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 //echo $_SERVER['HTTP_HOST'];
 
 //addPeople(["Robert Downey Jr.", "Chris Hemsworth"], "actor", "tt0848228");
-searchByTitle("The Avengers");
+//searchByTitle("The Avengers");
+
+/*$titles = query("SELECT id FROM titles;", true);
+foreach ($titles as $key => $title) {
+  updateTitle($title['id']);
+}*/
 
 //addPeople(["Robert Downey Jr.", "Chris Hemsworth"], "actor", "tt0848228");
 

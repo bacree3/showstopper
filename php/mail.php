@@ -23,7 +23,7 @@ function sendMail($address, $type) {
 		$bodyHtml = "
 			<h1>Reset Your Password By Clicking the following link.</h1>
 			<p>If this was a mistake, you may want to reset your password.</p>
-			<a href='http://localhost/reset-password?s=" . $secureString . "'>Reset Password</a>";
+			<a href='http://" . $_SERVER['HTTP_HOST'] . "/reset-password?s=" . $secureString . "'>Reset Password</a>";
 	} else if ($type == "verify") {
 		$subject = 'ShowStopper Email Verification';
 		$bodyHtml = '<h1>test</h1>';

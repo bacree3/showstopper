@@ -10,6 +10,10 @@ if (isset($_GET['search'])) {
 } else if (isset($_GET['genre'])) {
 	$searchString = steralizeString($_GET['genre']);
 	$results = searchByGenre($searchString);
+} else if (isset($_GET['actor'])) {
+	$searchString = steralizeString($_GET['actor']);
+	$results = searchByActor($searchString);
+	$searchString = getElementByID($searchString, 'people')['name'];
 } else {
 	goTo404();
 }
