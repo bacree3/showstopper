@@ -6,6 +6,8 @@ if (isset($_POST['login'])) {
 	$pass = steralizeString($_POST['password']);
 	if (login($email, $pass)) {
 		header("Location:/");
+	} else {
+		header("Location:/login?error=1");
 	}
 } else {
 	header("Location:/login");
