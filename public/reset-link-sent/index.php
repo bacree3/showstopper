@@ -1,3 +1,8 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
+
+?>
+
 <html>
   	<head></head>
 	<body>
