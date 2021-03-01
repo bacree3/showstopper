@@ -157,9 +157,10 @@ function addTitle($title) {
     "'" . $title["Poster"] . "'",
     "'" . $title["Genre"] . "'",
   ];
-  $actors = explode(", ",$updatedData['Actors']);
+  $actors = explode(", ",$title['Actors']);
   $actors = addActors($actors, $title["imdbID"]);
-  $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
+  insert($titleColumns, $values, $table);
+  $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($title["imdbID"]) . ";";
   query($query, false);
   //addDirectors();
 }
