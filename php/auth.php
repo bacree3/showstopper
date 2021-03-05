@@ -33,7 +33,7 @@ function sendMail($address, $type) {
 		$bodyHtml = "
 			<h1>Verify your email by clicking the following link.</h1>
 			<p>If this was a mistake, you may want to reset your password.</p>
-			<a href='http://" . $_SERVER['HTTP_HOST'] . "/actsetup?s=" . $secureString . "'>Reset Password</a>";
+			<a href='http://" . $_SERVER['HTTP_HOST'] . "/actsetup?s=" . $secureString . "'>Verify Email</a>";
 	}
 
 	// Replace sender@example.com with your "From" address.
