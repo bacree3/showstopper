@@ -13,8 +13,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
       <h1 class="display-3">ShowStopper</h1>
       <p class="lead">Get the most out of your streaming services</p>
       <div class="d-flex justify-content-around mt-3">
-        <p class="mr-1">Don't have an account?</p>
-        <a href="/register">Sign up today</a>
+        <p id="signup" class="mr-1">Don't have an account?</p>
+        <p id="signup" class="mr-1">Welcome Back!</p>
+        <a id="signuplink"href="/register">Sign up today</a>
       </div>
     </div>
 
@@ -50,3 +51,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 		<script src = "/src/js/script.js"></script>
 	</body>
 </html>
+
+<script>
+  if (loggedin) {
+  	document.getElementById("signup").hidden = true;
+    document.getElementById("signuplink").hidden = true;
+  }
+
+</script>
