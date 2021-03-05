@@ -4,7 +4,7 @@ $(".footer").load("/src/html/footer.html");
 
 var titles;
 $.get('/JSON.php', function(data) {
-    titles = data;
+    titles = JSON.parse(data);
 });
 
 function editDetails() {
