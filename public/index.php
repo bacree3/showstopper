@@ -14,7 +14,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
       <p class="lead">Get the most out of your streaming services</p>
       <div class="d-flex justify-content-around mt-3">
         <p id="signup" class="mr-1">Don't have an account?</p>
-        <p id="signup" class="mr-1">Welcome Back!</p>
+        <p id="welcome" class="mr-1">Welcome Back!</p>
         <a id="signuplink"href="/register">Sign up today</a>
       </div>
     </div>
@@ -56,6 +56,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
   if (loggedin) {
   	document.getElementById("signup").hidden = true;
     document.getElementById("signuplink").hidden = true;
+  } else {
+    document.getElementById("welcome").hidden = true;
   }
 
 </script>
