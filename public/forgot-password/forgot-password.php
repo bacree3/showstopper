@@ -1,6 +1,5 @@
 <?php
-//include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/php/mail.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 if (isset($_POST['forgot'])) {
 	$email = steralizeString($_POST['email']);

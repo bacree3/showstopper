@@ -2,6 +2,10 @@
 
 include 'parameters.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use Aws\Ssm\SsmClient;
+
 //establish connection to MySQL Database
 $conn = new mysqli($ip, $user, $password, $schema);
 if ($conn->connect_errno) {
@@ -370,6 +374,10 @@ function registerError() {
 
 function finishSetup() {
   header("Location:/actsetup");
+}
+
+function verifyEmail($email) {
+  query("UPDATE users SET verified = 1 WHERE email = " . str($email) . ";", false);
 }
 
 ?>
