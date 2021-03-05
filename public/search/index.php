@@ -38,7 +38,9 @@ echo $titleData['src/src/img']; */
 ?>
 
 <html>
-  <head></head>
+  <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
   <body>
     <nav class= "header navbar navbar-expand-lg sticky-top navbar-dark"></nav>
 		<!-- BODY -->
