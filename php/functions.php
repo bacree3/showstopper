@@ -119,7 +119,7 @@ function updateTitle($id) {
     "'" . $updatedData["Genre"] . "'",
   ];
   update($id, 'titles', $titleColumns, $values);
-  $actors = explode(", ",$updatedData['Actors']);
+  $actors = scrapeActors($updatedData["imdbID"]);
   //print_r($actors);
   $actors = addActors($actors, $updatedData["imdbID"]);
   $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
@@ -161,7 +161,7 @@ function addTitle($title) {
     "'" . $title["Poster"] . "'",
     "'" . $title["Genre"] . "'",
   ];
-  $actors = explode(", ",$title['Actors']);
+  $actors = scrapeActors($title["imdbID"]);
   $actors = addActors($actors, $title["imdbID"]);
   insert($titleColumns, $values, $table);
   $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($title["imdbID"]) . ";";
@@ -378,6 +378,40 @@ function finishSetup() {
 
 function verifyEmail($email) {
   query("UPDATE users SET verified = 1 WHERE email = " . str($email) . ";", false);
+}
+
+function scrapeActors($id) {
+  $url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getActors';
+  // The data to send to the API
+  $postData = array(
+      'id' => $id,
+  );
+
+  // Create the context for the request
+  $context = stream_context_create(array(
+      'http' => array(
+          // http://www.php.net/manual/en/context.http.php
+          'method' => 'POST',
+          'header' => "Content-Type: application/json\r\n",
+          'content' => json_encode($postData)
+      )
+  ));
+
+  // Send the request
+  $response = file_get_contents($url, FALSE, $context);
+
+  // Check for errors
+  if($response === FALSE){
+      die('Error');
+  }
+
+  // Decode the response
+  $responseData = json_decode($response, TRUE);
+
+  // Print the date from the response
+  //echo $id . "<br>";
+  //print_r($responseData);
+  return $responseData;
 }
 
 ?>

@@ -2,7 +2,7 @@
 
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
-$url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getActors';
+/*$url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getActors';
 // The data to send to the API
 $postData = array(
     'id' => 'tt0167404',
@@ -30,7 +30,7 @@ if($response === FALSE){
 $responseData = json_decode($response, TRUE);
 
 // Print the date from the response
-print_r($responseData);
+print_r($responseData); */
 
 //echo passwordResetAllowed('6033f04273227');
 
@@ -47,11 +47,15 @@ $api_url = $omdbURL . "t=" . toSearchString($titleString);
 $data = json_decode(file_get_contents($api_url), true);
 
 print_r($data); */
-
-/* $titles = query("SELECT id FROM titles;", true);
+$query = "SELECT id, name FROM titles ORDER BY actors;";
+echo $query;
+$titles = query($query, true);
 foreach ($titles as $key => $title) {
   updateTitle($title['id']);
-} */
+}
+//updateTitle('tt0104940');
+//scrapeActors('tt0104940');
+
 
 //addPeople(["Robert Downey Jr.", "Chris Hemsworth"], "actor", "tt0848228");
 
