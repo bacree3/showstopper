@@ -121,5 +121,7 @@ function removeDuplicates($data) {
 		//echo $loggedIn;
 	?>
   var loggedin = "<?php echo $loggedIn; ?>";
-  console.log(loggedin);
+	var titleObject = '<?php echo json_encode(getTitlesForSearch()); ?>';
+	//console.log(titleObject);
+  //console.log(loggedin);
 </script>

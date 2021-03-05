@@ -2,18 +2,21 @@
 
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
-echo passwordResetAllowed('6033f04273227');
+//echo passwordResetAllowed('6033f04273227');
 
 //echo $_SERVER['HTTP_HOST'];
 
 //addPeople(["Robert Downey Jr.", "Chris Hemsworth"], "actor", "tt0848228");
 //searchByTitle("The Avengers");
-$titleString = 'the village';
+
+//echo placeJSON();
+
+/*$titleString = 'the village';
 
 $api_url = $omdbURL . "t=" . toSearchString($titleString);
 $data = json_decode(file_get_contents($api_url), true);
 
-print_r($data);
+print_r($data); */
 
 /* $titles = query("SELECT id FROM titles;", true);
 foreach ($titles as $key => $title) {

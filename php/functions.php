@@ -360,4 +360,8 @@ function getServicesHTML($arr) {
   return $html;
 }
 
+function getTitlesForSearch() {
+  return query("SELECT id, name, services FROM titles;", true);
+}
+
 ?>
