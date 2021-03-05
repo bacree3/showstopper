@@ -361,7 +361,15 @@ function getServicesHTML($arr) {
 }
 
 function getTitlesForSearch() {
-  return query("SELECT id, name, services FROM titles;", true);
+  return json_encode(query("SELECT id, name, services FROM titles;", true));
+}
+
+function registerError() {
+  header("Location:/register?error=1");
+}
+
+function finishSetup() {
+  header("Location:/actsetup");
 }
 
 ?>

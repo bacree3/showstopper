@@ -7,7 +7,7 @@ if (isLoggedIn()) {
 
 if (isset($_GET['error']) && $_GET['error'] == 1) {
 	$error = "
-	<div class='alert alert-danger' role='alert'>
+	<div class='alert alert-danger text-center' role='alert'>
   	Your email or password was incorrect. Please try again.
 	</div>";
 } else {

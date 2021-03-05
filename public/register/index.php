@@ -5,6 +5,15 @@ if (isLoggedIn()) {
   header('Location:/');
 }
 
+if (isset($_GET['error']) && $_GET['error'] == 1) {
+	$error = "
+	<div class='alert alert-danger text-center' role='alert'>
+  	Account with this email already exists.
+	</div>";
+} else {
+	$error = "";
+}
+
 ?>
 
 <html>
@@ -16,6 +25,7 @@ if (isLoggedIn()) {
     	<div class="container mt-5">
         	<div class="row">
 				<div class="col-md-5 mx-auto">
+          <?php echo $error; ?>
 					<div class="loginform form">
 						<div class="logo col-md-12 text-center">
 							<h1>Register</h1>

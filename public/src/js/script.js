@@ -2,6 +2,11 @@ $("head").load("/src/html/head.html");
 $(".header").load("/src/html/header.html");
 $(".footer").load("/src/html/footer.html");
 
+var titles;
+$.get('/JSON.php', function(data) {
+    titles = data;
+});
+
 function editDetails() {
 		document.getElementById("view").style.display = "none";
 		document.getElementById("edit").style.display = "inline";
