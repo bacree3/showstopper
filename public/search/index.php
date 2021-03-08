@@ -52,7 +52,7 @@ echo $titleData['src/src/img']; */
       </div>
       <div class="row pt-4">
         <div class="col-3">
-          <div class= "filters rounded">
+          <div class= "filters rounded" >
             <p class="lead font-weight-bold">Filters: </p>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
