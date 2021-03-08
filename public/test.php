@@ -49,14 +49,20 @@ $api_url = $omdbURL . "t=" . toSearchString($titleString);
 $data = json_decode(file_get_contents($api_url), true);
 
 print_r($data); */
-/* $query = "SELECT id, name FROM titles WHERE actors LIKE '%[]%' ORDER BY name;";
+/*$query = "SELECT id, name, actors FROM titles WHERE actors ORDER BY name;";
 //echo $query;
 $titles = query($query, true);
 foreach ($titles as $key => $title) {
-  updateTitle($title['id']);
+  echo $title['name'] ."<br />";
+  $id = $title['id'];
+  $actors = json_decode($title['actors']);
+  $actors = array_unique($actors);
+  $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . $id . ";";
+  query($query, false);
+  //updateTitle($title['id']);
 } */
-updateTitle('tt1877832');
-print_r(scrapeActors('tt1877832'));
+updateTitle('tt0944947');
+//print_r(scrapeActors('tt1877832'));
 //
 
 //echo personExists("Robert Downey Jr.");
