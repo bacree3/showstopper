@@ -106,30 +106,6 @@ function steralizeString($str) {
   return mysqli_real_escape_string($conn, $str);
 }
 
-function updateTitle($id) {
-  $titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'img', 'genre'];
-  $updatedData = getTitleInfo($id);
-  $values = [
-    "'" . $updatedData["imdbID"] . "'",
-    "'" . $updatedData["Title"] . "'",
-    "'" . $updatedData["Year"] . "'",
-    "\"" . $updatedData["Plot"] . "\"",
-    "'" . $updatedData["Ratings"][0]['Value'] . "'",
-    "'" . $updatedData["Poster"] . "'",
-    "'" . $updatedData["Genre"] . "'",
-  ];
-  update($id, 'titles', $titleColumns, $values);
-  $actors = scrapeActors($updatedData["imdbID"]);
-  //print_r($actors);
-  $actors = addActors($actors, $updatedData["imdbID"]);
-  $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
-  query($query, false);
-}
-
-function addActors($actors, $title) {
-  return addPeople($actors, 'actor', $title);
-}
-
 // add director cache to db
 function addDirectors($directors) {
 
@@ -169,6 +145,26 @@ function addTitle($title) {
   //addDirectors();
 }
 
+function updateTitle($id) {
+  $titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'img', 'genre'];
+  $updatedData = getTitleInfo($id);
+  $values = [
+    "'" . $updatedData["imdbID"] . "'",
+    "'" . $updatedData["Title"] . "'",
+    "'" . $updatedData["Year"] . "'",
+    "\"" . $updatedData["Plot"] . "\"",
+    "'" . $updatedData["Ratings"][0]['Value'] . "'",
+    "'" . $updatedData["Poster"] . "'",
+    "'" . $updatedData["Genre"] . "'",
+  ];
+  update($id, 'titles', $titleColumns, $values);
+  $actors = scrapeActors($updatedData["imdbID"]);
+  //print_r($actors);
+  $actors = addActors($actors, $updatedData["imdbID"]);
+  $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
+  query($query, false);
+}
+
 function personExists($name) {
   $query = "SELECT id, name FROM people WHERE name = " . str($name) . ";";
   //echo $query;
@@ -201,6 +197,10 @@ function addPeople($people, $type, $imdbID) {
     array_push($peopleIDs, $id);
   }
   return $peopleIDs;
+}
+
+function addActors($actors, $title) {
+  return addPeople($actors, 'actor', $title);
 }
 
 function findPerson($name) {
@@ -281,7 +281,7 @@ function inCache($id, $table) {
 }
 
 function extractCommonWords($string){
-    $stopWords = array('i','a','about','an','and','are','as','at','be','by','com','de','en','for','from','how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will','with','und','the','www');
+    $stopWords = array('i', 'part', 'a','about','an','and','are','as','at','be','by','com','de','en','for','from','how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will','with','und','the','www');
 
     $string = preg_replace('/\s\s+/i', '', $string); // replace whitespace
     $string = trim($string); // trim the string
@@ -402,7 +402,7 @@ function scrapeActors($id) {
 
   // Check for errors
   if($response === FALSE){
-      die('Error');
+      return false;
   }
 
   // Decode the response
