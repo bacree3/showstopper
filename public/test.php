@@ -2,6 +2,7 @@
 
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
+
 /*$url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getActors';
 // The data to send to the API
 $postData = array(
@@ -17,6 +18,7 @@ $context = stream_context_create(array(
         'content' => json_encode($postData)
     )
 ));
+
 
 // Send the request
 $response = file_get_contents($url, FALSE, $context);
@@ -47,15 +49,18 @@ $api_url = $omdbURL . "t=" . toSearchString($titleString);
 $data = json_decode(file_get_contents($api_url), true);
 
 print_r($data); */
-$query = "SELECT id, name FROM titles ORDER BY actors;";
-echo $query;
+/* $query = "SELECT id, name FROM titles WHERE actors LIKE '%[]%' ORDER BY name;";
+//echo $query;
 $titles = query($query, true);
 foreach ($titles as $key => $title) {
   updateTitle($title['id']);
-}
-//updateTitle('tt0104940');
-//scrapeActors('tt0104940');
+} */
+updateTitle('tt1877832');
+print_r(scrapeActors('tt1877832'));
+//
 
+//echo personExists("Robert Downey Jr.");
+//echo hasTitle('603877207d3cf', 'tt4154796');
 
 //addPeople(["Robert Downey Jr.", "Chris Hemsworth"], "actor", "tt0848228");
 

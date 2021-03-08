@@ -6,7 +6,7 @@ if (isset($_GET['search'])) {
 	$searchString = steralizeString($_GET['search']);
 	searchByTitle($searchString); // get data from api if not in cache
 	$likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
-	$results = query("SELECT * FROM titles " . $likeStatment . ";", true);
+	$results = query("SELECT * FROM titles " . $likeStatment . " ORDER BY `name`, `release` desc;", true);
 } else if (isset($_GET['genre'])) {
 	$searchString = steralizeString($_GET['genre']);
 	$results = searchByGenre($searchString);

@@ -140,6 +140,7 @@ function addTitle($title) {
   $actors = scrapeActors($title["imdbID"]);
   $actors = addActors($actors, $title["imdbID"]);
   insert($titleColumns, $values, $table);
+  $actors = array_unique($actors);
   $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($title["imdbID"]) . ";";
   query($query, false);
   //addDirectors();
@@ -161,6 +162,7 @@ function updateTitle($id) {
   $actors = scrapeActors($updatedData["imdbID"]);
   //print_r($actors);
   $actors = addActors($actors, $updatedData["imdbID"]);
+  $actors = array_unique($actors);
   $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
   query($query, false);
 }
@@ -264,7 +266,7 @@ function searchByTitle($titleString) {
   if (!inCache($data['imdbID'], 'titles')) {
     addTitle($data);
   } else {
-    updateTitle($data['imdbID']);
+    //updateTitle($data['imdbID']);
   }
 }
 
@@ -332,13 +334,13 @@ function populateServices() {
 }
 
 function searchByGenre($genre) {
-  $query = "SELECT * FROM titles WHERE genre LIKE " . str('%' . $genre . '%') . ";";
+  $query = "SELECT * FROM titles WHERE genre LIKE " . str('%' . $genre . '%') . " ORDER BY `name`;";
   //echo $query;
   return query($query, true);
 }
 
 function searchByActor($actor) {
-  $query = "SELECT * FROM titles WHERE actors LIKE " . str('%' . $actor . '%') . ";";
+  $query = "SELECT * FROM titles WHERE actors LIKE " . str('%' . $actor . '%') . " ORDER BY `name`;";
   //echo $query;
   return query($query, true);
 }
