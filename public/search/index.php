@@ -146,11 +146,11 @@ echo $titleData['src/src/img']; */
 <script type="text/javascript">
 	var titles = <?php echo json_encode($results); ?>;
 	for (title of titles) {
-		var isFavorite = false; // NEEED SERVER THING
+		var isFavorite = false; // NEEED SERVER LOGIC - ON LOAD
 		if (!isFavorite) {
-			document.getElementById(title.id + "isFavorite").style.display = "none";
+			$("#"+title.id+"isFavorite").hide();
 		} else {
-			document.getElementById(title.id + "isNotFavorite").style.display = "none";
+			$("#"+title.id+"isNotFavorite").hide();
 		}
 	}	
 </script>

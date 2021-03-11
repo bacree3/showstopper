@@ -75,10 +75,10 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
 <script>
 // NEED SERVER LOGIC - on load
 	var isFavorite = false;
-	console.log("<?php echo $titleData['id'];?>isFavorite");
+	var movieId = <?php echo "'" . $titleData['id'] . "'";?>;
   	if (!isFavorite) {
-  		document.getElementById("<?php echo $titleData['id'];?>isFavorite").style.display = "none";
+		$("#"+movieId+"isFavorite").hide();
   	} else {
-  		document.getElementById("<?php echo $titleData['id'];?>isNotFavorite").style.display = "none";
+		$("#"+movieId+"isNotFavorite").hide();
   	}
 </script>
