@@ -52,6 +52,7 @@ function update($identifier, $table, $params, $values) {
   query($query, false);
 }
 
+//delete row from specified table
 function delete($id, $table) {
 
 }
