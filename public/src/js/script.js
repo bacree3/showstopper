@@ -57,6 +57,23 @@ function loginAttempt() {
 	return true;
 }
 
+function changeFavStatus(id) {
+	$.ajax({
+		url: 'something.php',
+		type: 'post',
+		data: {id:id, action:"favorite"},
+		success: function(response) {
+			if ($("#isFavorite").is(":hidden")) {
+				$("#isFavorite").show();
+				$("#isNotFavorite").hide();
+			} else {
+				$("#isFavorite").hide();
+				$("#isNotFavorite").show();
+			};
+		}
+	});
+}
+
 /* $('.movie').each(function(i, obj) {
     var title = $(obj).attr('class').split(' ').pop();
 		$(obj).click(function() {
