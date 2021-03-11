@@ -92,8 +92,8 @@ echo $titleData['src/src/img']; */
 					$resultsHTML = "";
 					foreach ($results as $key => $title) {
 					  	$row = "
-					    	<div onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;' class='row pt-4 bg-light pb-4 mt-4 rounded movie" . $title['id'] ."'>
-								<div class='col-xs-4 col-md-1 text-center'>
+					    	<div class='row pt-4 bg-light pb-4 mt-4 rounded movie" . $title['id'] ."'>
+								<div class='col-xs-4 col-md-1 text-center' onclick='changeFavStatus(" . str($title['id']) . ")'>
 									<svg id='".$title['id'] . "isNotFavorite' xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='#283a59' class='bi bi-heart' viewBox='0 0 16 16'>
 										<path d='M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z'/>
 									</svg>
@@ -101,11 +101,11 @@ echo $titleData['src/src/img']; */
 										<path fill-rule='evenodd' d='M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z'/>
 									</svg>
 								</div>
-								<div class='col-xs-8 col-md-3 text-center'>
+								<div class='col-xs-8 col-md-3 text-center' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>
 					        		<img src='" . $title['img'] . "' class='rounded title movieImg' alt='...'>
 					      		</div>
 					      		<div class='col-xs-12 col-md-8 text-left'>
-					        		<h1 class='display-4'>" . $title['name'] . "</h1>
+					        		<h1 class='display-4' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>" . $title['name'] . "</h1>
 									<p class='lead'>
 										<span class='font-weight-bold'>Release Date:</span> " . $title['release'] . "
 									</p>

@@ -63,12 +63,12 @@ function changeFavStatus(id) {
 		type: 'post',
 		data: {id:id, action:"favorite"},
 		success: function(response) {
-			if ($("#isFavorite").is(":hidden")) {
-				$("#isFavorite").show();
-				$("#isNotFavorite").hide();
+			if ($("#"+id+"isFavorite").is(":hidden")) {
+				$("#"+id+"isFavorite").show();
+				$("#"+id+"isNotFavorite").hide();
 			} else {
-				$("#isFavorite").hide();
-				$("#isNotFavorite").show();
+				$("#"+id+"isFavorite").hide();
+				$("#"+id+"isNotFavorite").show();
 			};
 		}
 	});
