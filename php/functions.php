@@ -1,11 +1,16 @@
 <?php
 
 include 'parameters.php';
-include 'sql.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Aws\Ssm\SsmClient;
+
+//establish connection to MySQL Database
+$conn = new mysqli($ip, $user, $password, $schema);
+if ($conn->connect_errno) {
+  echo "Failed to connect to MySQL: " . $conn->connect_error();
+}
 
 $servicesReference = ["Netflix", "Hulu", "Disney+", "Amazon Prime", "HBO Max"];
 $serviceIMG = array(
@@ -38,14 +43,6 @@ function goToLogin() {
 	header("Location:/login");
 }
 
-function registerError() {
-  header("Location:/register?error=1");
-}
-
-function finishSetup() {
-  header("Location:/actsetup");
-}
-
 function str($str) {
   return "\"" . $str . "\"";
 }
@@ -58,23 +55,55 @@ function getString($arr) {
   return implode(', ', $arr);
 }
 
+// turn sql result into array of rows with actual values
+function sqlToArray($result) {
+  $arr = [];
+  while ($row = $result->fetch_assoc()) {
+      array_push($arr, $row);
+  }
+  return $arr;
+}
+
+// do mysql query
+function query($query, $return) {
+  global $conn;
+  $result = $conn->query($query);
+  if (!$result) {
+    return false;
+  }
+  if ($return) {
+    return sqlToArray($result);
+  }
+}
+
+// insert new row into table
+// takes in an array of columns and an array of values to insert into the corresponding table
+function insert($columns, $values, $table) {
+  $query = "INSERT INTO " . $table . " (" . getString($columns) . ") VALUES (" . getString($values) . ");";
+  //echo $query;
+  query($query, false);
+}
+
+// update entry
+function update($identifier, $table, $params, $values) {
+  $updates = $params[0] . "=" . $values[0] . ", ";
+  array_shift($values);
+  if (sizeof($values) > 0) {
+    $count = 1;
+    foreach ($values as $key => $value) {
+      $updates .= $params[$count] . "=" . $value . ",";
+      $count++;
+    }
+  }
+  $updates = rtrim($updates, ",");
+  $query = "UPDATE " . $table . " SET " . $updates . " WHERE id = " . "'" . $identifier . "';";
+  query($query, false);
+}
+
 // steralize string for mysql command
 function steralizeString($str) {
   global $conn;
   return mysqli_real_escape_string($conn, $str);
-}
-
-
-function getTitlePath($id) {
-  return "'/movie/?title=" . $id . "'";
-}
-
-function getTitlesForSearch() {
-  return json_encode(query("SELECT id, name, services FROM titles;", true));
-}
-
-function verifyEmail($email) {
-  query("UPDATE users SET verified = 1 WHERE email = " . str($email) . ";", false);
 }
 
 // add director cache to db
@@ -296,6 +325,10 @@ function formLike($str, $col) {
   return $final;
 }
 
+function getTitlePath($id) {
+  return "'/movie/?title=" . $id . "'";
+}
+
 function populateServices() {
 
 }
@@ -333,12 +366,29 @@ function getServicesHTML($arr) {
   return $html;
 }
 
+function getTitlesForSearch() {
+  return json_encode(query("SELECT id, name, services FROM titles;", true));
+}
+
+function registerError() {
+  header("Location:/register?error=1");
+}
+
+function finishSetup() {
+  header("Location:/actsetup");
+}
+
+function verifyEmail($email) {
+  query("UPDATE users SET verified = 1 WHERE email = " . str($email) . ";", false);
+}
+
 function scrapeActors($id) {
   $url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getActors';
   // The data to send to the API
   $postData = array(
       'id' => $id,
   );
+
   // Create the context for the request
   $context = stream_context_create(array(
       'http' => array(
@@ -348,18 +398,85 @@ function scrapeActors($id) {
           'content' => json_encode($postData)
       )
   ));
+
   // Send the request
   $response = file_get_contents($url, FALSE, $context);
+
   // Check for errors
   if($response === FALSE){
       return false;
   }
+
   // Decode the response
   $responseData = json_decode($response, TRUE);
 
   // Print the date from the response
   //echo $id . "<br>";
   //print_r($responseData);
+  return $responseData;
+}
+
+// function scrapeRelatedTitles($title) {
+//   $url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getRelatedTitles';
+//   // The data to send to the API
+//   $postData = array(
+//       'title' => $title,
+//   );
+
+//   // Create the context for the request
+//   $context = stream_context_create(array(
+//       'http' => array(
+//           // http://www.php.net/manual/en/context.http.php
+//           'method' => 'POST',
+//           'header' => "Content-Type: application/json\r\n",
+//           'content' => json_encode($postData)
+//       )
+//   ));
+
+//   // Send the request
+//   $response = file_get_contents($url, FALSE, $context);
+
+//   // Check for errors
+//   if($response === FALSE){
+//       return false;
+//   }
+
+//   // Decode the response
+//   $responseData = json_decode($response, TRUE);
+
+//   // Print the date from the response
+//   return $responseData;
+// }
+
+function scrapePlatforms($title) {
+  $url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getPlatforms';
+  // The data to send to the API
+  $postData = array(
+      'title' => $title,
+  );
+
+  // Create the context for the request
+  $context = stream_context_create(array(
+      'http' => array(
+          // http://www.php.net/manual/en/context.http.php
+          'method' => 'POST',
+          'header' => "Content-Type: application/json\r\n",
+          'content' => json_encode($postData)
+      )
+  ));
+
+  // Send the request
+  $response = file_get_contents($url, FALSE, $context);
+
+  // Check for errors
+  if($response === FALSE){
+      return false;
+  }
+
+  // Decode the response
+  $responseData = json_decode($response, TRUE);
+
+  // Print the date from the response
   return $responseData;
 }
 
