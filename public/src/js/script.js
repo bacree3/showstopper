@@ -83,6 +83,11 @@ function changeFavStatus(id) {
   }
 }
 
+function removeFavoriteCard(id) {
+  console.log(id);
+  $("#" + id).remove();
+}
+
 /* $('.movie').each(function(i, obj) {
     var title = $(obj).attr('class').split(' ').pop();
 		$(obj).click(function() {

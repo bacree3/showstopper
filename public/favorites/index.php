@@ -31,10 +31,10 @@ if (!isLoggedIn()) {
           foreach ($favorites as $key => $title) {
             $titleData = getElementByID($title, 'titles');
             $html .= "
-            <div class='col-2.5 bg-light rounded p-2 m-2'>
+            <div id = '" . $titleData['id'] . "' class='col-2.5 bg-light rounded p-2 m-2'>
               <div class='row pl-1'>
                 <div class='col-1'>
-                  <button type='button' class='btn btn-dark btn-sm align-left'>X</button>
+                  <button type='button' onclick = 'changeFavStatus(" . str($titleData['id']) . "); removeFavoriteCard(" . str($titleData['id']) . ")' class='btn btn-dark btn-sm align-left'>X</button>
                 </div>
                 <div class='col'>
                   <p class = 'lead text-center'>" . $titleData['name'] . "</p>
