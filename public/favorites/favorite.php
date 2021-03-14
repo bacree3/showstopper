@@ -5,7 +5,7 @@ if (isset($_GET['id']) && isLoggedIn()) {
 	$favoriteID = $_GET['id'];
 	//$favoriteID = "tt0478970";
 	$user = getCurrentUserID();
-	$favorites = json_decode(getUserInfo($user)['favorites']);
+	$favorites = getFavorites();
 	//print_r($favorites);
 	if (in_array($favoriteID, $favorites)) {
 		$key = array_search($favoriteID, $favorites);

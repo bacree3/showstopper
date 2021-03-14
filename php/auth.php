@@ -211,6 +211,10 @@ function isFavorited($favoriteID) {
 	}
 }
 
+function getFavorites() {
+	return json_decode(getUserInfo(getCurrentUserID())['favorites']);
+}
+
 ?>
 
 <script>
