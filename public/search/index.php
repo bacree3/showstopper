@@ -144,13 +144,28 @@ echo $titleData['src/src/img']; */
 </html>
 
 <script type="text/javascript">
-	var titles = <?php echo json_encode($results); ?>;
-	for (title of titles) {
-		var isFavorite = false; // NEEED SERVER LOGIC - ON LOAD
-		if (!isFavorite) {
-			$("#"+title.id+"isFavorite").hide();
-		} else {
-			$("#"+title.id+"isNotFavorite").hide();
+	<?php
+		$favorites = [];
+		foreach ($results as $key => $title) {
+			if (isFavorited($title['id'])) {
+				array_push($favorites, $title['id']);
+			}
 		}
-	}	
+		//print_r($favorites);
+	?>
+	var titles = <?php echo json_encode($results); ?>;
+	var favorites = <?php echo json_encode($favorites); ?>;
+	//console.log(favorites);
+	for (title of titles) {
+		if (favorites.includes(title.id)) {
+			isFavorite = true;
+		} else {
+			isFavorite = false;
+		}
+		if (!isFavorite) {
+			$("#" + title.id + "isFavorite").hide();
+		} else {
+			$("#" + title.id + "isNotFavorite").hide();
+		}
+	}
 </script>
