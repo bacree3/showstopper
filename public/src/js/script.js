@@ -58,11 +58,17 @@ function loginAttempt() {
 }
 
 function changeFavStatus(id) {
+  //console.log("triggered");
 	$.ajax({
-		url: 'something.php',
-		type: 'post',
-		data: {id:id, action:"favorite"},
+		url: '/favorites/favorite.php',
+		type: 'GET',
+    dataType: 'text',
+    contentType: "application/json",
+		data: {
+      id: id
+    },
 		success: function(response) {
+      //console.log(response);
 			if ($("#"+id+"isFavorite").is(":hidden")) {
 				$("#"+id+"isFavorite").show();
 				$("#"+id+"isNotFavorite").hide();
@@ -72,6 +78,7 @@ function changeFavStatus(id) {
 			};
 		}
 	});
+  //console.log("ended");
 }
 
 /* $('.movie').each(function(i, obj) {
