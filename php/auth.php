@@ -201,6 +201,9 @@ function removeDuplicates($data) {
 }
 
 function isFavorited($favoriteID) {
+	if (!isLoggedIn()) {
+		return 0;
+	}
 	$user = getCurrentUserID();
 	$favorites = json_decode(getUserInfo($user)['favorites']);
 	//print_r($favorites);

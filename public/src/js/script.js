@@ -58,27 +58,29 @@ function loginAttempt() {
 }
 
 function changeFavStatus(id) {
-  //console.log("triggered");
-	$.ajax({
-		url: '/favorites/favorite.php',
-		type: 'GET',
-    dataType: 'text',
-    contentType: "application/json",
-		data: {
-      id: id
-    },
-		success: function(response) {
-      //console.log(response);
-			if ($("#"+id+"isFavorite").is(":hidden")) {
-				$("#"+id+"isFavorite").show();
-				$("#"+id+"isNotFavorite").hide();
-			} else {
-				$("#"+id+"isFavorite").hide();
-				$("#"+id+"isNotFavorite").show();
-			};
-		}
-	});
-  //console.log("ended");
+  if (!loggedin) {
+    window.location.href = "/login?error=favorite";
+  } else {
+    $.ajax({
+  		url: '/favorites/favorite.php',
+  		type: 'GET',
+      dataType: 'text',
+      contentType: "application/json",
+  		data: {
+        id: id
+      },
+  		success: function(response) {
+        //console.log(response);
+  			if ($("#"+id+"isFavorite").is(":hidden")) {
+  				$("#"+id+"isFavorite").show();
+  				$("#"+id+"isNotFavorite").hide();
+  			} else {
+  				$("#"+id+"isFavorite").hide();
+  				$("#"+id+"isNotFavorite").show();
+  			};
+  		}
+  	});
+  }
 }
 
 /* $('.movie').each(function(i, obj) {

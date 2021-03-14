@@ -20,10 +20,10 @@
         <a class="dropdown-item" href="/logout">Log out</a>
       </div>
     </li>
-		<li class="nav-item">
+		<li id = "favorites" class="nav-item">
       <a class="nav-link" href="/favorites">Favorites</a>
     </li>
-		<li class="nav-item">
+		<li id = "notifications" class="nav-item">
       <a class="nav-link" href="#">Notifications</a>
     </li>
   </ul>
@@ -51,6 +51,8 @@
 <script>
   if (!loggedin) {
   	document.getElementById("account").style.display = "none";
+    document.getElementById("favorites").style.display = "none";
+    document.getElementById("notifications").style.display = "none";
   } else {
   	document.getElementById("login").style.display = "none";
   }

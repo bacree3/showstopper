@@ -5,11 +5,18 @@ if (isLoggedIn()) {
 	header("Location:/");
 }
 
-if (isset($_GET['error']) && $_GET['error'] == 1) {
-	$error = "
-	<div class='alert alert-danger text-center' role='alert'>
-  	Your email or password was incorrect. Please try again.
-	</div>";
+if (isset($_GET['error'])) {
+	if ($_GET['error'] == 1) {
+		$error = "
+		<div class='alert alert-danger text-center' role='alert'>
+	  	Your email or password was incorrect. Please try again.
+		</div>";
+	} else if ($_GET['error'] == "favorite") {
+		$error = "
+		<div class='alert alert-danger text-center' role='alert'>
+	  	Please login before favoriting!
+		</div>";
+	}
 } else {
 	$error = "";
 }
