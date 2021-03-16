@@ -1,5 +1,5 @@
 $("head").load("/src/html/head.html");
-$(".header").load("/src/html/header.html");
+//$(".header").load("/src/html/test.html");
 $(".footer").load("/src/html/footer.html");
 
 var titles;
