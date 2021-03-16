@@ -10,7 +10,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
     <!-- BODY -->
 
     <div class="jumbotron jumbotron-fluid d-flex flex-column align-items-center justify-content-start">
-      <h1 class="display-3">ShowStopper</h1>
+      <h1 class="display-4">ShowStopper</h1>
       <p class="lead">Get the most out of your streaming services</p>
       <div class="d-flex justify-content-around mt-3">
         <p id="signup" class="mr-1">Don't have an account?</p>
