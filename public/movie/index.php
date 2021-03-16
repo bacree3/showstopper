@@ -50,7 +50,7 @@ foreach ($platformsList as $platform) {
 			</div>
 		</div>
       	<div class="row pt-4 bg-light pb-4 mt-1 rounded">
-        	<div class="col-xs-12 col-sm-4 col-md-4 text-center">
+        	<div class="col-xs-12 col-sm-4 col-md-4 mb-3 text-center">
           		<img src="<?php echo $titleData['img'];?>" class="rounded title img-fluid searchImg" alt="...">
        		</div>
         	<div class="col-xs-12 col-sm-8 col-md-8 text-left">
