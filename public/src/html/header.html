@@ -20,10 +20,10 @@
         <a class="dropdown-item" href="/logout">Log out</a>
       </div>
     </li>
-		<li id = "favorites" class="nav-item">
+		<li id="favorites" class="nav-item">
       <a class="nav-link" href="/favorites">Favorites</a>
     </li>
-		<li id = "notifications" class="nav-item">
+		<li id="notifications" class="nav-item">
       <a class="nav-link" href="#">Notifications</a>
     </li>
     <li class="nav-item dropdown">
@@ -40,10 +40,17 @@
       </div>
     </li>
   </ul>
-  <form action="/search/" method="get" class="form-inline my-2 my-lg-0">
-    <input id = "searchInput" name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button name="submit" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
-  </form>
+  <div id="searchbar">
+    <form action="/search/" method="get" class="form-inline my-2 my-lg-0">
+      <input id="searchInput" name="search" class="form-control mr-sm-2 input" type="search" placeholder="Search" aria-label="Search">
+      <div class="dropdown">
+        <div class="dropdown-menu">
+           <div class="dropdown-content autocomplete"></div>
+        </div>
+      </div>
+      <button name="submit" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
 </div>
 
 <script>
@@ -54,5 +61,68 @@
   } else {
   	document.getElementById("login").style.display = "none";
   }
+
+  const createAutoComplete = ({
+      rootDiv,
+      lineItemDisplay,
+      searchingOn,
+      populateWith
+    }) => {
+  
+      const input = rootDiv.querySelector('input');
+      const dropdown = rootDiv.querySelector('.dropdown-menu');
+      const resultsWrapper = rootDiv.querySelector('.autocomplete');
+  
+      const onInput = event => {
+        const items = populateWith(event.target.value.toLowerCase());
+        if (!items.length) {
+          dropdown.classList.remove('show');
+          return;
+        }
+        resultsWrapper.innerHTML = '';
+        dropdown.classList.add('show');
+        for (let item of items) {
+          const option = document.createElement('a');
+          option.classList.add('dropdown-item');
+          option.innerHTML = lineItemDisplay(item);
+          option.addEventListener('click', () => {
+            dropdown.classList.remove('show');
+            input.value = searchingOn(item);
+          });
+          resultsWrapper.appendChild(option);
+        }
+      };
+  
+      input.addEventListener('input', onInput);
+  
+      document.addEventListener('click', event => {
+        if (!rootDiv.contains(event.target)) {
+          dropdown.classList.remove('show');
+        }
+      });
+    }
+
+    //autocomplete
+    createAutoComplete({
+      rootDiv: document.getElementById('searchbar'),
+      lineItemDisplay(movie) {
+        return `${movie.name}`;
+      },
+      searchingOn(movie) {
+        return movie.name;
+      },
+      populateWith(searchTerm) {
+        const results = [];
+        let lowerTitle;
+        for (i=1; i < titles.length; i++) {
+          lowerTitle = titles[i].name.toLowerCase();
+          if (lowerTitle.includes(searchTerm)) {
+            results.push(titles[i]);
+          }
+        }
+        return results;
+      }
+    });
+
 
 </script>
