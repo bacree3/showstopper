@@ -175,19 +175,19 @@ echo $titleData['src/src/img']; */
 		//console.log(element.children().html());
 		if (element.children().hasClass("spinner-border")) {
 			//console.log(title.id);
-			console.log(title.name)
+			//console.log(title.name)
 			$.ajax({
 				url: '/movie/platforms.php',
 				type: 'GET',
 				dataType: 'text',
 				contentType: 'application/json',
 				data: {
-					id: title.id,
+					id: title.id + " " + title.release,
 					name: title.name,
 				},
 				success: function(response) {
 					//console.log('getting data');
-					console.log(response);
+					//console.log(response);
 					updateLoadPlatforms(title.id);
 				}
 			});

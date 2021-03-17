@@ -80,12 +80,14 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
 									    contentType: "application/json",
 									    data: {
 									      id: <?php echo str($titleData['id']); ?>,
-									      name: <?php echo str($titleData['name']); ?>
+									      name: <?php echo str($titleData['name'] . " " . $titleData['release']); ?>
 									    },
 									    success: function(response) {
 												//console.log("getting data");
-												console.log(response);
-									      updateLoadPlatforms(<?php echo str($titleData['id']); ?>);
+												//console.log(response);
+												var test = <?php echo str($titleData['id']); ?>;
+												console.log(test);
+									      updateLoadPlatforms(test);
 									    }
 									  });
 									</script>
