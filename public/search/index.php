@@ -46,12 +46,12 @@ echo $titleData['src/src/img']; */
 		<!-- BODY -->
 
 
-		<div class="container">
+		<div class="container-fluid">
       <div class="srow rounded">
         <p class="lead font-weight-bold">Showing Results for: <?php echo $searchString; ?></p>
       </div>
       <div class="row pt-4">
-        <div class="col-3">
+        <div class="col-3" >
           <div class= "filters rounded" >
             <p class="lead font-weight-bold">Filters: </p>
               <div class="form-check">
@@ -86,7 +86,7 @@ echo $titleData['src/src/img']; */
               </div>
           </div>
         </div>
-        <div class="col-9 justify-content-center">
+        <div class="col-9 justify-content-center col-xs-12 col-sm-10 col-md-8">
 
 					<?php
 					$resultsHTML = "";
