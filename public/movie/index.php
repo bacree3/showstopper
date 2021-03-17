@@ -1,6 +1,7 @@
 <?php
 
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
+//include $_SERVER['DOCUMENT_ROOT'] . '/php/platforms.php';
 
 if (isset($_GET['title']) && !empty($_GET['title'])) {
 	$title = steralizeString($_GET['title']);
@@ -14,20 +15,15 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
 }
 
 //$platformsList = scrapePlatforms($titleData['name']);
-$platformsList = [];
-$platformNames = array();
-$platformLinks = array();
-foreach ($platformsList as $platform) {
-    $platformNames[] = $platform['name'];
-    $platformLinks[$platform['name']] = $platform['link'];
-}
-
+//$params['title'] = $titleData['name'];
+//$platformsList = insertPlatforms($apiURL . '/getPlatforms', $params);
 
 ?>
 
 <html>
 
   <head></head>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
   <body>
     <nav class= "header navbar navbar-expand-lg sticky-top navbar-dark"></nav>
@@ -54,47 +50,67 @@ foreach ($platformsList as $platform) {
           		<img src="<?php echo $titleData['img'];?>" class="rounded title img-fluid searchImg" alt="...">
        		</div>
         	<div class="col-xs-12 col-sm-8 col-md-8 text-left">
-				<p class="lead"><span class = "font-weight-bold">Cast:</span> <?php echo generateActorLinks($titleData['actors']);?></p>
-				<p class="lead"><span class = "font-weight-bold">Summary:</span> <?php echo $titleData['summary'];?></p>
-				<p class="lead"><span class = "font-weight-bold">IMDB Ratings:</span> <?php echo $titleData['rating'];?></p>
-				<p class="lead"><span class = "font-weight-bold">Release Date:</span> <?php echo $titleData['release'];?></p>
-				<p class="lead"><span class = "font-weight-bold">Platforms:</span> </p>
-				<div class = 'row platforms ml-1'>
-                    <a id="netflixLink" class="<?=in_array('Netflix', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded'?>" href="<?php echo $platformLinks['Netflix'];?>">
-                        <img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
-                    </a>
-                    <a id="huluLink" class="<?=in_array('Hulu', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded'?>" href="<?php echo $platformLinks['Hulu'];?>">
-                        <img src='/src/img/hulu.png' class='rounded title' alt='...'>
-                    </a>
-                    <a class="<?=in_array('Amazon Prime Video', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded'?>" href="<?php echo $platformLinks['Amazon Prime Video'];?>">
-                        <img src='/src/img/prime.jpg' class='rounded title' alt='...'>
-                    </a>
-                    <a class="<?=in_array('HBO Max', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded'?>" href="<?php echo $platformLinks['HBO Max'];?>">
-                        <img src='/src/img/hbo.png' class='rounded title' alt='...'>
-                    </a>
-                    <a class="<?=in_array('Disney+', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded'?>" href="<?php echo $platformLinks['Disney+'];?>">
-                        <img src='/src/img/disneyplus.jpg' class='rounded title' alt='...'>
-                    </a>
-				</div>
+						<p class="lead"><span class = "font-weight-bold">Cast:</span> <?php echo generateActorLinks($titleData['actors']);?></p>
+						<p class="lead"><span class = "font-weight-bold">Summary:</span> <?php echo $titleData['summary'];?></p>
+						<p class="lead"><span class = "font-weight-bold">IMDB Ratings:</span> <?php echo $titleData['rating'];?></p>
+						<p class="lead"><span class = "font-weight-bold">Release Date:</span> <?php echo $titleData['release'];?></p>
+						<p class="lead"><span class = "font-weight-bold">Platforms:</span> </p>
+						<div class = 'row platforms ml-2'>
+							<?php
+								//echo $titleData['services'];
+								if ($titleData['services'] == '[]' || $titleData['services'] == 'false') {
+									echo "
+									<div class='spinner-border text-danger' role='status'>
+										<span class='sr-only'>Loading...</span>
+									</div>
+									";
+									//$data['title'] = $titleData['name'];
+									//$data['id'] = $titleData['id'];
+									//print_r($data);
+									//$url = $_SERVER['DOCUMENT_ROOT'] . 'php/platforms.php';
+									//$url = 'http://localhost/php/platforms.php';
+									//echo $url;
+									//post_async($url, $data);
+									?>
+									<script>
+										$.ajax({
+									    url: '/movie/platforms.php',
+									    type: 'GET',
+									    dataType: 'text',
+									    contentType: "application/json",
+									    data: {
+									      id: <?php echo str($titleData['id']); ?>,
+									      name: <?php echo str($titleData['name']); ?>
+									    },
+									    success: function(response) {
+												//console.log("getting data");
+												//console.log(response);
+									      updateLoadPlatforms(response);
+									    }
+									  });
+									</script>
+									<?php
+								} else {
+									echo getServicesHTML(json_decode($titleData['services'], true));
+								}
+							?>
+						</div>
         	</div>
       	</div>
     </div>
 
 		<!-- END BODY -->
 		<div class = "footer mt-4 pt-4"></div>
-		<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 		<script src = "/src/js/script.js"></script>
 	</body>
 </html>
 
 <script>
-// NEED SERVER LOGIC
 	var isFavorite = <?php echo isFavorited($titleData['id']); ?>;
   	if (!isFavorite) {
 			$("#" + <?php echo str($titleData['id']); ?> +"isFavorite").hide();
   	} else {
 			$("#" + <?php echo str($titleData['id']); ?> + "isNotFavorite").hide();
   	}
-
 </script>
