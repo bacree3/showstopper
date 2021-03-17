@@ -91,6 +91,17 @@ echo $titleData['src/src/img']; */
 					<?php
 					$resultsHTML = "";
 					foreach ($results as $key => $title) {
+							if ($title['services'] == '[]' || $title['services'] == 'false') {
+								$services = "
+								<div class='spinner-border text-danger' role='status'>
+									<span class='sr-only'>Loading...</span>
+								</div>
+								";
+							} else {
+								$services = getServicesHTML(json_decode($title['services'], true));
+							}
+
+							//$services = $title['services'] == '[]' || $title['services'] == 'false' ? "test" : getServicesHTML(json_decode($title['services'], true));
 					  	$row = "
 					    	<div class='row pt-4 bg-light pb-4 mt-4 rounded movie" . $title['id'] ."'>
 								<div class='col-xs-4 col-md-1 text-center' onclick='changeFavStatus(" . str($title['id']) . ")'>
@@ -104,7 +115,7 @@ echo $titleData['src/src/img']; */
 								<div class='col-xs-8 col-md-3 text-center' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>
 					        		<img src='" . $title['img'] . "' class='rounded title movieImg' alt='...'>
 					      		</div>
-					      		<div class='col-xs-12 col-md-8 text-left'>
+					      		<div id = " . $title['id'] . " class='col-xs-12 col-md-8 text-left'>
 					        		<h1 class='display-4' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>" . $title['name'] . "</h1>
 									<p class='lead'>
 										<span class='font-weight-bold'>Release Date:</span> " . $title['release'] . "
@@ -113,7 +124,7 @@ echo $titleData['src/src/img']; */
 										<span class='font-weight-bold'>Platforms:</span>
 									</p>
 									<div class='row platforms ml-2'>
-										" . getServicesHTML(json_decode($title['services'], true)) . "
+										" . $services . "
 									</div>
 					      		</div>
 					    	</div>"
@@ -159,5 +170,28 @@ echo $titleData['src/src/img']; */
 		} else {
 			$("#" + title.id + "isNotFavorite").hide();
 		}
+		var spinner = "<div class='spinner-border text-danger' role='status'><span class='sr-only'>Loading...</span></div>";
+		var element = $("#" + title.id + " .platforms");
+		//console.log(element.children().html());
+		if (element.children().hasClass("spinner-border")) {
+			//console.log(title.id);
+			console.log(title.name)
+			$.ajax({
+				url: '/movie/platforms.php',
+				type: 'GET',
+				dataType: 'text',
+				contentType: 'application/json',
+				data: {
+					id: title.id,
+					name: title.name,
+				},
+				success: function(response) {
+					//console.log('getting data');
+					console.log(response);
+					updateLoadPlatforms(title.id);
+				}
+			});
+		}
+
 	}
 </script>

@@ -83,19 +83,19 @@ function changeFavStatus(id) {
   }
 }
 
-function updateLoadPlatforms(platforms) {
+function updateLoadPlatforms(id) {
   $.ajax({
     url: '/movie/getPlatforms.php',
     type: 'GET',
     dataType: 'text',
     contentType: "application/json",
     data: {
-      platforms: platforms
+      id: id
     },
     success: function(response) {
       //console.log("showing data");
       //console.log(response);
-      $(".platforms").html(response);
+      $("#" + id + " .platforms").html(response);
     }
   });
 }

@@ -49,7 +49,7 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
         	<div class="col-xs-12 col-sm-4 col-md-4 mb-3 text-center">
           		<img src="<?php echo $titleData['img'];?>" class="rounded title img-fluid searchImg" alt="...">
        		</div>
-        	<div class="col-xs-12 col-sm-8 col-md-8 text-left">
+        	<div id = "<?php echo $titleData['id']; ?>" class="col-xs-12 col-sm-8 col-md-8 text-left">
 						<p class="lead"><span class = "font-weight-bold">Cast:</span> <?php echo generateActorLinks($titleData['actors']);?></p>
 						<p class="lead"><span class = "font-weight-bold">Summary:</span> <?php echo $titleData['summary'];?></p>
 						<p class="lead"><span class = "font-weight-bold">IMDB Ratings:</span> <?php echo $titleData['rating'];?></p>
@@ -84,8 +84,8 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
 									    },
 									    success: function(response) {
 												//console.log("getting data");
-												//console.log(response);
-									      updateLoadPlatforms(response);
+												console.log(response);
+									      updateLoadPlatforms(<?php echo str($titleData['id']); ?>);
 									    }
 									  });
 									</script>
