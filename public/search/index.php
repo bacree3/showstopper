@@ -46,47 +46,47 @@ echo $titleData['src/src/img']; */
 		<!-- BODY -->
 
 
-		<div class="container">
-      <div class="srow rounded">
-        <p class="lead font-weight-bold">Showing Results for: <?php echo $searchString; ?></p>
-      </div>
-      <div class="row pt-4">
-        <div class="col-3">
-          <div class= "filters rounded" >
-            <p class="lead font-weight-bold">Filters: </p>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                  <p class="lead">Netflix</p>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                <label class="form-check-label" for="defaultCheck2">
-                  <p class="lead">Hulu</p>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                <label class="form-check-label" for="defaultCheck3">
-                  <p class="lead">Amazon Prime</p>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                <label class="form-check-label" for="defaultCheck4">
-                  <p class="lead">HBOMax</p>
-                </label>
-              </div>
-							<div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                <label class="form-check-label" for="defaultCheck4">
-                  <p class="lead">Disney Plus</p>
-                </label>
-              </div>
-          </div>
-        </div>
-        <div class="col-9 justify-content-center">
+	<div class="container">
+      	<div class="srow rounded">
+        	<p class="lead font-weight-bold">Showing Results for: <?php echo $searchString; ?></p>
+      	</div>
+      	<div class="row pt-4">
+        	<div class="col-3">
+          		<div class= "filters rounded" >
+            		<p class="lead font-weight-bold">Filters: </p>
+              		<div class="form-check">
+                		<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                		<label class="form-check-label" for="defaultCheck1">
+                  			<p class="lead">Netflix</p>
+                		</label>
+              		</div>
+              		<div class="form-check">
+                		<input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                		<label class="form-check-label" for="defaultCheck2">
+                  			<p class="lead">Hulu</p>
+                		</label>
+              		</div>
+              		<div class="form-check">
+                		<input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
+                		<label class="form-check-label" for="defaultCheck3">
+                  			<p class="lead">Amazon Prime</p>
+                		</label>
+              		</div>
+              		<div class="form-check">
+                		<input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
+                		<label class="form-check-label" for="defaultCheck4">
+                 		 	<p class="lead">HBOMax</p>
+                		</label>
+              		</div>
+					<div class="form-check">
+                		<input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
+                		<label class="form-check-label" for="defaultCheck4">
+                  			<p class="lead">Disney Plus</p>
+                		</label>
+              		</div>
+          		</div>
+        	</div>
+       		<div class="col-9 justify-content-center">
 
 					<?php
 					$resultsHTML = "";
@@ -131,8 +131,8 @@ echo $titleData['src/src/img']; */
 					echo $resultsHTML;
 					?>
 
-        </div>
-      </div>
+        	</div>
+      	</div>
     </div>
 
 		<!-- END BODY -->
