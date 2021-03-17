@@ -12,7 +12,7 @@ if ($conn->connect_errno) {
   echo "Failed to connect to MySQL: " . $conn->connect_error();
 }
 
-$servicesReference = ["Netflix", "Hulu", "Disney+", "Amazon Prime", "HBO Max"];
+$servicesReference = ["Netflix", "Hulu", "Disney+", "Amazon Prime Video", "HBO Max"];
 $serviceIMG = array(
   $servicesReference[0] => "netflix.jpg",
   $servicesReference[1] => "hulu.png",
@@ -345,27 +345,6 @@ function searchByActor($actor) {
   return query($query, true);
 }
 
-function getServicesHTML($arr) {
-  global $servicesReference, $serviceIMG;
-  foreach ($servicesReference as $key => $value) {
-    $temp[$key] = $value;
-  }
-  //print_r($temp);
-  $html = "<div class = 'row platforms ml-2'><div class ='platformsyes'>";
-  foreach ($arr as $key => $service) {
-    $key = array_search($service, $temp);
-    unset($temp[$key]);
-    $html .= "<img src='/src/img/" .  $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
-  }
-  $html .= "</div><div class ='platformsno'>";
-  //print_r($temp);
-  foreach ($temp as $key => $service) {
-    $html .= "<img src='/src/img/" . $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
-  }
-  $html .= "</div></div>";
-  return $html;
-}
-
 function getTitlesForSearch() {
   return json_encode(query("SELECT id, name, services FROM titles;", true));
 }
@@ -383,7 +362,8 @@ function verifyEmail($email) {
 }
 
 function scrapeActors($id) {
-  $url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getActors';
+  global $apiURL;
+  $url = $apiURL . 'getActors';
   // The data to send to the API
   $postData = array(
       'id' => $id,
@@ -417,7 +397,7 @@ function scrapeActors($id) {
 }
 
 // function scrapeRelatedTitles($title) {
-//   $url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getRelatedTitles';
+//   $url = '';
 //   // The data to send to the API
 //   $postData = array(
 //       'title' => $title,
@@ -449,7 +429,8 @@ function scrapeActors($id) {
 // }
 
 function scrapePlatforms($title) {
-  $url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getPlatforms';
+  global $apiURL;
+  $url = $apiURL . 'getPlatforms';
   // The data to send to the API
   $postData = array(
       'title' => $title,
@@ -478,6 +459,113 @@ function scrapePlatforms($title) {
 
   // Print the date from the response
   return $responseData;
+}
+
+function insertPlatforms($title, $platforms) {
+  $platforms = json_encode($platforms);
+  $query = "UPDATE titles SET services = " . json($platforms) . " WHERE id = " . str($title) . ";";
+  //echo $query;
+  query($query, false);
+}
+
+function getActiveServices($platforms) {
+  $platformNames = array();
+  $platformLinks = array();
+  foreach ($platforms as $platform) {
+      $platformNames[] = $platform['name'];
+      $platformLinks[$platform['name']] = $platform['link'];
+  }
+}
+
+
+function getServicesHTML($platforms) {
+  global $servicesReference, $serviceIMG;
+  $platformNames = array();
+  $platformLinks = array();
+  foreach ($platforms as $platform) {
+      $platformNames[] = $platform['name'];
+      $platformLinks[$platform['name']] = $platform['link'];
+  }
+  foreach ($servicesReference as $key => $value) {
+    $temp[$key] = $value;
+  }
+  //print_r($temp);
+  $html = "<div class ='platformsyes'>";
+  foreach ($temp as $key => $service) {
+    if (in_array($service, $platformNames)) {
+      $key = array_search($service, $temp);
+      unset($temp[$key]);
+      $html .= "<a href = " . $platformLinks[$service] . " target = '_blank'><img src='/src/img/" .  $serviceIMG[$service] . "' class='title rounded' alt=''...''></a>";
+    }
+  }
+  $html .= "</div><div class ='platformsno'>";
+  //print_r($temp);
+  foreach ($temp as $key => $service) {
+    //if (in_array($service, $platformNames)) {
+      $key = array_search($service, $temp);
+      unset($temp[$key]);
+      $html .= "<img src='/src/img/" .  $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
+    //}
+  }
+  $html .= "</div>";
+  return $html;
+}
+
+function generatePlatformsHTML($platforms) {
+  $platformNames = array();
+  $platformLinks = array();
+  foreach ($platforms as $platform) {
+      $platformNames[] = $platform['name'];
+      $platformLinks[$platform['name']] = $platform['link'];
+  }
+	return "
+		<a class='" . in_array('Netflix', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded' . " href='" . $platformLinks['Netflix'] . "'>
+				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
+		</a>
+		<a class='" . in_array('Hulu', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded' . " href='" . $platformLinks['Hulu'] . "'>
+				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
+		</a>
+		<a class='" . in_array('Amazon Prime Video', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded' . " href='" . $platformLinks['Amazon Prime Video'] . "'>
+				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
+		</a>
+		<a class='" . in_array('HBO Max', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded' . " href='" . $platformLinks['Netflix'] . "'>
+				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
+		</a>
+		<a class='" . in_array('Disney+', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded' . " href='" . $platformLinks['Disney+'] . "'>
+				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
+		</a>
+	";
+}
+
+//$params['my_param'] = $a_value;
+//post_async('http:://localhost/batch/myjob.php', $params);
+
+/*
+ * Executes a PHP page asynchronously so the current page does not have to wait for it to     finish running.
+ *
+ */
+function post_async($url, array $params) {
+    foreach ($params as $key => &$val) {
+      if (is_array($val)) $val = implode(',', $val);
+        $post_params[] = $key.'='.urlencode($val);
+    }
+    $post_string = implode('&', $post_params);
+
+    $parts=parse_url($url);
+
+    $fp = fsockopen($parts['host'],
+        isset($parts['port'])?$parts['port']:80,
+        $errno, $errstr, 30);
+
+    $out = "POST ".$parts['path']." HTTP/1.1\r\n";
+    $out.= "Host: ".$parts['host']."\r\n";
+    $out.= "Content-Type: application/x-www-form-urlencoded\r\n";
+    $out.= "Content-Length: ".strlen($post_string)."\r\n";
+    $out.= "Connection: Close\r\n\r\n";
+    if (isset($post_string)) $out.= $post_string;
+    fwrite($fp, $out);
+    fclose($fp);
+    //return
 }
 
 ?>

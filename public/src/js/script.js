@@ -83,6 +83,23 @@ function changeFavStatus(id) {
   }
 }
 
+function updateLoadPlatforms(platforms) {
+  $.ajax({
+    url: '/movie/getPlatforms.php',
+    type: 'GET',
+    dataType: 'text',
+    contentType: "application/json",
+    data: {
+      platforms: platforms
+    },
+    success: function(response) {
+      //console.log("showing data");
+      //console.log(response);
+      $(".platforms").html(response);
+    }
+  });
+}
+
 function removeFavoriteCard(id) {
   console.log(id);
   $("#" + id).remove();
