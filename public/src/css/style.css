@@ -17,6 +17,11 @@ footer {
     height: 60px;
 }
 
+.results {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
 .card {
 	width: 14rem;
 	border: 0px !important;

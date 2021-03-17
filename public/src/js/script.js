@@ -88,6 +88,18 @@ function removeFavoriteCard(id) {
   $("#" + id).remove();
 }
 
+const debounce = (func, delay = 1000) => {
+    let timeoutId;
+    return (...args) => {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+            func.apply(null, args);
+        }, delay)
+    }
+}
+
 /* $('.movie').each(function(i, obj) {
     var title = $(obj).attr('class').split(' ').pop();
 		$(obj).click(function() {
