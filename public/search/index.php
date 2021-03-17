@@ -113,15 +113,7 @@ echo $titleData['src/src/img']; */
 										<span class='font-weight-bold'>Platforms:</span>
 									</p>
 									<div class='row platforms ml-2'>
-										<div class='platformsyes rounded'>
-											<img src='/src/img/netflix.jpg' class='rounded title' alt=''...''>
-											<img src='/src/img/hulu.png' class='rounded title' alt=''...''>
-											<img src='/src/img/prime.jpg' class='rounded title' alt=''...''>
-										</div>
-										<div class ='platformsno rounded'>
-											<img src='/src/img/hbo.png' class='rounded title' alt=''...''>
-											<img src='/src/img/disneyplus.jpg' class='rounded title' alt=''...''>
-										</div>
+										" . getServicesHTML(json_decode($title['services'], true)) . "
 									</div>
 					      		</div>
 					    	</div>"
