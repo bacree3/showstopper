@@ -84,6 +84,7 @@ function changeFavStatus(id) {
 }
 
 function updateLoadPlatforms(id) {
+  console.log("called for " + id);
   $.ajax({
     url: '/movie/getPlatforms.php',
     type: 'GET',
@@ -94,7 +95,7 @@ function updateLoadPlatforms(id) {
     },
     success: function(response) {
       //console.log("showing data");
-      //console.log(response);
+      //console.log(id + " " + response);
       $("#" + id + " .platforms").html(response);
     }
   });

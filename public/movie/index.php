@@ -84,10 +84,10 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
 									    },
 									    success: function(response) {
 												//console.log("getting data");
-												//console.log(response);
-												var test = <?php echo str($titleData['id']); ?>;
-												console.log(test);
-									      updateLoadPlatforms(test);
+												console.log(response);
+												var titleID = <?php echo str($titleData['id']); ?>;
+												//console.log(test);
+									      updateLoadPlatforms(titleID);
 									    }
 									  });
 									</script>

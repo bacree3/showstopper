@@ -146,19 +146,26 @@ echo $titleData['src/src/img']; */
 	</body>
 </html>
 
-<script type="text/javascript">
-	<?php
-		$favorites = [];
-		foreach ($results as $key => $title) {
-			if (isFavorited($title['id'])) {
-				array_push($favorites, $title['id']);
-			}
+<?php
+	$favorites = [];
+	$needsUpdate = [];
+	foreach ($results as $key => $title) {
+		if (isFavorited($title['id'])) {
+			array_push($favorites, $title['id']);
 		}
-		//print_r($favorites);
-	?>
+		$services = $title['services'];
+		if ($services == 'false' || $services == '[]' || $services == NULL) {
+			array_push($needsUpdate, $title['id']);
+		}
+	}
+	//print_r($favorites);
+?>
+
+<script type="text/javascript">
 	var titles = <?php echo json_encode($results); ?>;
 	var favorites = <?php echo json_encode($favorites); ?>;
-	//console.log(favorites);
+	var needsUpdate = <?php echo json_encode($needsUpdate); ?>;
+
 	for (title of titles) {
 		if (favorites.includes(title.id)) {
 			isFavorite = true;
@@ -172,26 +179,22 @@ echo $titleData['src/src/img']; */
 		}
 		var spinner = "<div class='spinner-border text-danger' role='status'><span class='sr-only'>Loading...</span></div>";
 		var element = $("#" + title.id + " .platforms");
-		//console.log(element.children().html());
 		if (element.children().hasClass("spinner-border")) {
-			//console.log(title.id);
-			//console.log(title.name)
 			$.ajax({
 				url: '/movie/platforms.php',
 				type: 'GET',
 				dataType: 'text',
 				contentType: 'application/json',
 				data: {
-					id: title.id + " " + title.release,
-					name: title.name,
+					id: title.id,
+					name: title.name + " " + title.release,
 				},
 				success: function(response) {
-					//console.log('getting data');
-					//console.log(response);
-					updateLoadPlatforms(title.id);
+					for (id of needsUpdate) {
+						updateLoadPlatforms(id);
+					}
 				}
 			});
 		}
-
 	}
 </script>

@@ -484,6 +484,9 @@ function getActiveServices($platforms) {
 
 
 function getServicesHTML($platforms) {
+  if (!$platforms || $platforms == "false") {
+    $platforms = [];
+  }
   global $servicesReference, $serviceIMG;
   $platformNames = array();
   $platformLinks = array();
