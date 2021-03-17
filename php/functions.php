@@ -126,7 +126,7 @@ function generateActorLinks($actors) {
 
 // add title to cache db
 function addTitle($title) {
-  $titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'img', 'genre'];
+  $titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'services', 'img', 'genre'];
   $table = "titles";
   $values = [
     "'" . $title["imdbID"] . "'",
@@ -134,6 +134,7 @@ function addTitle($title) {
     "'" . $title["Year"] . "'",
     "\"" . $title["Plot"] . "\"",
     "'" . $title["Ratings"][0]['Value'] . "'",
+    "'[]'",
     "'" . $title["Poster"] . "'",
     "'" . $title["Genre"] . "'",
   ];
@@ -142,6 +143,7 @@ function addTitle($title) {
   insert($titleColumns, $values, $table);
   $actors = array_unique($actors);
   $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($title["imdbID"]) . ";";
+  //echo $query;
   query($query, false);
   //addDirectors();
 }
@@ -262,8 +264,11 @@ function toSearchString($searchString) {
 function searchByTitle($titleString) {
   global $omdbURL;
   $api_url = $omdbURL . "t=" . toSearchString($titleString);
+  //echo $api_url;
   $data = json_decode(file_get_contents($api_url), true);
+  //print_r($data);
   if (!inCache($data['imdbID'], 'titles')) {
+    //echo "not in cache";
     addTitle($data);
   } else {
     //updateTitle($data['imdbID']);
