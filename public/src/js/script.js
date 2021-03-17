@@ -57,6 +57,37 @@ function loginAttempt() {
 	return true;
 }
 
+function changeFavStatus(id) {
+  if (!loggedin) {
+    window.location.href = "/login?error=favorite";
+  } else {
+    $.ajax({
+  		url: '/favorites/favorite.php',
+  		type: 'GET',
+      dataType: 'text',
+      contentType: "application/json",
+  		data: {
+        id: id
+      },
+  		success: function(response) {
+        //console.log(response);
+  			if ($("#"+id+"isFavorite").is(":hidden")) {
+  				$("#"+id+"isFavorite").show();
+  				$("#"+id+"isNotFavorite").hide();
+  			} else {
+  				$("#"+id+"isFavorite").hide();
+  				$("#"+id+"isNotFavorite").show();
+  			};
+  		}
+  	});
+  }
+}
+
+function removeFavoriteCard(id) {
+  console.log(id);
+  $("#" + id).remove();
+}
+
 /* $('.movie').each(function(i, obj) {
     var title = $(obj).attr('class').split(' ').pop();
 		$(obj).click(function() {

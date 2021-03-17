@@ -126,6 +126,10 @@ function logIn($email, $pass) {
 	return false;
 }
 
+function getCurrentUserID() {
+	return $_SESSION['userID'];
+}
+
 function emailExists($email) {
 	$query = "SELECT * FROM users WHERE email = " . str($email) . ";";
 	//echo $query;
@@ -148,7 +152,7 @@ function createUser($email, $pass) {
 }
 
 function getUserInfo($id) {
-	return query("SELECT name, email, services FROM users WHERE id = " . str($id), true);
+	return query("SELECT name, email, services, favorites FROM users WHERE id = " . str($id), true)[0];
 }
 
 function accountSetup($id, $name, $services) {
@@ -196,6 +200,23 @@ function removeDuplicates($data) {
 	$result = json_encode( $array );
 }
 
+function isFavorited($favoriteID) {
+	if (!isLoggedIn()) {
+		return 0;
+	}
+	$user = getCurrentUserID();
+	$favorites = json_decode(getUserInfo($user)['favorites']);
+	//print_r($favorites);
+	if (in_array($favoriteID, $favorites)) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+function getFavorites() {
+	return json_decode(getUserInfo(getCurrentUserID())['favorites']);
+}
 
 ?>
 

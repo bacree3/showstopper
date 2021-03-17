@@ -1,3 +1,15 @@
+<?php
+
+include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
+
+if (!isLoggedIn()) {
+  header('Location:/');
+} else {
+  $favorites = getFavorites();
+}
+
+?>
+
 <html>
   <head></head>
 
@@ -11,79 +23,33 @@
         <p class = "lead text-center">Click the "X" to remove a title or actor from your favorites.</p>
       </div>
       <div class="col pt-4">
-        <div class="row justify-content-md-center">
-          <div class="col-2.5 bg-light rounded p-2 m-2">
-            <div class="row pl-1">
-              <div class="col-1">
-                <button type="button" class="btn btn-dark btn-sm align-left">X</button>
+        <?php
+          $count = 0;
+          $html = "
+          <div class='row justify-content-md-center'>
+          ";
+          foreach ($favorites as $key => $title) {
+            $titleData = getElementByID($title, 'titles');
+            $html .= "
+            <div id = '" . $titleData['id'] . "' class='col-2.5 bg-light rounded p-2 m-2'>
+              <div class='row pl-1'>
+                <div class='col-1'>
+                  <button type='button' onclick = 'changeFavStatus(" . str($titleData['id']) . "); removeFavoriteCard(" . str($titleData['id']) . ")' class='btn btn-dark btn-sm align-left'>X</button>
+                </div>
+                <div class='col'>
+                  <p class = 'lead text-center'>" . $titleData['name'] . "</p>
+                </div>
               </div>
-              <div class="col">
-                <p class = "lead text-center">Title</p>
-              </div>
+              <img src='" . $titleData['img'] . "' class='rounded title' alt='...'>
             </div>
-            <img src="/src/img/avengers.jpg" class="rounded title" alt="...">
-          </div>
-          <div class="col-2.5 bg-light rounded p-2 m-2">
-            <div class="row pl-1">
-              <div class="col-1">
-                <button type="button" class="btn btn-dark btn-sm align-left">X</button>
-              </div>
-              <div class="col">
-                <p class = "lead text-center">Title</p>
-              </div>
-            </div>
-            <img src="/src/img/avengers.jpg" class="rounded title" alt="...">
-          </div>
-          <div class="col-2.5 bg-light rounded p-2 m-2">
-            <div class="row pl-1">
-              <div class="col-1">
-                <button type="button" class="btn btn-dark btn-sm align-left">X</button>
-              </div>
-              <div class="col">
-                <p class = "lead text-center">Title</p>
-              </div>
-            </div>
-            <img src="/src/img/avengers.jpg" class="rounded title" alt="...">
-          </div>
-          <div class="col-2.5 bg-light rounded p-2 m-2">
-            <div class="row pl-1">
-              <div class="col-1">
-                <button type="button" class="btn btn-dark btn-sm align-left">X</button>
-              </div>
-              <div class="col">
-                <p class = "lead text-center">Title</p>
-              </div>
-            </div>
-            <img src="/src/img/avengers.jpg" class="rounded title" alt="...">
-          </div>
-
-        </div>
-        <div class="row justify-content-md-center">
-          <div class="col-2.5 bg-light rounded p-2 m-2">
-            <div class="row pl-1">
-              <div class="col-1">
-                <button type="button" class="btn btn-dark btn-sm align-left">X</button>
-              </div>
-              <div class="col">
-                <p class = "lead text-center">Title</p>
-              </div>
-            </div>
-            <img src="/src/img/avengers.jpg" class="rounded title" alt="...">
-          </div>
-          <div class="col-2.5 bg-light rounded p-2 m-2">
-            <div class="row pl-1">
-              <div class="col-1">
-                <button type="button" class="btn btn-dark btn-sm align-left">X</button>
-              </div>
-              <div class="col">
-                <p class = "lead text-center">Title</p>
-              </div>
-            </div>
-            <img src="/src/img/avengers.jpg" class="rounded title" alt="...">
-          </div>
-
+            ";
+          }
+          $html .= "</div>";
+          echo $html;
+        ?>
       </div>
     </div>
+  </div>
 
 		<!-- END BODY -->
 		<div class = "footer mt-4 pt-4"></div>

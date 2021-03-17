@@ -31,10 +31,15 @@ img {
 	border: 5px !important;
 }
 
+.movieImg {
+    width: 100%;
+    height: auto;
+}
+
 .filters {
 	position: fixed;
 	top: 0;
-    padding: 30px;
+  padding: 30px;
 	margin-top: 200px;
 	color: black;
 	background-color: #AAC1E9;

@@ -106,30 +106,6 @@ function steralizeString($str) {
   return mysqli_real_escape_string($conn, $str);
 }
 
-function updateTitle($id) {
-  $titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'img', 'genre'];
-  $updatedData = getTitleInfo($id);
-  $values = [
-    "'" . $updatedData["imdbID"] . "'",
-    "'" . $updatedData["Title"] . "'",
-    "'" . $updatedData["Year"] . "'",
-    "\"" . $updatedData["Plot"] . "\"",
-    "'" . $updatedData["Ratings"][0]['Value'] . "'",
-    "'" . $updatedData["Poster"] . "'",
-    "'" . $updatedData["Genre"] . "'",
-  ];
-  update($id, 'titles', $titleColumns, $values);
-  $actors = scrapeActors($updatedData["imdbID"]);
-  //print_r($actors);
-  $actors = addActors($actors, $updatedData["imdbID"]);
-  $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
-  query($query, false);
-}
-
-function addActors($actors, $title) {
-  return addPeople($actors, 'actor', $title);
-}
-
 // add director cache to db
 function addDirectors($directors) {
 
@@ -164,9 +140,31 @@ function addTitle($title) {
   $actors = scrapeActors($title["imdbID"]);
   $actors = addActors($actors, $title["imdbID"]);
   insert($titleColumns, $values, $table);
+  $actors = array_unique($actors);
   $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($title["imdbID"]) . ";";
   query($query, false);
   //addDirectors();
+}
+
+function updateTitle($id) {
+  $titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'img', 'genre'];
+  $updatedData = getTitleInfo($id);
+  $values = [
+    "'" . $updatedData["imdbID"] . "'",
+    "'" . $updatedData["Title"] . "'",
+    "'" . $updatedData["Year"] . "'",
+    "\"" . $updatedData["Plot"] . "\"",
+    "'" . $updatedData["Ratings"][0]['Value'] . "'",
+    "'" . $updatedData["Poster"] . "'",
+    "'" . $updatedData["Genre"] . "'",
+  ];
+  update($id, 'titles', $titleColumns, $values);
+  $actors = scrapeActors($updatedData["imdbID"]);
+  //print_r($actors);
+  $actors = addActors($actors, $updatedData["imdbID"]);
+  $actors = array_unique($actors);
+  $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
+  query($query, false);
 }
 
 function personExists($name) {
@@ -201,6 +199,10 @@ function addPeople($people, $type, $imdbID) {
     array_push($peopleIDs, $id);
   }
   return $peopleIDs;
+}
+
+function addActors($actors, $title) {
+  return addPeople($actors, 'actor', $title);
 }
 
 function findPerson($name) {
@@ -264,7 +266,7 @@ function searchByTitle($titleString) {
   if (!inCache($data['imdbID'], 'titles')) {
     addTitle($data);
   } else {
-    updateTitle($data['imdbID']);
+    //updateTitle($data['imdbID']);
   }
 }
 
@@ -281,7 +283,7 @@ function inCache($id, $table) {
 }
 
 function extractCommonWords($string){
-    $stopWords = array('i','a','about','an','and','are','as','at','be','by','com','de','en','for','from','how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will','with','und','the','www');
+    $stopWords = array('i', 'part', 'a','about','an','and','are','as','at','be','by','com','de','en','for','from','how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will','with','und','the','www');
 
     $string = preg_replace('/\s\s+/i', '', $string); // replace whitespace
     $string = trim($string); // trim the string
@@ -332,13 +334,13 @@ function populateServices() {
 }
 
 function searchByGenre($genre) {
-  $query = "SELECT * FROM titles WHERE genre LIKE " . str('%' . $genre . '%') . ";";
+  $query = "SELECT * FROM titles WHERE genre LIKE " . str('%' . $genre . '%') . " ORDER BY `name`;";
   //echo $query;
   return query($query, true);
 }
 
 function searchByActor($actor) {
-  $query = "SELECT * FROM titles WHERE actors LIKE " . str('%' . $actor . '%') . ";";
+  $query = "SELECT * FROM titles WHERE actors LIKE " . str('%' . $actor . '%') . " ORDER BY `name`;";
   //echo $query;
   return query($query, true);
 }
@@ -402,7 +404,7 @@ function scrapeActors($id) {
 
   // Check for errors
   if($response === FALSE){
-      die('Error');
+      return false;
   }
 
   // Decode the response
@@ -411,6 +413,70 @@ function scrapeActors($id) {
   // Print the date from the response
   //echo $id . "<br>";
   //print_r($responseData);
+  return $responseData;
+}
+
+// function scrapeRelatedTitles($title) {
+//   $url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getRelatedTitles';
+//   // The data to send to the API
+//   $postData = array(
+//       'title' => $title,
+//   );
+
+//   // Create the context for the request
+//   $context = stream_context_create(array(
+//       'http' => array(
+//           // http://www.php.net/manual/en/context.http.php
+//           'method' => 'POST',
+//           'header' => "Content-Type: application/json\r\n",
+//           'content' => json_encode($postData)
+//       )
+//   ));
+
+//   // Send the request
+//   $response = file_get_contents($url, FALSE, $context);
+
+//   // Check for errors
+//   if($response === FALSE){
+//       return false;
+//   }
+
+//   // Decode the response
+//   $responseData = json_decode($response, TRUE);
+
+//   // Print the date from the response
+//   return $responseData;
+// }
+
+function scrapePlatforms($title) {
+  $url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getPlatforms';
+  // The data to send to the API
+  $postData = array(
+      'title' => $title,
+  );
+
+  // Create the context for the request
+  $context = stream_context_create(array(
+      'http' => array(
+          // http://www.php.net/manual/en/context.http.php
+          'method' => 'POST',
+          'header' => "Content-Type: application/json\r\n",
+          'content' => json_encode($postData)
+      )
+  ));
+
+  // Send the request
+  $response = file_get_contents($url, FALSE, $context);
+
+  // Check for errors
+  if($response === FALSE){
+      return false;
+  }
+
+  // Decode the response
+  $responseData = json_decode($response, TRUE);
+
+  // Print the date from the response
   return $responseData;
 }
 

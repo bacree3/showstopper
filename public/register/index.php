@@ -5,11 +5,13 @@ if (isLoggedIn()) {
   header('Location:/');
 }
 
-if (isset($_GET['error']) && $_GET['error'] == 1) {
-	$error = "
-	<div class='alert alert-danger text-center' role='alert'>
-  	Account with this email already exists.
-	</div>";
+if (isset($_GET['error'])) {
+  if ($_GET['error'] == 1) {
+    $error = "
+  	<div class='alert alert-danger text-center' role='alert'>
+    	Account with this email already exists.
+  	</div>";
+  } 
 } else {
 	$error = "";
 }
