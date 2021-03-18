@@ -101,7 +101,7 @@ echo $titleData['src/src/img']; */
 					<?php
 					$resultsHTML = "";
 					foreach ($results as $key => $title) {
-							if ($title['services'] == '[]' || $title['services'] == 'false') {
+							if ($title['services'] == '[]' || $title['services'] == '' || $title['services'] == NULL) {
 								$services = "
 								<div class='spinner-border text-danger' role='status'>
 									<span class='sr-only'>Loading...</span>
@@ -172,23 +172,24 @@ echo $titleData['src/src/img']; */
 ?>
 
 <script type="text/javascript">
-	var titles = <?php echo json_encode($results); ?>;
+	var results = <?php echo json_encode($results); ?>;
 	var favorites = <?php echo json_encode($favorites); ?>;
 	var needsUpdate = <?php echo json_encode($needsUpdate); ?>;
+	//console.log(titles)
 
-	for (title of titles) {
-		if (favorites.includes(title.id)) {
+	for (key of Object.keys(results)) {
+		if (favorites.includes(results[key].id)) {
 			isFavorite = true;
 		} else {
 			isFavorite = false;
 		}
 		if (!isFavorite) {
-			$("#" + title.id + "isFavorite").hide();
+			$("#" + results[key].id + "isFavorite").hide();
 		} else {
-			$("#" + title.id + "isNotFavorite").hide();
+			$("#" + results[key].id + "isNotFavorite").hide();
 		}
 		var spinner = "<div class='spinner-border text-danger' role='status'><span class='sr-only'>Loading...</span></div>";
-		var element = $("#" + title.id + " .platforms");
+		var element = $("#" + results[key].id + " .platforms");
 		if (element.children().hasClass("spinner-border")) {
 			$.ajax({
 				url: '/movie/platforms.php',
@@ -196,8 +197,8 @@ echo $titleData['src/src/img']; */
 				dataType: 'text',
 				contentType: 'application/json',
 				data: {
-					id: title.id,
-					name: title.name + " " + title.release,
+					id: results[key].id,
+					name: results[key].name + " " + results[key].release,
 				},
 				success: function(response) {
 					for (id of needsUpdate) {
