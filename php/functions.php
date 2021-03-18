@@ -407,7 +407,7 @@ function scrapeActors($id) {
 }
 
 function scrapeRelatedTitles($title) {
-  $url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getSimilarMovies';
+  $url = $apiURL . 'getSimilarMovies';
   // The data to send to the API
   $postData = array(
       'title' => $title,
