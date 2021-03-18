@@ -84,7 +84,7 @@ function changeFavStatus(id) {
 }
 
 function updateLoadPlatforms(id) {
-  console.log("called for " + id);
+  //console.log("called for " + id);
   $.ajax({
     url: '/movie/getPlatforms.php',
     type: 'GET',
