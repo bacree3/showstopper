@@ -8,6 +8,8 @@ if (isset($_GET['search'])) {
 	$likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
 	$results = query("SELECT * FROM titles " . $likeStatment . " ORDER BY `name`, `release` desc;", true);
 
+    $titleList = scrapeRelatedTitles($searchString);
+
     for ($i = 0; $i < count($titleList); $i++) {
         //searchByTitle($titleList[%i]);
         $likeStatment = formSimpleLike($titleList[$i], 'name');
