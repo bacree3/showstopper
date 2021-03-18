@@ -330,6 +330,11 @@ function formLike($str, $col) {
   return $final;
 }
 
+function formSimpleLike($str, $col) {
+  $final = "WHERE " . $col . " LIKE " . "'%" . $str . "%'";
+  return $final;
+}
+
 function getTitlePath($id) {
   return "'/movie/?title=" . $id . "'";
 }
@@ -401,37 +406,37 @@ function scrapeActors($id) {
   return $responseData;
 }
 
-// function scrapeRelatedTitles($title) {
-//   $url = '';
-//   // The data to send to the API
-//   $postData = array(
-//       'title' => $title,
-//   );
+function scrapeRelatedTitles($title) {
+  $url = 'https://zveblvb4u3.execute-api.us-east-1.amazonaws.com/getSimilarMovies';
+  // The data to send to the API
+  $postData = array(
+      'title' => $title,
+  );
 
-//   // Create the context for the request
-//   $context = stream_context_create(array(
-//       'http' => array(
-//           // http://www.php.net/manual/en/context.http.php
-//           'method' => 'POST',
-//           'header' => "Content-Type: application/json\r\n",
-//           'content' => json_encode($postData)
-//       )
-//   ));
+  // Create the context for the request
+  $context = stream_context_create(array(
+      'http' => array(
+          // http://www.php.net/manual/en/context.http.php
+          'method' => 'POST',
+          'header' => "Content-Type: application/json\r\n",
+          'content' => json_encode($postData)
+      )
+  ));
 
-//   // Send the request
-//   $response = file_get_contents($url, FALSE, $context);
+  // Send the request
+  $response = file_get_contents($url, FALSE, $context);
 
-//   // Check for errors
-//   if($response === FALSE){
-//       return false;
-//   }
+  // Check for errors
+  if($response === FALSE){
+      return false;
+  }
 
-//   // Decode the response
-//   $responseData = json_decode($response, TRUE);
+  // Decode the response
+  $responseData = json_decode($response, TRUE);
 
-//   // Print the date from the response
-//   return $responseData;
-// }
+  // Print the date from the response
+  return $responseData;
+}
 
 function scrapePlatforms($title) {
   global $apiURL;

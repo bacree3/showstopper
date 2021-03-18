@@ -2,7 +2,7 @@ const readline = require('readline')
 const Nightmare = require('nightmare')
 const electron = require('electron')
 // const electron_prebuilt = require('electron-prebuilt')
-const nightmare = Nightmare({ show: false })
+const nightmare = Nightmare({ show: true })
 
 /**
 Primary Function
@@ -16,17 +16,36 @@ streaming services where the movie is available.
 **/
 
 
-title = "the avengers"
+// title = "the avengers"
+title = "ant-man"
+str = title.replace(/[^\w\s]/g, " ");
 
-titleWords = title.split(" ")
+console.log(str);
+
+var titleWords = str.split(" ");
+// for (var i = 0; i < titties.length; i++) {
+//   if (titties[i].length != 0) {
+//     console.log(titties[i]);
+//   }
+
+// }
+
+// titleWords = title.split(" ")
 var searchURL = 'https://www.google.com/search?q='
 
 for (var i = 0; i < titleWords.length; i++) {
-  searchURL = searchURL + titleWords[i]
-  if (i != titleWords.length - 1) {
-    searchURL = searchURL + "+"
+  if (titleWords[i].length > 0) {
+    // titleWord = titleWords[i][0].toUpperCase() + titleWords[i].substr(1);
+    searchURL = searchURL + titleWords[i];
+    if (i != titleWords.length - 1) {
+      searchURL = searchURL + "+"
+    }
   }
+
 }
+
+searchURL = searchURL + "+movie"
+
 console.log(searchURL)
 
 nightmare
