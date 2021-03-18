@@ -9,6 +9,7 @@ if (isset($_GET['search'])) {
 	$results = query("SELECT * FROM titles " . $likeStatment . " ORDER BY `name`, `release` desc;", true);
 
     $titleList = scrapeRelatedTitles($searchString);
+		//print_r($titleList);
 
     for ($i = 0; $i < count($titleList); $i++) {
         //searchByTitle($titleList[%i]);

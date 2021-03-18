@@ -407,6 +407,7 @@ function scrapeActors($id) {
 }
 
 function scrapeRelatedTitles($title) {
+  global $apiURL;
   $url = $apiURL . 'getSimilarMovies';
   // The data to send to the API
   $postData = array(
