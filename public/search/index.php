@@ -15,7 +15,10 @@ if (isset($_GET['search'])) {
         //searchByTitle($titleList[%i]);
         $likeStatment = formSimpleLike($titleList[$i], 'name');
         $cacheResults = query("SELECT * FROM titles " . $likeStatment . " ORDER BY `name`, `release` desc;", true);
-        $results = array_merge($results, $cacheResults);
+        if ($cacheResults) {
+            $results = array_merge($results, $cacheResults);
+        }
+
     }
     $results = array_unique($results, SORT_REGULAR);
 } else if (isset($_GET['genre'])) {
