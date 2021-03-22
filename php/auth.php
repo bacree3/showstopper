@@ -152,7 +152,9 @@ function createUser($email, $pass) {
 }
 
 function getUserInfo($id) {
-	return query("SELECT name, email, services, favorites FROM users WHERE id = " . str($id), true)[0];
+	$query = "SELECT name, email, services, favorites FROM users WHERE id = " . str($id) . ";";
+	//echo $query;
+	return query($query, true)[0];
 }
 
 function accountSetup($id, $name, $services) {

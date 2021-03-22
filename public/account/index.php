@@ -4,11 +4,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 if (!isLoggedIn()) {
 	goToLogin();
 } else {
-  $info = getUserInfo($_SESSION['userID'])[0];
+  $info = getUserInfo($_SESSION['userID']);
+	//print_r($info);
   $name = $info['name'];
   $email = $info['email'];
   $services = json_decode($info['services']);
-  $servicesHTML = getServicesHTML(json_decode($info['services']));
+  $servicesHTML = getUserServicesHTML(json_decode($info['services']));
 }
 ?>
 
