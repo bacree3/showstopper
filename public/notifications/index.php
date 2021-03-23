@@ -12,21 +12,32 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 		<!-- BODY -->
     <div class="container mt-5">
+      <div class="srow rounded">
         <div class="row">
           <div class="col-md-5 mx-auto">
             <div class="logo col-md-12 text-center">
               <h1>Notifications</h1>
             </div>
+
             <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" id="customSwitch1">
-              <label class="custom-control-label" for="customSwitch1">Notify Me when favorites</label>
-            </div>
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="customSwitch2">
-              <label class="custom-control-label" for="customSwitch2">Notify me when </label>
+              <div class="row">
+                <div class="col">
+                  <input type="checkbox" class="custom-control-input" checked data-toggle="toggle"
+                  data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" id="customSwitch1">
+                  <label class="custom-control-label" for="customSwitch1"><span class="pull-left">Favorite Actor</span></label>
+                </div>
+              </div>
+            <div class="row">
+              <div class="col">
+            <!-- <div class="custom-control custom-switch"> -->
+                <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                <label class="custom-control-label" for="customSwitch2">Favorite Movie</label>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
 
 		<!-- END BODY -->
