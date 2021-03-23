@@ -488,6 +488,26 @@ function getActiveServices($platforms) {
   }
 }
 
+function getUserServicesHTML($arr) {
+  global $servicesReference, $serviceIMG;
+   foreach ($servicesReference as $key => $value) {
+     $temp[$key] = $value;
+   }
+   //print_r($temp);
+   $html = "<div class = 'row platforms ml-2'><div class ='platformsyes'>";
+   foreach ($arr as $key => $service) {
+     $key = array_search($service, $temp);
+     unset($temp[$key]);
+     $html .= "<img src='/src/img/" .  $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
+   }
+   $html .= "</div><div class ='platformsno'>";
+   //print_r($temp);
+   foreach ($temp as $key => $service) {
+     $html .= "<img src='/src/img/" . $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
+   }
+   $html .= "</div></div>";
+   return $html;
+}
 
 function getServicesHTML($platforms) {
   if (!$platforms || $platforms == "false") {
