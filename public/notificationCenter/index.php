@@ -30,6 +30,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
                 <hr/>
               </div>
           </div>
+        </div>
+      </div>
 
 		<!-- END BODY -->
 		<div class = "footer mt-4 pt-4"></div>
