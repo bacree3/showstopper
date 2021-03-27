@@ -6,6 +6,10 @@ body {
 	padding-bottom: 100px;
 	background-color: #283a59 !important;
 }
+body#home {
+	padding-bottom: 100px;
+	background-image: radial-gradient(at top right, #458BD9, #1D3557) !important;
+}
 
 footer {
 	border-top: 2px solid white;
@@ -125,4 +129,8 @@ img {
 .platformsyes img{
 	display: inline-block;
 	width: 60px;
+}
+.hometitle {
+	color: white;
+	font-family: sans-serif;
 }
