@@ -142,3 +142,8 @@ img {
 	background-color: #458BD9;
 	opacity: 0.1 !important;
 }
+
+.homemoviepic {
+	display: inline-block;
+	width: 150px;
+}
