@@ -141,7 +141,7 @@ function createUser($email, $pass) {
 	if (!emailExists($email)) {
 		$hashed = password_hash($pass, PASSWORD_DEFAULT);
 		$id = uniqid();
-		insert(['id', 'email', 'pass'], [str($id), str($email), str($hashed)], "users");
+		insert(['id', 'email', 'pass', 'favorites', 'services'], [str($id), str($email), str($hashed), str('[]'), str('[]')], "users");
 		sendMail($email, 'verify');
 		header("Location:/verify");
 		exit();
