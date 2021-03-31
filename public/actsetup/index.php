@@ -4,6 +4,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 if (isset($_GET['s']) && !empty($_GET['s'])) {
   $s = steralizeString($_GET['s']);
   $result = query("SELECT id, email FROM users WHERE pass = " . str($s) . ";", true)[0];
+  $_SESSION['isLoggedIn'] = true;
+  $_SESSION['userID'] = $result['id'];
   verifyEmail($result['email']);
 } else {
   header('Location:/');
