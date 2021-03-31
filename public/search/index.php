@@ -35,7 +35,7 @@ if (isset($_GET['search'])) {
 	}
 	$results = array_unique($results, SORT_REGULAR);
 	function myFilter($var){
-    return ($var !== NULL && $var !== FALSE && $var !== "");
+    return ($var !== NULL && $var !== FALSE && $var !== "" && $var['id'] !== NULL && $var['id'] !== FALSE && $var['id'] !== "");
 	}
 
 	// Filtering the array
