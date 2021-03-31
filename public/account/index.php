@@ -57,18 +57,7 @@ if (!isLoggedIn()) {
 									<label style="font-weight:bold;">Receive Notifications Through</label>
 								</div>
 								<div class="col-md-8 col-6">
-									<div class="form-check">
-  									<input class="form-check-input" type="radio" name="notificationType" id="radio" value="option1" checked>
-  									<label class="form-check-label" for="radio">
-    									Email
-  									</label>
-									</div>
-									<div class="form-check">
-  									<input class="form-check-input" type="radio" name="notificationType" id="pushNotification" value="option2">
-  									<label class="form-check-label" for="pushNotification">
-    								Push Notifications
-  									</label>
-									</div>
+									<label>Email</label>
 							</div>
 						</div>
 							<hr />
@@ -77,27 +66,23 @@ if (!isLoggedIn()) {
 									<label style="font-weight:bold;">Notifications</label>
 								</div>
 								<div class="col-md-8 col-6">
-									<div class="custom-control custom-switch">
-										<input type="checkbox" class="custom-control-input" checked data-toggle="toggle"
-                  	data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" id="customSwitch1">
-                  	<label class="custom-control-label" for="customSwitch1"><span class="pull-left">Favorite Actor</span></label>
-									</div>
+									<label>Favorite actor on?</label>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-5 col-md-4 col-5">
 								</div>
 								<div class="col-md-8 col-6">
-									<div class="custom-control custom-switch">
-										<input type="checkbox" class="custom-control-input" id="customSwitch2">
-		                <label class="custom-control-label" for="customSwitch2">Favorite Movie</label>
-									</div>
+									<label>Favorite movie on?</label>
 								</div>
 							</div>
     					<div class="col-md-12 mt-2 text-center">
     						<button type="submit" class="btn loginbtn btn-primary" onclick="editDetails()">Edit</button>
     					</div>
     				</div>
+
+
+
     				<div id="edit" style="display:none">
 							<form action="account.php" method="post" name="register">
     						<input type="hidden" name="edit" value="" />
@@ -142,6 +127,47 @@ if (!isLoggedIn()) {
     								</div>
     							</div>
     						</div>
+								<hr />
+								<div class="form-group">
+									<label>Receive Notifications Through</label>
+									<div class="row">
+										<div class="col-md-8 col-6">
+											<div class="form-check">
+		  									<input class="form-check-input" type="radio" name="notificationType" id="radio" value="option1" checked>
+		  									<label class="form-check-label" for="radio">
+		    									Email
+		  									</label>
+											</div>
+											<div class="form-check">
+		  									<input class="form-check-input" type="radio" name="notificationType" id="pushNotification" value="option2">
+		  									<label class="form-check-label" for="pushNotification">
+		    								Push Notifications
+		  									</label>
+											</div>
+									</div>
+								</div>
+							</div>
+							<hr />
+								<div class="form-group">
+									<label>Edit Notifications</label>
+									<div class="row">
+										<div class="col-md-8 col-6">
+											<div class="custom-control custom-switch">
+												<input type="checkbox" class="custom-control-input" checked data-toggle="toggle"
+		                  	data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" id="customSwitch1">
+		                  	<label class="custom-control-label" for="customSwitch1"><span class="pull-left">Favorite Actor</span></label>
+											</div>
+										</div>
+								</div>
+								<div class="row">
+									<div class="col-md-8 col-6">
+										<div class="custom-control custom-switch">
+											<input type="checkbox" class="custom-control-input" id="customSwitch2">
+			                <label class="custom-control-label" for="customSwitch2">Favorite Movie</label>
+										</div>
+									</div>
+								</div>
+							</div>
     						<div class="col-md-12 text-center">
     							<button type="submit" class="btn btn-block loginbtn btn-primary">Save Changes</button>
     						</div>
