@@ -235,6 +235,18 @@ echo $titleData['src/src/img']; */
 					}
 				}
 			});
+			$.ajax({
+				url: '/movie/actors.php',
+				type: 'GET',
+				dataType: 'text',
+				contentType: 'application/json',
+				data: {
+					id: results[key].id,
+				},
+				success: function(response) {
+					console.log("success");
+				}
+			});
 		}
 	}
 </script>
