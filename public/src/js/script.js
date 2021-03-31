@@ -124,6 +124,22 @@ function removeFavoriteCard(id) {
   $("#" + id).remove();
 }
 
+function checkDate(timestamp) {
+  var t = timestamp.split(/[- :]/);
+  var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
+  var now = new Date();
+  now.setDate(now.getDate() - 7);
+  //console.log(d);
+  if (d <= now) {
+    //console.log("updating");
+    return true;
+  }
+  else {
+    //console.log("not updating");
+    return false;
+  }
+}
+
 /* $('.movie').each(function(i, obj) {
     var title = $(obj).attr('class').split(' ').pop();
 		$(obj).click(function() {

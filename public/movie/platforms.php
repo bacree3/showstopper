@@ -10,6 +10,9 @@ if (isset($_GET['id']) && isset($_GET['name'])) {
 	//$id = 'tt2395427';
 	$platforms = scrapePlatforms($name);
 	insertPlatforms($id, $platforms);
+	if ($_GET['update']) {
+		updateTitle($id);
+	}
 	echo json_encode($platforms);
 }
 

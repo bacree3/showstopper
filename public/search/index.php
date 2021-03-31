@@ -207,6 +207,7 @@ echo $titleData['src/src/img']; */
 	//console.log(titles)
 
 	for (key of Object.keys(results)) {
+		//console.log(results[key])
 		if (favorites.includes(results[key].id)) {
 			isFavorite = true;
 		} else {
@@ -219,7 +220,7 @@ echo $titleData['src/src/img']; */
 		}
 		var spinner = "<div class='spinner-border text-danger' role='status'><span class='sr-only'>Loading...</span></div>";
 		var element = $("#" + results[key].id + " .platforms");
-		if (element.children().hasClass("spinner-border")) {
+		if (element.children().hasClass("spinner-border") || checkDate(results[key].updated)) {
 			$.ajax({
 				url: '/movie/platforms.php',
 				type: 'GET',
@@ -228,6 +229,7 @@ echo $titleData['src/src/img']; */
 				data: {
 					id: results[key].id,
 					name: results[key].name + " " + results[key].release,
+					update: checkDate(results[key].updated)
 				},
 				success: function(response) {
 					for (id of needsUpdate) {

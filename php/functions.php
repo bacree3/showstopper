@@ -156,12 +156,12 @@ function updateTitle($id) {
     "'" . $updatedData["Genre"] . "'",
   ];
   update($id, 'titles', $titleColumns, $values);
-  $actors = scrapeActors($updatedData["imdbID"]);
+  //$actors = scrapeActors($updatedData["imdbID"]);
   //print_r($actors);
-  $actors = addActors($actors, $updatedData["imdbID"]);
-  $actors = array_unique($actors);
-  $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
-  query($query, false);
+  //$actors = addActors($actors, $updatedData["imdbID"]);
+  //$actors = array_unique($actors);
+  //$query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
+  //query($query, false);
 }
 
 function personExists($name) {
