@@ -89,7 +89,7 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
 						<div class = 'row platforms ml-2'>
 							<?php
 								//echo $titleData['services'];
-								if ($titleData['services'] == '[]' || $titleData['services'] == '' || $titleData['services'] == NULL) {
+								if ($titleData['services'] == '[]' || $titleData['services'] == '' || $titleData['services'] == NULL || $titleData['services'] == 'false') {
 									echo "
 									<div class='spinner-border text-danger' role='status'>
 										<span class='sr-only'>Loading...</span>
