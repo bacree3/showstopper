@@ -51,6 +51,49 @@ if (!isLoggedIn()) {
     						</div>
     						<?php echo $servicesHTML; ?>
     					</div>
+							<hr />
+							<div class="row">
+								<div class="col-sm-5 col-md-4 col-5">
+									<label style="font-weight:bold;">Receive Notifications Through</label>
+								</div>
+								<div class="col-md-8 col-6">
+									<div class="form-check">
+  									<input class="form-check-input" type="radio" name="notificationType" id="radio" value="option1" checked>
+  									<label class="form-check-label" for="radio">
+    									Email
+  									</label>
+									</div>
+									<div class="form-check">
+  									<input class="form-check-input" type="radio" name="notificationType" id="pushNotification" value="option2">
+  									<label class="form-check-label" for="pushNotification">
+    								Push Notifications
+  									</label>
+									</div>
+							</div>
+						</div>
+							<hr />
+							<div class="row">
+								<div class="col-sm-5 col-md-4 col-5">
+									<label style="font-weight:bold;">Notifications</label>
+								</div>
+								<div class="col-md-8 col-6">
+									<div class="custom-control custom-switch">
+										<input type="checkbox" class="custom-control-input" checked data-toggle="toggle"
+                  	data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" id="customSwitch1">
+                  	<label class="custom-control-label" for="customSwitch1"><span class="pull-left">Favorite Actor</span></label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-5 col-md-4 col-5">
+								</div>
+								<div class="col-md-8 col-6">
+									<div class="custom-control custom-switch">
+										<input type="checkbox" class="custom-control-input" id="customSwitch2">
+		                <label class="custom-control-label" for="customSwitch2">Favorite Movie</label>
+									</div>
+								</div>
+							</div>
     					<div class="col-md-12 mt-2 text-center">
     						<button type="submit" class="btn loginbtn btn-primary" onclick="editDetails()">Edit</button>
     					</div>
