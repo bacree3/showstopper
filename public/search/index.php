@@ -4,23 +4,48 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 if (isset($_GET['search'])) {
 	$searchString = steralizeString($_GET['search']);
-	searchByTitle($searchString); // get data from api if not in cache
+	$id = searchByTitle($searchString); // get data from api if not in cache
+	$title = getElementByID($id, 'titles');
 	$likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
 	$results = query("SELECT * FROM titles " . $likeStatment . " ORDER BY `name`, `release` desc;", true);
+	if ($title['related'] != '') {
+		$related = json_decode($title['related']);
+	} else {
+		$related = [];
+		$titleList = scrapeRelatedTitles($searchString);
+		foreach ($titleList as $key => $name) {
+			array_push($related, searchByTitle($name));
+		}
+			/*print_r($titleList);
 
-    $titleList = scrapeRelatedTitles($searchString);
-		//print_r($titleList);
+			for ($i = 0; $i < count($titleList); $i++) {
+					//searchByTitle($titleList[%i]);
+					$likeStatment = formSimpleLike($titleList[$i], 'name');
+					$cacheResults = query("SELECT * FROM titles " . $likeStatment . " ORDER BY `name`, `release` desc;", true);
+					if ($cacheResults) {
+							$results = array_merge($results, $cacheResults);
+					}
 
-    for ($i = 0; $i < count($titleList); $i++) {
-        //searchByTitle($titleList[%i]);
-        $likeStatment = formSimpleLike($titleList[$i], 'name');
-        $cacheResults = query("SELECT * FROM titles " . $likeStatment . " ORDER BY `name`, `release` desc;", true);
-        if ($cacheResults) {
-            $results = array_merge($results, $cacheResults);
-        }
+			}
+			*/
+			// add related id's to cache db
+	}
+	foreach ($related as $key => $id) {
+		array_push($results, getElementByID($id, 'titles'));
+	}
+	$results = array_unique($results, SORT_REGULAR);
+	function myFilter($var){
+    return ($var !== NULL && $var !== FALSE && $var !== "");
+	}
 
-    }
-    $results = array_unique($results, SORT_REGULAR);
+	// Filtering the array
+	$results = array_filter($results, "myFilter");
+	$query = "UPDATE titles SET `related` = " . json(json_encode($related)) . " WHERE id = " . str($title['id']) . ";";
+
+	query($query, false);
+	//$query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
+	//print_r($results);
+
 } else if (isset($_GET['genre'])) {
 	$searchString = steralizeString($_GET['genre']);
 	$results = searchByGenre($searchString);

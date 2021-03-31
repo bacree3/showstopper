@@ -138,13 +138,8 @@ function addTitle($title) {
     "'" . $title["Poster"] . "'",
     "'" . $title["Genre"] . "'",
   ];
-  $actors = scrapeActors($title["imdbID"]);
-  $actors = addActors($actors, $title["imdbID"]);
   insert($titleColumns, $values, $table);
-  $actors = array_unique($actors);
-  $query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($title["imdbID"]) . ";";
-  //echo $query;
-  query($query, false);
+  //return $title["imdbID"];
   //addDirectors();
 }
 
@@ -273,6 +268,7 @@ function searchByTitle($titleString) {
   } else {
     //updateTitle($data['imdbID']);
   }
+  return $data['imdbID'];
 }
 
 // using omdb get details from api
@@ -332,6 +328,11 @@ function formLike($str, $col) {
 
 function formSimpleLike($str, $col) {
   $final = "WHERE " . $col . " LIKE " . "'%" . $str . "%'";
+  return $final;
+}
+
+function formAndStatement($str, $col) {
+  $final = "WHERE " . $col . " AND " . "'%" . $str . "%'";
   return $final;
 }
 
