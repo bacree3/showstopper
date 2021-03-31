@@ -50,7 +50,38 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
           		<img src="<?php echo $titleData['img'];?>" class="rounded title img-fluid searchImg" alt="...">
        		</div>
         	<div id = "<?php echo $titleData['id']; ?>" class="col-xs-12 col-sm-8 col-md-8 text-left">
-						<p class="lead"><span class = "font-weight-bold">Cast:</span> <?php echo generateActorLinks($titleData['actors']);?></p>
+						<div class="lead"><span class = "font-weight-bold">Cast:</span>
+							<span class = "actors">
+								<?php
+								if ($titleData['actors'] == '[]' || $titleData['actors'] == '' || $titleData['actors'] == NULL) {
+									echo "
+									<div class='spinner-border text-danger' role='status'>
+										<span class='sr-only'>Loading...</span>
+									</div>
+									";
+									?>
+									<script>
+										$.ajax({
+											url: '/movie/actors.php',
+											type: 'GET',
+											dataType: 'text',
+											contentType: "application/json",
+											data: {
+												id: <?php echo str($titleData['id']); ?>,
+											},
+											success: function(response) {
+												console.log(response);
+												updateLoadActors(<?php echo str($titleData['id']); ?>);
+											}
+										});
+									</script>
+									<?php
+								} else {
+									echo generateActorLinks($titleData['actors']);
+								}
+								?>
+							</span>
+						</div>
 						<p class="lead"><span class = "font-weight-bold">Summary:</span> <?php echo $titleData['summary'];?></p>
 						<p class="lead"><span class = "font-weight-bold">IMDB Ratings:</span> <?php echo $titleData['rating'];?></p>
 						<p class="lead"><span class = "font-weight-bold">Release Date:</span> <?php echo $titleData['release'];?></p>

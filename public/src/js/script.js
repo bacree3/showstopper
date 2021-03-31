@@ -101,6 +101,24 @@ function updateLoadPlatforms(id) {
   });
 }
 
+function updateLoadActors(id) {
+  //console.log("called for " + id);
+  $.ajax({
+    url: '/movie/getActors.php',
+    type: 'GET',
+    dataType: 'text',
+    contentType: "application/json",
+    data: {
+      id: id
+    },
+    success: function(response) {
+      //console.log("showing data");
+      //console.log(id + " " + response);
+      $(".actors").html(response);
+    }
+  });
+}
+
 function removeFavoriteCard(id) {
   console.log(id);
   $("#" + id).remove();
