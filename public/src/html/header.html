@@ -40,13 +40,11 @@
       </div>
     </li>
   </ul>
-  <div id="searchbar">
+  <div id="searchbar" class="dropdown">
     <form action="/search/" method="get" class="form-inline my-2 my-lg-0">
-      <input id="searchInput" name="search" class="form-control mr-sm-2 input" type="search" placeholder="Search" aria-label="Search">
-      <div class="dropdown">
-        <div class="dropdown-menu">
-           <div class="dropdown-content autocomplete"></div>
-        </div>
+      <input id="searchInput" name="search" class="form-control mr-sm-2 input dropdown-toggle" type="search" placeholder="Search" aria-label="Search">
+      <div class="dropdown-menu">
+          <div class="dropdown-content autocomplete"></div>
       </div>
       <button name="submit" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -69,60 +67,60 @@
       populateWith
     }) => {
   
-      const input = rootDiv.querySelector('input');
-      const dropdown = rootDiv.querySelector('.dropdown-menu');
-      const resultsWrapper = rootDiv.querySelector('.autocomplete');
-  
-      const onInput = event => {
-        const items = populateWith(event.target.value.toLowerCase());
-        if (!items.length) {
-          dropdown.classList.remove('show');
-          return;
-        }
-        resultsWrapper.innerHTML = '';
-        dropdown.classList.add('show');
-        for (let item of items) {
-          const option = document.createElement('a');
-          option.classList.add('dropdown-item');
-          option.innerHTML = lineItemDisplay(item);
-          option.addEventListener('click', () => {
-            dropdown.classList.remove('show');
-            input.value = searchingOn(item);
-          });
-          resultsWrapper.appendChild(option);
-        }
-      };
-  
-      input.addEventListener('input', onInput);
-  
-      document.addEventListener('click', event => {
-        if (!rootDiv.contains(event.target)) {
-          dropdown.classList.remove('show');
-        }
-      });
-    }
+    const input = rootDiv.querySelector('input');
+    const dropdown = rootDiv.querySelector('.dropdown-menu');
+    const resultsWrapper = rootDiv.querySelector('.autocomplete');
 
-    //autocomplete
-    createAutoComplete({
-      rootDiv: document.getElementById('searchbar'),
-      lineItemDisplay(movie) {
-        return `${movie.name}`;
-      },
-      searchingOn(movie) {
-        return movie.name;
-      },
-      populateWith(searchTerm) {
-        const results = [];
-        let lowerTitle;
-        for (i=1; i < titles.length; i++) {
-          lowerTitle = titles[i].name.toLowerCase();
-          if (lowerTitle.includes(searchTerm)) {
-            results.push(titles[i]);
-          }
-        }
-        return results;
+    const onInput = event => {
+      const items = populateWith(event.target.value.toLowerCase());
+      if (!items.length) {
+        dropdown.classList.remove('show');
+        return;
+      }
+      resultsWrapper.innerHTML = '';
+      dropdown.classList.add('show');
+      for (let item of items) {
+        const option = document.createElement('a');
+        option.classList.add('dropdown-item');
+        option.innerHTML = lineItemDisplay(item);
+        option.addEventListener('click', () => {
+          dropdown.classList.remove('show');
+          input.value = searchingOn(item);
+        });
+        resultsWrapper.appendChild(option);
+      }
+    };
+
+    input.addEventListener('input', onInput);
+
+    document.addEventListener('click', event => {
+      if (!rootDiv.contains(event.target)) {
+        dropdown.classList.remove('show');
       }
     });
+  }
+
+  //autocomplete
+  createAutoComplete({
+    rootDiv: document.getElementById('searchbar'),
+    lineItemDisplay(movie) {
+      return `${movie.name}`;
+    },
+    searchingOn(movie) {
+      return movie.name;
+    },
+    populateWith(searchTerm) {
+      const results = [];
+      let lowerTitle;
+      for (i=1; i < titles.length; i++) {
+        lowerTitle = titles[i].name.toLowerCase();
+        if (lowerTitle.includes(searchTerm)) {
+          results.push(titles[i]);
+        }
+      }
+      return results;
+    }
+  });
 
 
 </script>

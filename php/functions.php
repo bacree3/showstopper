@@ -553,20 +553,20 @@ function generatePlatformsHTML($platforms) {
       $platformNames[] = $platform['name'];
       $platformLinks[$platform['name']] = $platform['link'];
   }
-	return "
-		<a class='" . in_array('Netflix', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded' . " href='" . $platformLinks['Netflix'] . "'>
+  return "
+		<a class='" . (in_array('Netflix', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded') . " href='" . $platformLinks['Netflix'] . "'>
 				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
 		</a>
-		<a class='" . in_array('Hulu', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded' . " href='" . $platformLinks['Hulu'] . "'>
+		<a class='" . (in_array('Hulu', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded') . " href='" . $platformLinks['Hulu'] . "'>
 				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
 		</a>
-		<a class='" . in_array('Amazon Prime Video', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded' . " href='" . $platformLinks['Amazon Prime Video'] . "'>
+		<a class='" . (in_array('Amazon Prime Video', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded') . " href='" . $platformLinks['Amazon Prime Video'] . "'>
 				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
 		</a>
-		<a class='" . in_array('HBO Max', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded' . " href='" . $platformLinks['Netflix'] . "'>
+		<a class='" . (in_array('HBO Max', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded') . " href='" . $platformLinks['Netflix'] . "'>
 				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
 		</a>
-		<a class='" . in_array('Disney+', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded' . " href='" . $platformLinks['Disney+'] . "'>
+		<a class='" . (in_array('Disney+', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded') . " href='" . $platformLinks['Disney+'] . "'>
 				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
 		</a>
 	";
