@@ -85,47 +85,33 @@ echo $titleData['src/src/img']; */
 		<!-- BODY -->
 
 
+
 	<div class="container">
-      	<div class="srow rounded">
-        	<p class="lead font-weight-bold">Showing Results for: <?php echo $searchString; ?></p>
-      	</div>
-      	<div class="row pt-4">
-        	<div class="col-3">
-          		<div class= "filters rounded" >
-            		<p class="lead font-weight-bold">Filters: </p>
-              		<div class="form-check">
-                		<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                		<label class="form-check-label" for="defaultCheck1">
-                  			<p class="lead">Netflix</p>
-                		</label>
-              		</div>
-              		<div class="form-check">
-                		<input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                		<label class="form-check-label" for="defaultCheck2">
-                  			<p class="lead">Hulu</p>
-                		</label>
-              		</div>
-              		<div class="form-check">
-                		<input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                		<label class="form-check-label" for="defaultCheck3">
-                  			<p class="lead">Amazon Prime</p>
-                		</label>
-              		</div>
-              		<div class="form-check">
-                		<input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                		<label class="form-check-label" for="defaultCheck4">
-                 		 	<p class="lead">HBOMax</p>
-                		</label>
-              		</div>
-					<div class="form-check">
-                		<input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                		<label class="form-check-label" for="defaultCheck4">
-                  			<p class="lead">Disney Plus</p>
-                		</label>
-              		</div>
-          		</div>
-        	</div>
-       		<div class="col-9 justify-content-center">
+		<div class="row justify-content-center">
+
+			<div class="col-10 justify-content-center pl-4">
+				<div class="row">
+					<div class="col-9">
+						<div class="srow rounded">
+							  	<p class="lead font-weight-bold">Showing Results for: <?php echo $searchString; ?></p>
+		      	</div>
+					</div>
+					<div class="col-3">
+						<div class="dropdown justify-content-center mt-3">
+						  <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Platform Filters
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						    <li class = "m-1 pl-2"><a data-value="option1"><input type="checkbox"/> Netflix</a></li>
+								<li class = "m-1 pl-2"><a data-value="option1"><input type="checkbox"/> Hulu</a></li>
+								<li class = "m-1 pl-2"><a data-value="option1"><input type="checkbox"/> Amazon Prime</a></li>
+								<li class = "m-1 pl-2"><a data-value="option1"><input type="checkbox"/> Disney+</a></li>
+								<li class = "m-1 pl-2"><a data-value="option1"><input type="checkbox"/> HBO Max</a></li>
+
+						  </div>
+						</div>
+					</div>
+				</div>
 
 					<?php
 					$resultsHTML = "";
