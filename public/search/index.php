@@ -207,7 +207,7 @@ echo $titleData['src/src/img']; */
 	//console.log(titles)
 
 	for (key of Object.keys(results)) {
-		//console.log(results[key])
+		results[key].servicesBool = getServicesBoolean(results[key].services);
 		if (favorites.includes(results[key].id)) {
 			isFavorite = true;
 		} else {

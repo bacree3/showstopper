@@ -140,6 +140,20 @@ function checkDate(timestamp) {
   }
 }
 
+function getServicesBoolean(services) {
+  var servicesReference = ["Netflix", "Hulu", "Disney+", "Amazon Prime Video", "HBO Max"];
+  var servicesBool = [];
+  for (var item in servicesReference) {
+    var object = JSON.stringify(services);
+    if (object.includes(servicesReference[item])) {
+      servicesBool[servicesReference[item]] = true;
+    } else {
+      servicesBool[servicesReference[item]] = false;
+    }
+  }
+  return servicesBool;
+}
+
 /* $('.movie').each(function(i, obj) {
     var title = $(obj).attr('class').split(' ').pop();
 		$(obj).click(function() {
