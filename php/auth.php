@@ -152,7 +152,7 @@ function createUser($email, $pass) {
 }
 
 function getUserInfo($id) {
-	$query = "SELECT name, email, services, favorites FROM users WHERE id = " . str($id) . ";";
+	$query = "SELECT name, email, services, favorites, delivery, actorNotification, titleNotification FROM users WHERE id = " . str($id) . ";";
 	//echo $query;
 	return query($query, true)[0];
 }
@@ -218,6 +218,10 @@ function isFavorited($favoriteID) {
 
 function getFavorites() {
 	return json_decode(getUserInfo(getCurrentUserID())['favorites']);
+}
+
+function changeNotifications($id, $delivery, $actor, $title) {
+	update($id, "users", ['delivery'], [str($delivery)]);
 }
 
 ?>

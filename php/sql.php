@@ -49,6 +49,7 @@ function update($identifier, $table, $params, $values) {
   }
   $updates = rtrim($updates, ",");
   $query = "UPDATE " . $table . " SET " . $updates . " WHERE id = " . "'" . $identifier . "';";
+  //echo $query;
   query($query, false);
 }
 

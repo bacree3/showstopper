@@ -57,7 +57,7 @@ if (!isLoggedIn()) {
 									<label style="font-weight:bold;">Receive Notifications Through</label>
 								</div>
 								<div class="col-md-8 col-6">
-									<label>Email</label>
+									<label><?php echo $info['delivery'];?></label>
 							</div>
 						</div>
 							<hr />
@@ -66,14 +66,14 @@ if (!isLoggedIn()) {
 									<label style="font-weight:bold;">Notifications</label>
 								</div>
 								<div class="col-md-8 col-6">
-									<label>Favorite actor on?</label>
+									<label>Actors: <?php echo $info['actorNotification'] ? 'On' : 'Off';?></label>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-5 col-md-4 col-5">
 								</div>
 								<div class="col-md-8 col-6">
-									<label>Favorite movie on?</label>
+									<label>Titles: <?php echo $info['titleNotification'] ? 'On' : 'Off';?></label>
 								</div>
 							</div>
     					<div class="col-md-12 mt-2 text-center">
@@ -97,31 +97,31 @@ if (!isLoggedIn()) {
     							<div class="row">
     								<div class="col-md-3 col-sm-4 mb-2">
     									<div class="custom-control custom-checkbox image-checkbox">
-    										<input type="checkbox" class="custom-control-input" name="netflix" id="ck1a">
+    										<input type="checkbox" class="custom-control-input" name="netflix" id="ck1a" <?php echo in_array("Netflix", json_decode($info['services'])) ? 'checked' : '';?>>
     										<label class="custom-control-label" for="ck1a"> <img src="/src/img/netflix.jpg" alt="Netflix" class="img-fluid"> </label>
     									</div>
     								</div>
     								<div class="col-md-3 col-sm-4 mb-2">
     									<div class="custom-control custom-checkbox image-checkbox">
-    										<input type="checkbox" class="custom-control-input" name="hulu" id="ck1b">
+    										<input type="checkbox" class="custom-control-input" name="hulu" id="ck1b" <?php echo in_array("Hulu", json_decode($info['services'])) ? 'checked' : '';?>>
     										<label class="custom-control-label" for="ck1b"> <img src="/src/img/hulu.png" alt="Hulu" class="img-fluid"> </label>
     									</div>
     								</div>
     								<div class="col-md-3 col-sm-4 mb-2">
     									<div class="custom-control custom-checkbox image-checkbox">
-    										<input type="checkbox" class="custom-control-input" name="disney+" id="ck1c">
+    										<input type="checkbox" class="custom-control-input" name="disney+" id="ck1c" <?php echo in_array("Disney+", json_decode($info['services'])) ? 'checked' : '';?>>
     										<label class="custom-control-label" for="ck1c"> <img src="/src/img/disneyplus.jpg" alt="Disney+" class="img-fluid"> </label>
     									</div>
     								</div>
     								<div class="col-md-3 col-sm-4 mb-2">
     									<div class="custom-control custom-checkbox image-checkbox">
-    										<input type="checkbox" class="custom-control-input" name="prime" id="ck1d">
+    										<input type="checkbox" class="custom-control-input" name="prime" id="ck1d" <?php echo in_array("Amazon Prime Video", json_decode($info['services'])) ? 'checked' : '';?>>
     										<label class="custom-control-label" for="ck1d"> <img src="/src/img/prime.jpg" alt="Amazon Prime Video" class="img-fluid"> </label>
     									</div>
     								</div>
     								<div class="col-md-3 col-sm-4 mb-2">
     									<div class="custom-control custom-checkbox image-checkbox">
-    										<input type="checkbox" class="custom-control-input" name="hbo" id="ck1e">
+    										<input type="checkbox" class="custom-control-input" name="hbo" id="ck1e" <?php echo in_array("HBO Max", json_decode($info['services'])) ? 'checked' : '';?>>
     										<label class="custom-control-label" for="ck1e"> <img src="/src/img/hbo.png" alt="HBO Max" class="img-fluid"> </label>
     									</div>
     								</div>
@@ -132,17 +132,13 @@ if (!isLoggedIn()) {
 									<label>Receive Notifications Through</label>
 									<div class="row">
 										<div class="col-md-8 col-6">
-											<div class="form-check">
-		  									<input class="form-check-input" type="radio" name="notificationType" id="radio" value="option1" checked>
-		  									<label class="form-check-label" for="radio">
-		    									Email
-		  									</label>
+											<div class="custom-control custom-radio">
+											  <input type="radio" id="customRadio1" name="delivery" class="custom-control-input" value = "Email" <?php echo $info['delivery'] == 'Email' ? 'checked' : '' ?>>
+											  <label class="custom-control-label" for="customRadio1">Email</label>
 											</div>
-											<div class="form-check">
-		  									<input class="form-check-input" type="radio" name="notificationType" id="pushNotification" value="option2">
-		  									<label class="form-check-label" for="pushNotification">
-		    								Push Notifications
-		  									</label>
+											<div class="custom-control custom-radio">
+											  <input type="radio" id="customRadio2" name="delivery" class="custom-control-input" value = "Push Notifications" <?php echo $info['delivery'] == 'Push Notifications' ? 'checked' : '' ?>>
+											  <label class="custom-control-label" for="customRadio2">Push Notifications</label>
 											</div>
 									</div>
 								</div>
@@ -153,20 +149,19 @@ if (!isLoggedIn()) {
 									<div class="row">
 										<div class="col-md-8 col-6">
 											<div class="custom-control custom-switch">
-												<input type="checkbox" class="custom-control-input" checked data-toggle="toggle"
-		                  	data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" id="customSwitch1">
-		                  	<label class="custom-control-label" for="customSwitch1"><span class="pull-left">Favorite Actor</span></label>
+											  <input name = "actorNotification" type="checkbox" class="custom-control-input" id="customSwitch1" <?php echo $info['actorNotification'] ? 'checked' : '' ?>>
+											  <label class="custom-control-label" for="customSwitch1">Actor Notifications</label>
 											</div>
 										</div>
-								</div>
-								<div class="row">
-									<div class="col-md-8 col-6">
-										<div class="custom-control custom-switch">
-											<input type="checkbox" class="custom-control-input" id="customSwitch2">
-			                <label class="custom-control-label" for="customSwitch2">Favorite Movie</label>
+									</div>
+									<div class="row">
+										<div class="col-md-8 col-6">
+											<div class="custom-control custom-switch">
+											  <input name = "titleNotification" type="checkbox" class="custom-control-input" id="customSwitch2" <?php echo $info['titleNotification'] ? 'checked' : '' ?>>
+											  <label class="custom-control-label" for="customSwitch2">Title Notifications</label>
+											</div>
 										</div>
 									</div>
-								</div>
 							</div>
     						<div class="col-md-12 text-center">
     							<button type="submit" class="btn btn-block loginbtn btn-primary">Save Changes</button>

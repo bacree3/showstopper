@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 if (isset($_POST['edit'])) {
@@ -14,6 +18,13 @@ if (isset($_POST['edit'])) {
 	$services = [$netflix, $hulu, $disney, $prime, $hbo];
 
 	accountSetup($_SESSION['userID'], $name, json_encode(translateServices($services)));
+	$delivery = $_POST['delivery'];
+	$actorNotification = isset($_POST['actorNotification']) ? 1 : 0;
+	$titleNotification = isset($_POST['titleNotification']) ? 1 : 0;
+	$query = "UPDATE users SET delivery = " . str($delivery) . ", actorNotification = " . $actorNotification . ", titleNotification = " . $titleNotification . " WHERE id = " . str($_SESSION['userID']) . ";";
+	//echo $query;
+	query($query, false);
+	//changeNotifications($_SESSION['userID'], $delivery, $actorNotification, $titleNotification);
 	header("Location:/account");
 } else {
 	echo "form not detected";
