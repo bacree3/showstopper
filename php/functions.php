@@ -653,4 +653,34 @@ function post_async($url, array $params) {
     //return
 }
 
+function getNotifications($userId) {
+  $results = query("SELECT * FROM notifications;", true);
+  //$results = query("SELECT * FROM notifications WHERE userId = " . $userId . ";", true);
+  $notifications = "";
+  if (count($results) == 0) {
+    $notifications =  "
+    <div class='text-center col-xs-12 col-sm-8 col-md-12 col-lg-14 text-left'>
+      <p>You currently don't have any notifications. Please check again later!</p>
+      <hr/>
+    </div>
+    ";
+  } else {
+    foreach ($results as $key => $notification) {
+      $actorAlert = "";
+      if (isset($notification['actorId'])) {
+        $actor = getElementByID($notification['actorId'], 'people')['name'];
+        $actorAlert = ", which <a href = '/search?actor=" . $notification['actorId'] . "'>" . $actor . "</a> is in";
+      }
+      $title = getElementByID($notification['titleId'], 'titles')['name'];
+      if ($notification['action'] == "added") {
+        $row = "<div class='col-xs-12 col-sm-8 col-md-12 col-lg-14 text-left'><p><a href = '/movie?title=" . $notification['titleId'] . "'>" . $title . "</a> was added to " . $notification['service'] . $actorAlert . "!</p><hr/></div>";
+      } else {
+        $row = "<div class='col-xs-12 col-sm-8 col-md-12 col-lg-14 text-left'><p><a href = '/movie?title=" . $notification['titleId'] . "'>" . $title . "</a> was removed from " . $notification['service'] . $actorAlert . "!</p><hr/></div>";
+      }
+      $notifications .= $row;
+    }
+  }
+  return $notifications;
+}
+
 ?>
