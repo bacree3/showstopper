@@ -41,7 +41,7 @@
     </li>
   </ul>
   <div id="searchbar" class="dropdown">
-    <form action="/search/" method="get" class="form-inline my-2 my-lg-0">
+    <form action="/search/" method="get" class="form-inline my-2 my-lg-0" id="searchform">
       <input id="searchInput" name="search" class="form-control mr-sm-2 input dropdown-toggle" type="search" placeholder="Search" aria-label="Search">
       <div class="dropdown-menu w-100">
           <div class="dropdown-content autocomplete"></div>
@@ -94,10 +94,21 @@
       resultsWrapper.appendChild(divider);
       const seeAll = document.createElement('a');
       seeAll.classList.add('dropdown-item');
+      seeAll.setAttribute("id","seeall");
       seeAll.innerHTML = `See All`;
+      seeAll.addEventListener('click', event => {
+        console.log(document.getElementById('searchform'));
+        document.getElementById('searchform').submit();
+      });
+      resultsWrapper.appendChild(seeAll);
     };
 
     input.addEventListener('input', onInput);
+
+    const onSeeAllClick = event => {
+      document.getElementById('search-form').submit();
+    }
+
 
     document.addEventListener('click', event => {
       if (!rootDiv.contains(event.target)) {
