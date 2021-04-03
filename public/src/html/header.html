@@ -43,7 +43,7 @@
   <div id="searchbar" class="dropdown">
     <form action="/search/" method="get" class="form-inline my-2 my-lg-0">
       <input id="searchInput" name="search" class="form-control mr-sm-2 input dropdown-toggle" type="search" placeholder="Search" aria-label="Search">
-      <div class="dropdown-menu">
+      <div class="dropdown-menu w-100">
           <div class="dropdown-content autocomplete"></div>
       </div>
       <button name="submit" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
@@ -73,7 +73,7 @@
 
     const onInput = event => {
       const items = populateWith(event.target.value.toLowerCase());
-      if (!items.length) {
+      if (!items.length || !event.target.value.length) {
         dropdown.classList.remove('show');
         return;
       }
@@ -89,6 +89,12 @@
         });
         resultsWrapper.appendChild(option);
       }
+      const divider = document.createElement('div');
+      divider.classList.add('dropdown-divider');
+      resultsWrapper.appendChild(divider);
+      const seeAll = document.createElement('a');
+      seeAll.classList.add('dropdown-item');
+      seeAll.innerHTML = `See All`;
     };
 
     input.addEventListener('input', onInput);
@@ -118,7 +124,7 @@
           results.push(titles[i]);
         }
       }
-      return results;
+      return results.slice(0,5);
     }
   });
 
