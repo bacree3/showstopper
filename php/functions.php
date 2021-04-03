@@ -473,6 +473,56 @@ function scrapePlatforms($title) {
   return $responseData;
 }
 
+function findPatterns($favorites) {
+  if (!$favorites || $favorites == "false") {
+    $favorites = [];
+  }
+  $genreBreakdown = [];
+  $platformBreakdown = [];
+  foreach($favorites as $key => $title) {
+    $titleData = getElementByID($title, 'titles');
+    $services = json_decode($titleData['services'], true);
+
+    foreach ($services as $service) {
+      $serviceName = $service['name'];
+      if (array_key_exists($serviceName, $platformBreakdown)) {
+        $platformBreakdown[$serviceName] = $platformBreakdown[$serviceName] + 1;
+      } else {
+        $platformBreakdown[$serviceName] = 1;
+      }
+    }
+
+    $genreString = str($titleData['genre']);
+    if (array_key_exists($genreString, $genreBreakdown)) {
+      $genreBreakdown[$genreString] = $genreBreakdown[$genreString] + 1;
+    } else {
+      $genreBreakdown[$genreString] = 1;
+    }
+
+  }
+
+  $returnArray = array (
+    "genres" => $genreBreakdown,
+    "platforms" => $platformBreakdown
+  );
+  return $returnArray;
+}
+
+function addWeight($title, $amount) {
+  $titleData = getElementByID($title, 'titles');
+  $query = "UPDATE titles SET weight = " . ($titleData['weight'] + $amount) . " WHERE id = " . str($title) . ";";
+  if (is_null($titleData['weight'])) {
+    $query = "UPDATE titles SET weight = " . 1 . " WHERE id = " . str($title) . ";";
+  }
+  query($query, false);
+}
+
+function getPopularTitles() {
+  $query = "SELECT * FROM titles WHERE weight IS NOT NULL ORDER BY weight DESC;";
+  $titles = query($query, true);
+  return array_slice($titles, 0, 5);
+}
+
 function insertPlatforms($title, $platforms) {
   $platforms = json_encode($platforms);
   $query = "UPDATE titles SET services = " . json($platforms) . " WHERE id = " . str($title) . ";";

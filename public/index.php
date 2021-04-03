@@ -1,6 +1,8 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
+$popTitles = getPopularTitles();
+
 ?>
 <html>
   <head></head>
@@ -26,7 +28,23 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
             <h3 class="text-white">Trending</p>
           </div>
         </div>
-        <div class="col-2 ">
+
+        <?php
+          $resultsHTML = "";
+          foreach($popTitles as $key => $title) {
+            $movieImg = "
+            <div class='col-2 '>
+              <div class='' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>
+                <img src='" . $title['img'] . "' class='rounded title homemoviepic' alt='...'>
+              </div>
+            </div>
+            ";
+            $resultsHTML .= $movieImg;
+          }
+          echo $resultsHTML;
+        ?>
+
+       <!--  <div class="col-2 ">
           <div class="">
             <img src="/src/img/avengers.jpg" class="rounded title homemoviepic" alt="...">
           </div>
@@ -50,7 +68,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
           <div>
             <img src="/src/img/extraction.jpg" class="rounded title homemoviepic" alt="...">
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="row">
         <div class="col-2 pt-4 text-center">

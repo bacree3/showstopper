@@ -8,13 +8,24 @@ if (isset($_GET['search'])) {
 	$title = getElementByID($id, 'titles');
 	$likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
 	$results = query("SELECT * FROM titles " . $likeStatment . " ORDER BY `name`, `release` desc;", true);
+
+    foreach ($results as $key => $title) {
+        if ($title['id'] == $id) {
+            addWeight($title['id'], 2);
+        } else {
+            addWeight($title['id'], 1);
+        }
+    }
+
 	if ($title['related'] != '') {
 		$related = json_decode($title['related']);
 	} else {
 		$related = [];
 		$titleList = scrapeRelatedTitles($searchString);
 		foreach ($titleList as $key => $name) {
-			array_push($related, searchByTitle($name));
+            $relatedID = searchByTitle($name);
+			array_push($related, $relatedID);
+            addWeight($relatedID, 1);
 		}
 			/*print_r($titleList);
 
@@ -185,6 +196,19 @@ echo $titleData['src/src/img']; */
 	}
 	//print_r($favorites);
 ?>
+
+<!-- <script>
+    function alterFavStatus(movieID) {
+        // $titleData = getElementByID($title, 'titles');
+        var isFavorite = <?php echo isFavorited(movieID); ?>;
+        changeFavStatus(<?php echo str($titleData['id']); ?>);
+        if (!isFavorite) {
+            $(<?php echo addWeight($titleData['id'], 1); ?>).hide();
+        } else {
+            $(<?php echo addWeight($titleData['id'], -1); ?>).hide();
+        }
+    }
+</script>  -->
 
 <script type="text/javascript">
 	var results = <?php echo json_encode($results); ?>;
