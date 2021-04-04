@@ -523,6 +523,12 @@ function getPopularTitles() {
   return array_slice($titles, 0, 5);
 }
 
+function getDemoForYouTitles() {
+  $query = "SELECT * FROM titles WHERE weight IS NOT NULL ORDER BY weight DESC;";
+  $titles = query($query, true);
+  return array_slice($titles, 5, 5);
+}
+
 function insertPlatforms($title, $platforms) {
   $platforms = json_encode($platforms);
   $query = "UPDATE titles SET services = " . json($platforms) . " WHERE id = " . str($title) . ";";

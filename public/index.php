@@ -2,6 +2,7 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 $popTitles = getPopularTitles();
+$forYouTitles = getDemoForYouTitles();
 
 ?>
 <html>
@@ -76,31 +77,20 @@ $popTitles = getPopularTitles();
             <h3 class="text-white">Reccomended For You</p>
           </div>
         </div>
-        <div class="col-2">
-          <div class="">
-            <img src="/src/img/avengers.jpg" class="rounded title homemoviepic" alt="...">
-          </div>
-        </div>
-        <div class="col-2">
-          <div class="">
-            <img src="/src/img/avengers.jpg" class="rounded title homemoviepic" alt="...">
-          </div>
-        </div>
-        <div class="col-2">
-          <div>
-            <img src="/src/img/star-wars.jpg" class="rounded title homemoviepic" alt="...">
-          </div>
-        </div>
-        <div class="col-2">
-          <div>
-            <img src="/src/img/harry-potter.jpg" class="rounded title homemoviepic" alt="...">
-          </div>
-        </div>
-        <div class="col-2">
-          <div>
-            <img src="/src/img/extraction.jpg" class="rounded title homemoviepic" alt="...">
-          </div>
-        </div>
+        <?php
+          $resultsHTML = "";
+          foreach($forYouTitles as $key => $title) {
+            $movieImg = "
+            <div class='col-2 '>
+              <div class='' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>
+                <img src='" . $title['img'] . "' class='rounded title homemoviepic' alt='...'>
+              </div>
+            </div>
+            ";
+            $resultsHTML .= $movieImg;
+          }
+          echo $resultsHTML;
+        ?>
       </div>
     </div>
 
