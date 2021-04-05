@@ -46,7 +46,7 @@
       <div class="dropdown-menu w-100">
           <div class="dropdown-content autocomplete"></div>
       </div>
-      <button name="submit" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+      <button name="submit" class="btn btn-outline-danger my-2 my-sm-0" type="submit" id="submitbutton">Search</button>
     </form>
   </div>
 </div>
@@ -86,6 +86,7 @@
         option.addEventListener('click', () => {
           dropdown.classList.remove('show');
           input.value = searchingOn(item);
+          document.getElementById('searchform').requestSubmit(document.getElementById('submitbutton'));
         });
         resultsWrapper.appendChild(option);
       }
@@ -97,18 +98,12 @@
       seeAll.setAttribute("id","seeall");
       seeAll.innerHTML = `See All`;
       seeAll.addEventListener('click', event => {
-        console.log(document.getElementById('searchform'));
-        document.getElementById('searchform').submit();
+        document.getElementById('searchform').requestSubmit(document.getElementById('submitbutton'));
       });
       resultsWrapper.appendChild(seeAll);
     };
 
     input.addEventListener('input', onInput);
-
-    const onSeeAllClick = event => {
-      document.getElementById('search-form').submit();
-    }
-
 
     document.addEventListener('click', event => {
       if (!rootDiv.contains(event.target)) {
