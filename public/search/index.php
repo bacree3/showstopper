@@ -9,23 +9,29 @@ if (isset($_GET['search'])) {
 	$likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
 	$results = query("SELECT * FROM titles " . $likeStatment . " ORDER BY `name`, `release` desc;", true);
 
-    foreach ($results as $key => $title) {
-        if ($title['id'] == $id) {
-            addWeight($title['id'], 2);
-        } else {
-            addWeight($title['id'], 1);
-        }
-    }
+	foreach ($results as $key => $title) {
+		$results[$title['id']] = $title;
+		unset($results[$key]);
+	}
 
-	if ($title['related'] != '') {
+  foreach ($results as $key => $title) {
+    if ($title['id'] == $id) {
+      addWeight($title['id'], 2);
+    } else {
+      addWeight($title['id'], 1);
+    }
+  }
+
+	if ($title['related'] != '' && $title['related'] != '[]') {
 		$related = json_decode($title['related']);
+		//$related = array_unique($related, SORT_REGULAR);
 	} else {
 		$related = [];
 		$titleList = scrapeRelatedTitles($searchString);
 		foreach ($titleList as $key => $name) {
-            $relatedID = searchByTitle($name);
+    	$relatedID = searchByTitle($name);
 			array_push($related, $relatedID);
-            addWeight($relatedID, 1);
+      addWeight($relatedID, 1);
 		}
 			/*print_r($titleList);
 
@@ -42,7 +48,7 @@ if (isset($_GET['search'])) {
 			// add related id's to cache db
 	}
 	foreach ($related as $key => $id) {
-		array_push($results, getElementByID($id, 'titles'));
+		$results[$id] = getElementByID($id, 'titles');
 	}
 	$results = array_unique($results, SORT_REGULAR);
 	function myFilter($var){
@@ -55,8 +61,7 @@ if (isset($_GET['search'])) {
 
 	query($query, false);
 	//$query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
-	//print_r($results);
-
+	$results = array_unique($results, SORT_REGULAR);
 } else if (isset($_GET['genre'])) {
 	$searchString = steralizeString($_GET['genre']);
 	$results = searchByGenre($searchString);
