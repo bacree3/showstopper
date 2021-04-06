@@ -71,7 +71,10 @@ $forYouTitles = getDemoForYouTitles();
           </div>
         </div> -->
       </div>
-      <div class="row">
+      <div class="row justify-content-center" id = "seereccs">
+        <h4 class="text-white text-center">Sign in to see reccomendations made just for you!</p>
+      </div>
+      <div class="row" id = "reccs">
         <div class="col-2 pt-4 text-center">
           <div class="">
             <h3 class="text-white">Reccomended For You</p>
@@ -106,8 +109,10 @@ $forYouTitles = getDemoForYouTitles();
   if (loggedin) {
   	document.getElementById("signup").hidden = true;
     document.getElementById("signuplink").hidden = true;
+    document.getElementById("seereccs").hidden = true;
   } else {
     document.getElementById("welcome").hidden = true;
+    document.getElementById("reccs").hidden = true;
   }
 
 </script>
