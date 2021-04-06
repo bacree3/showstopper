@@ -104,30 +104,39 @@ echo $titleData['src/src/img']; */
 
 	<div class="container">
 		<div class="row justify-content-center">
-
-			<div class="col-10 justify-content-center pl-4">
-				<div class="row">
-					<div class="col-9">
-						<div class="srow rounded">
-							  	<p class="lead font-weight-bold">Showing Results for: <?php echo $searchString; ?></p>
-		      	</div>
-					</div>
-					<div class="col-3">
-						<div class="dropdown justify-content-center mt-3">
-						  <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    Platform Filters
-						  </button>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						    <li class = "m-1 pl-2"><a data-value="option1"><input type="checkbox"/> Netflix</a></li>
-								<li class = "m-1 pl-2"><a data-value="option1"><input type="checkbox"/> Hulu</a></li>
-								<li class = "m-1 pl-2"><a data-value="option1"><input type="checkbox"/> Amazon Prime</a></li>
-								<li class = "m-1 pl-2"><a data-value="option1"><input type="checkbox"/> Disney+</a></li>
-								<li class = "m-1 pl-2"><a data-value="option1"><input type="checkbox"/> HBO Max</a></li>
-
-						  </div>
-						</div>
-					</div>
-				</div>
+			<div class="srow rounded">
+					<p class="lead font-weight-bold">Showing Results for: <?php echo $searchString; ?></p>
+			</div>
+		</div>
+		<div class="row dropdown justify-content-center mt-3">
+			<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Filter by Platform
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<form id="filterform">
+					<li class="m-1 pl-2">
+						<input name="netflix" id="netflix" type="checkbox" onchange="updatefilter(this, 'Netflix')">
+						<label for="netflix">Netflix</label>
+					</li>
+					<li class="m-1 pl-2">
+						<input name="hulu" id="hulu" type="checkbox" onchange="updatefilter(this, 'Hulu')">
+						<label for="hulu">Hulu</label>
+					</li>
+					<li class="m-1 pl-2">
+						<input name="amazon" id="amazon" type="checkbox" onchange="updatefilter(this, 'Amazon Prime Video')">
+						<label for="amazon">Amazon Prime</label>
+					</li>
+					<li class="m-1 pl-2">
+						<input name="disney" id="disney" type="checkbox" onchange="updatefilter(this, 'Disney+')">
+						<label for="disney">Disney+</label>
+					</li>
+					<li class="m-1 pl-2">
+						<input name="hbo" id="hbo" type="checkbox" onchange="updatefilter(this, 'HBO Max')">
+						<label for="hbo">HBO Max</label>
+					</li>
+				</form>
+			</div>
+		</div>
 
 					<?php
 					$resultsHTML = "";
@@ -202,24 +211,11 @@ echo $titleData['src/src/img']; */
 	//print_r($favorites);
 ?>
 
-<!-- <script>
-    function alterFavStatus(movieID) {
-        // $titleData = getElementByID($title, 'titles');
-        var isFavorite = <?php echo isFavorited(movieID); ?>;
-        changeFavStatus(<?php echo str($titleData['id']); ?>);
-        if (!isFavorite) {
-            $(<?php echo addWeight($titleData['id'], 1); ?>).hide();
-        } else {
-            $(<?php echo addWeight($titleData['id'], -1); ?>).hide();
-        }
-    }
-</script>  -->
-
 <script type="text/javascript">
 	var results = <?php echo json_encode($results); ?>;
 	var favorites = <?php echo json_encode($favorites); ?>;
 	var needsUpdate = <?php echo json_encode($needsUpdate); ?>;
-	//console.log(titles)
+
 
 	for (key of Object.keys(results)) {
 		results[key].servicesBool = getServicesBoolean(results[key].services);
@@ -264,6 +260,23 @@ echo $titleData['src/src/img']; */
 					console.log("success");
 				}
 			});
+		}
+	}
+
+	function updatefilter(obj, service) {
+		var action;
+		if ($(obj).is(":checked")) {
+			for (r in results) {
+				if (!results[r].servicesBool[service]) {
+					$(".movie" + results[r].id).hide();
+				}
+			}
+		} else {
+			for (r in results) {
+				if (!results[r].servicesBool[service]) {
+					$(".movie" + results[r].id).show();
+				}
+			}
 		}
 	}
 </script>
