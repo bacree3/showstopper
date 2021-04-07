@@ -39,7 +39,13 @@ img {
 
 .movieImg {
     width: 100%;
+		max-width: 215px;
     height: auto;
+}
+
+.movie-content {
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 .filters {
