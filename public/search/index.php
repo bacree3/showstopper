@@ -166,7 +166,7 @@ echo $titleData['src/src/img']; */
 					        		<img src='" . $title['img'] . "' class='rounded title movieImg' alt='...'>
 					      		</div>
 					      		<div id = " . $title['id'] . " class='movie-content col-xs-12 col-md-8 text-left'>
-					        		<h1 class='display-4' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>" . $title['name'] . "</h1>
+					        		<h1 class='mb-3 display-4' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>" . $title['name'] . "</h1>
 									<p class='lead'>
 										<span class='font-weight-bold'>Release Date:</span> " . $title['release'] . "
 									</p>
