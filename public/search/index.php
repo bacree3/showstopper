@@ -208,6 +208,9 @@ echo $titleData['src/src/img']; */
 <?php
 	$favorites = [];
 	$needsUpdate = [];
+	if (isFavorited($actorId)) {
+		array_push($favorites, $actorId);
+	}
 	foreach ($results as $key => $title) {
 		if (isFavorited($title['id'])) {
 			array_push($favorites, $title['id']);
@@ -217,7 +220,7 @@ echo $titleData['src/src/img']; */
 			array_push($needsUpdate, $title['id']);
 		}
 	}
-	//print_r($favorites);
+	print_r($favorites);
 ?>
 
 <script type="text/javascript">
@@ -227,7 +230,7 @@ echo $titleData['src/src/img']; */
 	var actor = <?php echo $actorId != "" ? 1 : 0; ?>;
 	if (actor == 1) {
 		var actorId = <?php echo str($actorId); ?>;
-		if (favorites.includes(actor)) {
+		if (favorites.includes(actorId)) {
 			isFavorite = true;
 		} else {
 			isFavorite = false;
