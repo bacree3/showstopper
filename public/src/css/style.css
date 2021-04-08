@@ -180,3 +180,13 @@ img {
 .sidenav a:hover {
   color: #f1f1f1;
 }
+
+.favorite {
+	max-width: 250px;
+}
+
+.favorite-actor {
+	padding: 10%;
+	margin-top: auto;
+	margin-bottom: auto;
+}

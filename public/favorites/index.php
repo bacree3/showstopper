@@ -28,21 +28,38 @@ if (!isLoggedIn()) {
           $html = "
           <div class='row justify-content-md-center'>
           ";
-          foreach ($favorites as $key => $title) {
-            $titleData = getElementByID($title, 'titles');
-            $html .= "
-            <div id = '" . $titleData['id'] . "' class='col-2.5 bg-light rounded p-2 m-2' onclick='location.href=" . "\"" . '/movie/?title=' . $titleData['id'] . "\"" .  "' style='cursor: pointer;'>
-              <div class='row pl-1'>
-                <div class='col-1'>
-                  <button type='button' onclick = 'changeFavStatus(" . str($titleData['id']) . "); removeFavoriteCard(" . str($titleData['id']) . ")' class='btn btn-dark btn-sm align-left'>X</button>
+          foreach ($favorites as $key => $favorite) {
+            $actor = getElementByID($favorite, 'people');
+            if (substr($favorite, 0 ,2) != 'tt') {
+              $html .= "
+              <div id = '" . $actor['id'] . "' class='col-2.5 bg-light rounded p-2 m-2 favorite' onclick='location.href=" . "\"" . '/search/?actor=' . $actor['id'] . "\"" .  "' style='cursor: pointer;'>
+                <div class='row pl-1'>
+                  <div class='col-1'>
+                    <button type='button' onclick = 'changeFavStatus(" . str($actor['id']) . "); removeFavoriteCard(" . str($actor['id']) . ")' class='btn btn-dark btn-sm align-left'>X</button>
+                  </div>
+                  <div class='col'>
+                    <p class = 'lead text-center'>Actor</p>
+                  </div>
                 </div>
-                <div class='col'>
-                  <p class = 'lead text-center'>" . $titleData['name'] . "</p>
-                </div>
+                <h1 class = 'display-4 text-center favorite-actor'>" . $actor['name'] . "</h1>
               </div>
-              <img src='" . $titleData['img'] . "' class='rounded title' alt='...'>
-            </div>
-            ";
+              ";
+            } else {
+              $titleData = getElementByID($favorite, 'titles');
+              $html .= "
+              <div id = '" . $titleData['id'] . "' class='col-2.5 bg-light rounded p-2 m-2 favorite' onclick='location.href=" . "\"" . '/movie/?title=' . $titleData['id'] . "\"" .  "' style='cursor: pointer;'>
+                <div class='row pl-1'>
+                  <div class='col-1'>
+                    <button type='button' onclick = 'changeFavStatus(" . str($titleData['id']) . "); removeFavoriteCard(" . str($titleData['id']) . ")' class='btn btn-dark btn-sm align-left'>X</button>
+                  </div>
+                  <div class='col'>
+                    <p class = 'lead text-center'>" . $titleData['name'] . "</p>
+                  </div>
+                </div>
+                <img src='" . $titleData['img'] . "' class='rounded title' alt='...'>
+              </div>
+              ";
+            }
           }
           $html .= "</div>";
           echo $html;
