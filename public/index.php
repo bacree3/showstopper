@@ -72,7 +72,7 @@ $forYouTitles = getDemoForYouTitles();
         </div> -->
       </div>
       <div class="row justify-content-center" id = "seereccs">
-        <h4 class="text-white text-center">Sign in to see reccomendations made just for you!</p>
+        <h4 class="text-white text-center">Sign in to see recommendations made just for you!</p>
       </div>
       <div class="row" id = "reccs">
         <div class="col-2 pt-4 text-center">
