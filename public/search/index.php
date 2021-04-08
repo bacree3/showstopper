@@ -62,18 +62,27 @@ if (isset($_GET['search'])) {
 	query($query, false);
 	//$query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
 	$results = array_unique($results, SORT_REGULAR);
+	$actorId = "";
 } else if (isset($_GET['genre'])) {
 	$searchString = steralizeString($_GET['genre']);
 	$results = searchByGenre($searchString);
+	$actorId = "";
 } else if (isset($_GET['actor'])) {
 	$searchString = steralizeString($_GET['actor']);
+	$actorId = steralizeString($_GET['actor']);
 	$results = searchByActor($searchString);
 	$searchString = getElementByID($searchString, 'people')['name'];
+	$searchString .= "<div style = 'display: inline-block;' onclick='changeFavStatus(" . str($actorId) . ")'>
+		<svg id='".$actorId . "isNotFavorite' xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='#283a59' class='bi bi-heart' viewBox='0 0 16 16'>
+			<path d='M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z'/>
+		</svg>
+		<svg id='".$actorId . "isFavorite' xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='#283a59' class='bi bi-heart-fill' viewBox='0 0 16 16'>
+			<path fill-rule='evenodd' d='M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z'/>
+		</svg>
+	</div>";
 } else {
 	goTo404();
 }
-
-
 
 //print_r($results);
 
@@ -105,7 +114,7 @@ echo $titleData['src/src/img']; */
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="srow rounded">
-					<p class="lead font-weight-bold">Showing Results for: <?php echo $searchString; ?></p>
+					<p style = "display: inline;" class="lead font-weight-bold mr-2">Showing Results for: <?php echo $searchString; ?></p>
 			</div>
 		</div>
 		<div class="row dropdown justify-content-center mt-3">
@@ -215,7 +224,20 @@ echo $titleData['src/src/img']; */
 	var results = <?php echo json_encode($results); ?>;
 	var favorites = <?php echo json_encode($favorites); ?>;
 	var needsUpdate = <?php echo json_encode($needsUpdate); ?>;
-
+	var actor = <?php echo $actorId != "" ? 1 : 0; ?>;
+	if (actor == 1) {
+		var actorId = <?php echo str($actorId); ?>;
+		if (favorites.includes(actor)) {
+			isFavorite = true;
+		} else {
+			isFavorite = false;
+		}
+		if (!isFavorite) {
+			$("#" + actorId + "isFavorite").hide();
+		} else {
+			$("#" + actorId + "isNotFavorite").hide();
+		}
+	}
 
 	for (key of Object.keys(results)) {
 		results[key].servicesBool = getServicesBoolean(results[key].services);
