@@ -1,6 +1,6 @@
 <?php
 /**
- * This file includes basic SQL operations for abstraction of data manipulation within the application
+ * This file is used as a library for user authentication and any data relative to the user
  *
  * @author Team 0306
  *
