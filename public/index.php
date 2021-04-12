@@ -2,7 +2,8 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 $popTitles = getPopularTitles();
-$forYouTitles = getDemoForYouTitles();
+// $forYouTitles = getDemoForYouTitles();
+$forYouTitles = getUserRecTitles(getCurrentUserID());
 
 ?>
 <html>

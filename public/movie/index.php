@@ -11,6 +11,9 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
 		goTo404();
 	} else {
 		addWeight($titleData['id'], 1);
+		if (isLoggedIn()) {
+			addUserWeight(getCurrentUserID(), $titleData['id'], 1);
+		}
 	}
 } else {
 	goTo404();

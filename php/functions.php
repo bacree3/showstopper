@@ -619,17 +619,36 @@ function addWeight($title, $amount) {
  * [getPopularTitles description] SAM
  * @return [type] [description]
  */
+function addUserWeight($userID, $title, $amount) {
+  $query = "SELECT * FROM might_like WHERE (user_id = '" . $userID . "' AND movie_id = '" . $title . "');";
+  $entry = query($query, true);
+
+  $query = "UPDATE might_like SET weight = weight + " . $amount . " WHERE (user_id = '" . $userID . "' AND movie_id = '" . $title . "');";
+  if (!$entry || count($entry) == 0) {
+    $query = "INSERT INTO might_like VALUES('" . $userID . "', '" . $title . "', " . $amount . ");";
+  }
+
+  query($query, false);
+}
+
+/**
+ * [getPopularTitles description] SAM
+ * @return [type] [description]
+ */
 function getPopularTitles() {
   $query = "SELECT * FROM titles WHERE weight IS NOT NULL ORDER BY weight DESC;";
   $titles = query($query, true);
   return array_slice($titles, 0, 5);
 }
 
-// REMOVE THIS FUNCTION
-function getDemoForYouTitles() {
-  $query = "SELECT * FROM titles WHERE weight IS NOT NULL ORDER BY weight DESC;";
+/**
+ * [getPopularTitles description] SAM
+ * @return [type] [description]
+ */
+function getUserRecTitles($userID) {
+  $query = "SELECT movie_id, weight FROM might_like WHERE user_id = '" . $userID . "' ORDER BY weight DESC;";
   $titles = query($query, true);
-  return array_slice($titles, 5, 5);
+  return array_slice($titles, 0, 5);
 }
 
 /**

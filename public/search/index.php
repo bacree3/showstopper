@@ -17,8 +17,14 @@ if (isset($_GET['search'])) {
   foreach ($results as $key => $title) {
     if ($title['id'] == $id) {
       addWeight($title['id'], 2);
+      if (isLoggedIn()) {
+            addUserWeight(getCurrentUserID(), $title['id'], 2);
+        }
     } else {
       addWeight($title['id'], 1);
+      if (isLoggedIn()) {
+            addUserWeight(getCurrentUserID(), $title['id'], 1);
+        }
     }
   }
 
@@ -29,9 +35,12 @@ if (isset($_GET['search'])) {
 		$related = [];
 		$titleList = scrapeRelatedTitles($searchString);
 		foreach ($titleList as $key => $name) {
-    	$relatedID = searchByTitle($name);
+	    	$relatedID = searchByTitle($name);
 			array_push($related, $relatedID);
-      addWeight($relatedID, 1);
+	      	addWeight($relatedID, 1);
+	      	if (isLoggedIn()) {
+	            addUserWeight(getCurrentUserID(), $relatedID, 1);
+	        }
 		}
 			/*print_r($titleList);
 
