@@ -1,5 +1,13 @@
 <?php
+/**
+ * This file includes basic SQL operations for abstraction of data manipulation within the application
+ *
+ * @author Team 0306
+ *
+ * @since 1.0
+ */
 
+// start PHP session for user info
 session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -11,6 +19,11 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/PHPMailer/PHPMailer/src/Exception.php'
 require $_SERVER['DOCUMENT_ROOT'] . '/php/PHPMailer/PHPMailer/src/PHPMailer.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/PHPMailer/PHPMailer/src/SMTP.php';
 
+/**
+ * Send an email for user authentication
+ * @param  string $address email address of recipient
+ * @param  string $type    type of email to send
+ */
 function sendMail($address, $type) {
 	global $SMTPuser, $SMTPsecret;
 
@@ -93,10 +106,17 @@ function sendMail($address, $type) {
 	}
 }
 
+/**
+ * Check to see if a user is logged in
+ * @return boolean return true if logged in
+ */
 function isLoggedIn() {
 	return isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'];
 }
 
+/**
+ * Logout the user
+ */
 function logout() {
 	if (isLoggedIn()) {
 		session_destroy();
@@ -107,6 +127,12 @@ function logout() {
 	}
 }
 
+/**
+ * Login the user
+ * @param  string  $email email of user
+ * @param  string  $pass  password input by user to check against hash
+ * @return boolean return true if successful login
+ */
 function logIn($email, $pass) {
 	$email = strtolower($email);
 	if (emailExists($email)) {
@@ -126,16 +152,30 @@ function logIn($email, $pass) {
 	return false;
 }
 
+/**
+ * Get the current user ID if set
+ * @return string user ID
+ */
 function getCurrentUserID() {
 	return $_SESSION['userID'];
 }
 
+/**
+ * Check to see if an email exists in the user table
+ * @param  string $email email put in during registration
+ * @return array  user with registered email if exists
+ */
 function emailExists($email) {
 	$query = "SELECT * FROM users WHERE email = " . str($email) . ";";
-	//echo $query;
 	return query($query, true);
 }
 
+/**
+ * Create a new uers
+ * @param  string  $email email to be associated with user
+ * @param  string  $pass  password to be hashed
+ * @return boolean return true if successful creation
+ */
 function createUser($email, $pass) {
 	$email = strtolower($email);
 	if (!emailExists($email)) {
@@ -151,35 +191,73 @@ function createUser($email, $pass) {
 	}
 }
 
+/**
+ * Get non-sensitive info for a user
+ * @param  string $id userID to get data for
+ * @return array array of user data
+ */
 function getUserInfo($id) {
 	$query = "SELECT name, email, services, favorites, delivery, actorNotification, titleNotification FROM users WHERE id = " . str($id) . ";";
-	//echo $query;
 	return query($query, true)[0];
 }
 
+ /**
+  * Complete account setup based on form data during registration
+  * @param  string $id       user ID
+  * @param  string $name     user's new name
+  * @param  array  $services array of services user is subscribed to
+  * @return array  user data if successful
+  */
 function accountSetup($id, $name, $services) {
 	return update($id, "users", ['name', 'services'], [str($name), json($services)]);
 }
 
+/**
+ * Update a user's account data from the form data from the account page
+ * @param  string $id       user ID
+ * @param  string $name     user's new name
+ * @param  string $email    user's new email
+ * @param  array  $services array of services user is subscribed to
+ * @return array  user data if successful
+ */
 function updateAccount($id, $name, $email, $services) {
 	return update($id, "users", ['name', 'email', 'services'], [str($name), str($email), json($services)]);
 }
 
+/**
+ * Update a user's password
+ * @param  string $id user ID
+ * @param  string $pass new hashed password
+ * @return array  user data if successful
+ */
 function updatePassword($id, $pass) {
 	return update($id, "users", ['pass'], [str($pass)]);
 }
 
+/**
+ * Allow a user to reset their password based on request from form data
+ * @param string $id user ID
+ */
 function allowPasswordReset($id) {
 	$query = "UPDATE users SET reset = 1 WHERE id = " . str($id) . ";";
 	echo $query;
 	query($query, false);
 }
 
+/**
+ * Disable password reset ability for a user after one-time link has been used
+ * @param string $id user ID
+ */
 function disallowPasswordReset($id) {
 	$query = "UPDATE users SET reset = 0 WHERE id = " . str($id) . ";";
 	query($query, false);
 }
 
+/**
+ * Check to see if a user can reset their password
+ * @param string $id user ID
+ * @return boolean return true if a user can reset their passwrod
+ */
 function passwordResetAllowed($id) {
 	$query = "SELECT reset FROM users WHERE id = " . str($id) . ";";
 	$reset = query($query, true)[0]['reset'];
@@ -190,6 +268,11 @@ function passwordResetAllowed($id) {
 	}
 }
 
+/**
+ * Remove duplicate objects from an array
+ * @param  array $data input array
+ * @return array output array with no duplicates
+ */
 function removeDuplicates($data) {
 	$array = json_decode( $data, TRUE );
 
@@ -202,6 +285,11 @@ function removeDuplicates($data) {
 	$result = json_encode( $array );
 }
 
+/**
+ * Check to see if an element was favorited by a user
+ * @param  string  $favoriteID id of element to check
+ * @return boolean return true if the element is currently favorited
+ */
 function isFavorited($favoriteID) {
 	if (!isLoggedIn()) {
 		return 0;
@@ -216,14 +304,18 @@ function isFavorited($favoriteID) {
 	}
 }
 
+/**
+ * Get a users favorites if logged in
+ * @return array array of favorited titles and people's ids
+ */
 function getFavorites() {
 	return json_decode(getUserInfo(getCurrentUserID())['favorites']);
 }
 
-function changeNotifications($id, $delivery, $actor, $title) {
-	update($id, "users", ['delivery'], [str($delivery)]);
-}
-
+/**
+ * Verify an email if the link was followed
+ * @param  string $email email to verify
+ */
 function verifyEmail($email) {
   query("UPDATE users SET verified = 1 WHERE email = " . str($email) . ";", false);
 }
