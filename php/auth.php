@@ -224,19 +224,20 @@ function changeNotifications($id, $delivery, $actor, $title) {
 	update($id, "users", ['delivery'], [str($delivery)]);
 }
 
+function verifyEmail($email) {
+  query("UPDATE users SET verified = 1 WHERE email = " . str($email) . ";", false);
+}
+
 ?>
 
 <script>
 	<?php
-	  //$loggedIn;
+		// check if user is logged in to set session veriable
 		if (isset($_SESSION['isLoggedIn'])) {
 			$loggedIn = true;
 		} else {
 			$loggedIn = false;
 		}
-		//echo $loggedIn;
 	?>
   var loggedin = "<?php echo $loggedIn; ?>";
-	//console.log(titleObject);
-  //console.log(loggedin);
 </script>

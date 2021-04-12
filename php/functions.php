@@ -1,17 +1,23 @@
 <?php
+/**
+ * This file includes the main functionaity for the application.
+ *
+ ** Requires parameters.php and sql.php
+ ** Uses PHPMailer to send email through AWS SES
+ *
+ * @author Team 0306
+ *
+ * @since 1.0
+ */
 
 include 'parameters.php';
+include 'sql.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Aws\Ssm\SsmClient;
 
-//establish connection to MySQL Database
-$conn = new mysqli($ip, $user, $password, $schema);
-if ($conn->connect_errno) {
-  echo "Failed to connect to MySQL: " . $conn->connect_error();
-}
-
+// streaming services reference constant for front-end
 $servicesReference = ["Netflix", "Hulu", "Disney+", "Amazon Prime Video", "HBO Max"];
 $serviceIMG = array(
   $servicesReference[0] => "netflix.jpg",
@@ -21,9 +27,13 @@ $serviceIMG = array(
   $servicesReference[4] => "hbo.png",
 );
 
+/**
+ * Translates form data from front-end to JSON object to store which services have been selected
+ * @param  array $arr array of raw HTML form data
+ * @return array JSON object formatted from service reference for storage
+ */
 function translateServices($arr) {
   global $servicesReference, $serviceIMG;
-  //echo $services[0];
   $actualServices = [];
   foreach ($arr as $key => $value) {
     if ($value) {
@@ -33,84 +43,55 @@ function translateServices($arr) {
   return $actualServices;
 }
 
+/**
+ * Sends the user to the 404 page
+ */
 function goTo404() {
   http_response_code(404);
 	include '../error/404.php';
 	die();
 }
 
+/**
+ * Sends the user to the login page
+ */
 function goToLogin() {
 	header("Location:/login");
 }
 
+/**
+ * Encapsulates any string for SQL manipulation
+ * @param  string $str any string that needs to be encapsulated
+ * @return string encapsulated string
+ */
 function str($str) {
   return "\"" . $str . "\"";
 }
 
+/**
+ * Encapsulates string for JSON standards in SQL
+ * @param string  $json a decoded JSON object that needs to be encapsulated
+ * @return string encapsulated JSON object
+ */
 function json($json) {
   return "'" . $json . "'";
 }
 
+/**
+ * Takes an array of columns/values and translates it into a string for SQL manipulation
+ * Used in SQL functions for use of arrays in parameters to allow for large data manipulation
+ * @param  array $arr array of column or value items
+ * @return string string separated by commas based on the values in $arr
+ */
 function getString($arr) {
   return implode(', ', $arr);
 }
 
-// turn sql result into array of rows with actual values
-function sqlToArray($result) {
-  $arr = [];
-  while ($row = $result->fetch_assoc()) {
-      array_push($arr, $row);
-  }
-  return $arr;
-}
-
-// do mysql query
-function query($query, $return) {
-  global $conn;
-  $result = $conn->query($query);
-  if (!$result) {
-    return false;
-  }
-  if ($return) {
-    return sqlToArray($result);
-  }
-}
-
-// insert new row into table
-// takes in an array of columns and an array of values to insert into the corresponding table
-function insert($columns, $values, $table) {
-  $query = "INSERT INTO " . $table . " (" . getString($columns) . ") VALUES (" . getString($values) . ");";
-  //echo $query;
-  query($query, false);
-}
-
-// update entry
-function update($identifier, $table, $params, $values) {
-  $updates = $params[0] . "=" . $values[0] . ", ";
-  array_shift($values);
-  if (sizeof($values) > 0) {
-    $count = 1;
-    foreach ($values as $key => $value) {
-      $updates .= $params[$count] . "=" . $value . ",";
-      $count++;
-    }
-  }
-  $updates = rtrim($updates, ",");
-  $query = "UPDATE " . $table . " SET " . $updates . " WHERE id = " . "'" . $identifier . "';";
-  query($query, false);
-}
-
-// steralize string for mysql command
-function steralizeString($str) {
-  global $conn;
-  return mysqli_real_escape_string($conn, $str);
-}
-
-// add director cache to db
-function addDirectors($directors) {
-
-}
-
+/**
+ * Generates the links for each actor for a title
+ * @param  array  $actors array of actor id's
+ * @return string raw html of links for each actor in a title
+ */
 function generateActorLinks($actors) {
   $actors = json_decode($actors);
   $links = "";
@@ -118,56 +99,82 @@ function generateActorLinks($actors) {
     $data = getElementByID($id, 'people');
     $links .= "<a href = '/search?actor=" . $id . "'>" . $data['name'] . "</a>, ";
   }
-  //$links .= "</p>";
   $links = rtrim($links, ", ");
   return $links;
 }
 
 
-// add title to cache db
+/**
+ * Add a new title to the database
+ * @param array $title array of title data from OMDB
+ */
 function addTitle($title) {
   $titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'services', 'img', 'genre'];
   $table = "titles";
   $values = [
-    "'" . $title["imdbID"] . "'",
-    "'" . $title["Title"] . "'",
-    "'" . $title["Year"] . "'",
-    "\"" . $title["Plot"] . "\"",
-    "'" . $title["Ratings"][0]['Value'] . "'",
+    str($title["imdbID"]),
+    str($title["Title"]),
+    str($title["Year"]),
+    str($title["Plot"]),
+    str($title["Ratings"][0]['Value']),
     "'[]'",
-    "'" . $title["Poster"] . "'",
-    "'" . $title["Genre"] . "'",
+    str($title["Poster"]),
+    str($title["Genre"]),
   ];
   insert($titleColumns, $values, $table);
-  //return $title["imdbID"];
-  //addDirectors();
 }
 
+/**
+ * Update an existing title in the database
+ * @param string $id imdbID of title to be updated from OMDB
+ */
 function updateTitle($id) {
   $titleColumns = ['id', 'titles.name', 'titles.release', 'summary', 'rating', 'img', 'genre'];
   $updatedData = getTitleInfo($id);
   $values = [
-    "'" . $updatedData["imdbID"] . "'",
-    "'" . $updatedData["Title"] . "'",
-    "'" . $updatedData["Year"] . "'",
-    "\"" . $updatedData["Plot"] . "\"",
-    "'" . $updatedData["Ratings"][0]['Value'] . "'",
-    "'" . $updatedData["Poster"] . "'",
-    "'" . $updatedData["Genre"] . "'",
+    str($updatedData["imdbID"]),
+    str($updatedData["Title"]),
+    str($updatedData["Year"]),
+    str($updatedData["Plot"]),
+    str($updatedData["Ratings"][0]['Value']),
+    str($updatedData["Poster"]),
+    str($updatedData["Genre"])
   ];
   update($id, 'titles', $titleColumns, $values);
-  //$actors = scrapeActors($updatedData["imdbID"]);
-  //print_r($actors);
-  //$actors = addActors($actors, $updatedData["imdbID"]);
-  //$actors = array_unique($actors);
-  //$query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
-  //query($query, false);
 }
 
+/**
+ * Find the id of a person that is in the database using their name
+ * @param  [type] $name [description]
+ * @return [type]       [description]
+ */
+function findPerson($name) {
+  $query = "SELECT id FROM people WHERE name = " . str($name) . ";";
+  return query($query, true)[0];
+}
+
+/**
+ * Check to see if an actor is already associated with an existing title
+ * @param  string  $personID id of the person
+ * @param  string  $imdbID   id of the title
+ * @return boolean return true if person has title associated with it
+ */
+function hasTitle($personID, $imdbID) {
+  $ids = getTitles($personID);
+  if ($ids == null) {
+    return false;
+  } else {
+    return in_array($imdbID, json_decode($ids));
+  }
+}
+
+/**
+ * Check to see if a person exists in the people database
+ * @param  string $name name of person to check existence in the people database
+ * @return boolean return boolean if a person exists or not
+ */
 function personExists($name) {
-  $query = "SELECT id, name FROM people WHERE name = " . str($name) . ";";
-  //echo $query;
-  $result = query($query, true);
+  $result = findPerson($name);
   if ($result != null) {
     return true;
   } else {
@@ -175,6 +182,13 @@ function personExists($name) {
   }
 }
 
+/**
+ * Add new people to the people database
+ * @param  array  $people people's name to be added
+ * @param  string $type   type of people to add (director or actor...etc.)
+ * @param  string $imdbID imdbID to add an association with for these new people
+ * @return array  id's of people that we're added to the database
+ */
 function addPeople($people, $type, $imdbID) {
   $titleColumns = ['id', '`name`', 'type'];
   $peopleIDs = [];
@@ -198,25 +212,21 @@ function addPeople($people, $type, $imdbID) {
   return $peopleIDs;
 }
 
+/**
+ * Uses add people to add a number of actors to the database
+ * @param  array  $actors array of actor names to add
+ * @param  string $title  id of title that the actors are associated with
+ * @return array  id's of people that we're added to the database
+ */
 function addActors($actors, $title) {
   return addPeople($actors, 'actor', $title);
 }
 
-function findPerson($name) {
-  $query = "SELECT id FROM people WHERE name = " . str($name) . ";";
-  //echo $query;
-  return query($query, true)[0];
-}
-
-function hasTitle($personID, $imdbID) {
-  $ids = getTitles($personID);
-  if ($ids == null) {
-    return false;
-  } else {
-    return in_array($imdbID, json_decode($ids));
-  }
-}
-
+/**
+ * Add imdbID associations with a person
+ * @param string $personID id of person
+ * @param string $imdbID   id of title
+ */
 function addIMDB($personID, $imdbID) {
   $ids = getTitles($personID);
   if (!hasTitle($personID, $imdbID)) {
@@ -226,13 +236,16 @@ function addIMDB($personID, $imdbID) {
     } else {
       $ids = [$imdbID];
     }
-    //array_push($ids, $imdbID);
     $query = "UPDATE people SET titles  = " . json(json_encode($ids)) . " WHERE id = " . str($personID) . ";";
-    //echo $query;
     query($query, false);
   }
 }
 
+/**
+ * Get titles associated with a person
+ * @param  string $personID id of a person
+ * @return array  array of titles associated with a person
+ */
 function getTitles($personID) {
   $result = getElementByID($personID, 'people');
   if ($result != null) {
@@ -242,7 +255,12 @@ function getTitles($personID) {
   }
 }
 
-// get details from omdb by id rather then search
+/**
+ * Get all data associated with an element by it's identifier
+ * @param  string $id    id of of element
+ * @param  string $table table element is located in
+ * @return array  array of data associated with the element
+ */
 function getElementByID($id, $table) {
   $query = "SELECT * FROM " . $table . " WHERE id = '" . $id . "';";
   $result = query($query, true);
@@ -251,38 +269,60 @@ function getElementByID($id, $table) {
   }
 }
 
+/**
+ * Create a URL friendly string to pass on to the search page
+ * @param  string $searchString steralized string after input of user
+ * @return string string that has all spaces replaced by +
+ */
 function toSearchString($searchString) {
   return str_replace(' ', '+', $searchString);
 }
 
-// get titles from basic search to display on search results
+/**
+ * Get titles from basic search to display on search results
+ * @param  string $titleString string steralized after input by user on search
+ * @return array  array of titles similar to search string
+ */
 function searchByTitle($titleString) {
   global $omdbURL;
   $api_url = $omdbURL . "t=" . toSearchString($titleString);
-  //echo $api_url;
   $data = json_decode(file_get_contents($api_url), true);
-  //print_r($data);
   if (!inCache($data['imdbID'], 'titles')) {
-    //echo "not in cache";
     addTitle($data);
   } else {
-    //updateTitle($data['imdbID']);
+    // updateTitle($data['imdbID']);
+    // implement update after update changes to only update services
   }
   return $data['imdbID'];
 }
 
-// using omdb get details from api
+/**
+ * Get data associated with a data based on the imdbID through OMDB
+ * @param  string $id imdbID of a title
+ * @return array  array of a title's data from OMDB
+ */
 function getTitleInfo($id) {
   global $omdbURL;
   $api_url = $omdbURL . "i=" . toSearchString($id);
   return json_decode(file_get_contents($api_url), true);
 }
 
+/**
+ * Check to see if an element is in the database based on it's id
+ * @param  string $id    id of element
+ * @param  string $table table element is located in
+ * @return array  array of data associated with the element
+ */
 function inCache($id, $table) {
-  $query = "SELECT * FROM " . $table . " WHERE id = " . "'" . $id . "'" . ";";
+  $query = "SELECT * FROM " . $table . " WHERE id = " . str($id) . ";";
   return query($query, true);
 }
 
+/**
+ * Extract common words from the search string for enhanced similarity check within SQL
+ * @param  string $string steralized input string from search
+ * @return string enhanced string without 'common' words within searches
+ */
 function extractCommonWords($string){
     $stopWords = array('i', 'part', 'a','about','an','and','are','as','at','be','by','com','de','en','for','from','how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will','with','und','the','www');
 
@@ -315,6 +355,12 @@ function extractCommonWords($string){
     return $wordCountArr;
 }
 
+/**
+ * Form a generic like statement for a basic search in SQL
+ * @param  string $str steralized search input
+ * @param  string $col name of column to check within the like statement
+ * @return string generic like statement for a SQL query
+ */
 function formLike($str, $col) {
   $final = "WHERE " . $col . " LIKE " . "'%" . array_key_first($str) . "%'";
   array_shift($str);
@@ -326,52 +372,84 @@ function formLike($str, $col) {
   return $final;
 }
 
+/**
+ * Form a generic like statement for a basic search in SQL for just one word
+ * @param  string $str steralized search input
+ * @param  string $col name of column to check within the like statement
+ * @return string generic like statement for a SQL query
+ */
 function formSimpleLike($str, $col) {
   $final = "WHERE " . $col . " LIKE " . "'%" . $str . "%'";
   return $final;
 }
 
+/**
+ * Form a generic and statement for SQL abstraction
+ * @param  string $str value to and
+ * @param  string $col column to check against
+ * @return string generic and statment for SQL
+ */
 function formAndStatement($str, $col) {
   $final = "WHERE " . $col . " AND " . "'%" . $str . "%'";
   return $final;
 }
 
+/**
+ * Get the generic link path for a specified title
+ * @param  string $id imdbID of title
+ * @return string later path of a link to a title's information
+ */
 function getTitlePath($id) {
   return "'/movie/?title=" . $id . "'";
 }
 
-function populateServices() {
-
-}
-
+/**
+ * Get all titles related to a genre
+ * @param  string $genre name of genre
+ * @return array  all titles related to a genre
+ */
 function searchByGenre($genre) {
   $query = "SELECT * FROM titles WHERE genre LIKE " . str('%' . $genre . '%') . " ORDER BY `name`;";
-  //echo $query;
   return query($query, true);
 }
 
+/**
+ * Get all titles related to an actor
+ * @param  string $actor id of actor
+ * @return array  all titles related to an actor
+ */
 function searchByActor($actor) {
   $query = "SELECT * FROM titles WHERE actors LIKE " . str('%' . $actor . '%') . " ORDER BY `name`;";
-  //echo $query;
   return query($query, true);
 }
 
+/**
+ * Retrieve data for JS manipulation on front-end
+ * @return array JSON object formatted variable containing necessary data for search suggestions
+ */
 function getTitlesForSearch() {
   return json_encode(query("SELECT id, name, services FROM titles;", true));
 }
 
+/**
+ * Display registration error
+ */
 function registerError() {
   header("Location:/register?error=1");
 }
 
+/**
+ * Send user to final page for account setup
+ */
 function finishSetup() {
   header("Location:/actsetup");
 }
 
-function verifyEmail($email) {
-  query("UPDATE users SET verified = 1 WHERE email = " . str($email) . ";", false);
-}
-
+/**
+ * Perform a web scrape for actors associated with a specified title
+ * @param  string $id imdbID of a title
+ * @return array  an object containing names to actors in the title
+ */
 function scrapeActors($id) {
   global $apiURL;
   $url = $apiURL . 'getActors';
@@ -407,6 +485,11 @@ function scrapeActors($id) {
   return $responseData;
 }
 
+/**
+ * Perform a web scrape for titles related to a specified titles
+ * @param  string $title name of title
+ * @return array  an object containing names to related titles
+ */
 function scrapeRelatedTitles($title) {
   global $apiURL;
   $url = $apiURL . 'getSimilarMovies';
@@ -440,6 +523,11 @@ function scrapeRelatedTitles($title) {
   return $responseData;
 }
 
+/**
+ * Perform a web scrape for streaming service platforms that contain a specified title
+ * @param  string $title name of title
+ * @return array  an object containing names and links to streaming platforms
+ */
 function scrapePlatforms($title) {
   global $apiURL;
   $url = $apiURL . 'getPlatforms';
@@ -473,6 +561,11 @@ function scrapePlatforms($title) {
   return $responseData;
 }
 
+/**
+ * [findPatterns description] SAM
+ * @param  [type] $favorites [description]
+ * @return [type]            [description]
+ */
 function findPatterns($favorites) {
   if (!$favorites || $favorites == "false") {
     $favorites = [];
@@ -508,6 +601,11 @@ function findPatterns($favorites) {
   return $returnArray;
 }
 
+/**
+ * [addWeight description] SAM
+ * @param [type] $title  [description]
+ * @param [type] $amount [description]
+ */
 function addWeight($title, $amount) {
   $titleData = getElementByID($title, 'titles');
   $query = "UPDATE titles SET weight = " . ($titleData['weight'] + $amount) . " WHERE id = " . str($title) . ";";
@@ -517,40 +615,44 @@ function addWeight($title, $amount) {
   query($query, false);
 }
 
+/**
+ * [getPopularTitles description] SAM
+ * @return [type] [description]
+ */
 function getPopularTitles() {
   $query = "SELECT * FROM titles WHERE weight IS NOT NULL ORDER BY weight DESC;";
   $titles = query($query, true);
   return array_slice($titles, 0, 5);
 }
 
+// REMOVE THIS FUNCTION
 function getDemoForYouTitles() {
   $query = "SELECT * FROM titles WHERE weight IS NOT NULL ORDER BY weight DESC;";
   $titles = query($query, true);
   return array_slice($titles, 5, 5);
 }
 
+/**
+ * Update a title's information to include streaming services platforms that were scraped successfully
+ * @param  string $title     id of title
+ * @param  array  $platforms array of platforms that were scraped
+ */
 function insertPlatforms($title, $platforms) {
   $platforms = json_encode($platforms);
   $query = "UPDATE titles SET services = " . json($platforms) . " WHERE id = " . str($title) . ";";
-  //echo $query;
   query($query, false);
 }
 
-function getActiveServices($platforms) {
-  $platformNames = array();
-  $platformLinks = array();
-  foreach ($platforms as $platform) {
-      $platformNames[] = $platform['name'];
-      $platformLinks[$platform['name']] = $platform['link'];
-  }
-}
-
+/**
+ * Generate HTML for a user's subscribed platforms on their account page
+ * @param  array  $arr array of services associated with a user
+ * @return string HTML of services that a user is subscribed to
+ */
 function getUserServicesHTML($arr) {
   global $servicesReference, $serviceIMG;
    foreach ($servicesReference as $key => $value) {
      $temp[$key] = $value;
    }
-   //print_r($temp);
    $html = "<div class = 'row platforms ml-2'><div class ='platformsyes'>";
    foreach ($arr as $key => $service) {
      $key = array_search($service, $temp);
@@ -558,7 +660,6 @@ function getUserServicesHTML($arr) {
      $html .= "<img src='/src/img/" .  $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
    }
    $html .= "</div><div class ='platformsno'>";
-   //print_r($temp);
    foreach ($temp as $key => $service) {
      $html .= "<img src='/src/img/" . $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
    }
@@ -566,6 +667,11 @@ function getUserServicesHTML($arr) {
    return $html;
 }
 
+/**
+ * Generate the HTML to display services for each title based on whether the respective service contains the title
+ * @param  array  $platforms $platforms array of platforms scraped from the scrapePlatforms api
+ * @return string raw HTML to be displayed on search/movie pages
+ */
 function getServicesHTML($platforms) {
   if (!$platforms || $platforms == "false") {
     $platforms = [];
@@ -577,63 +683,35 @@ function getServicesHTML($platforms) {
       $platformNames[] = $platform['name'];
       $platformLinks[$platform['name']] = $platform['link'];
   }
+  // create a temp array from the references constant where elements can be removed
   foreach ($servicesReference as $key => $value) {
     $temp[$key] = $value;
   }
-  //print_r($temp);
+  // generate HTML
   $html = "<div class ='platformsyes'>";
   foreach ($temp as $key => $service) {
     if (in_array($service, $platformNames)) {
+      // if service exists, add it to the div that highlights the service along with the proper link
       $key = array_search($service, $temp);
+      // remove service key from the temp array to be placed in the next div element
       unset($temp[$key]);
       $html .= "<a href = " . $platformLinks[$service] . " target = '_blank'><img src='/src/img/" .  $serviceIMG[$service] . "' class='title rounded' alt=''...''></a>";
     }
   }
   $html .= "</div><div class ='platformsno'>";
-  //print_r($temp);
   foreach ($temp as $key => $service) {
-    //if (in_array($service, $platformNames)) {
-      $key = array_search($service, $temp);
-      unset($temp[$key]);
-      $html .= "<img src='/src/img/" .  $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
-    //}
+    $key = array_search($service, $temp);
+    unset($temp[$key]);
+    $html .= "<img src='/src/img/" .  $serviceIMG[$service] . "' class='title rounded' alt=''...''>";
   }
   $html .= "</div>";
   return $html;
 }
 
-function generatePlatformsHTML($platforms) {
-  $platformNames = array();
-  $platformLinks = array();
-  foreach ($platforms as $platform) {
-      $platformNames[] = $platform['name'];
-      $platformLinks[$platform['name']] = $platform['link'];
-  }
-  return "
-		<a class='" . (in_array('Netflix', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded') . " href='" . $platformLinks['Netflix'] . "'>
-				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
-		</a>
-		<a class='" . (in_array('Hulu', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded') . " href='" . $platformLinks['Hulu'] . "'>
-				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
-		</a>
-		<a class='" . (in_array('Amazon Prime Video', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded') . " href='" . $platformLinks['Amazon Prime Video'] . "'>
-				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
-		</a>
-		<a class='" . (in_array('HBO Max', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded') . " href='" . $platformLinks['Netflix'] . "'>
-				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
-		</a>
-		<a class='" . (in_array('Disney+', $platformNames) ? 'platformsyes rounded' : 'platformsno rounded') . " href='" . $platformLinks['Disney+'] . "'>
-				<img src='/src/img/netflix.jpg' class='rounded title' alt='...'>
-		</a>
-	";
-}
-
-//$params['my_param'] = $a_value;
-//post_async('http:://localhost/batch/myjob.php', $params);
-
-/*
- * Executes a PHP page asynchronously so the current page does not have to wait for it to     finish running.
- *
+/**
+ * Executes a PHP page asynchronously so the current page does not have to wait for it to finish running.
+ * @param  string $url    url for api execution
+ * @param  array  $params parameters to be passed to the api
  */
 function post_async($url, array $params) {
     foreach ($params as $key => &$val) {
@@ -656,12 +734,17 @@ function post_async($url, array $params) {
     if (isset($post_string)) $out.= $post_string;
     fwrite($fp, $out);
     fclose($fp);
-    //return
 }
 
+/**
+ * Get readable notifications for the notifications page based on user information
+ * @param  string $userId id of a user
+ * @return string raw HTML containing notifications for a user
+ */
 function getNotifications($userId) {
   $results = query("SELECT * FROM notifications;", true);
   //$results = query("SELECT * FROM notifications WHERE userId = " . $userId . ";", true);
+  // implement query above when notifications are finalized
   $notifications = "";
   if (count($results) == 0) {
     $notifications =  "

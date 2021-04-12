@@ -1,4 +1,11 @@
 <?php
+/**
+ * This file includes basic SQL operations for abstraction of data manipulation within the application
+ *
+ * @author Team 0306
+ *
+ * @since 1.0
+ */
 
 //establish connection to MySQL Database
 $conn = new mysqli($ip, $user, $password, $schema);
