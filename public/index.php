@@ -3,7 +3,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 $popTitles = getPopularTitles();
 // $forYouTitles = getDemoForYouTitles();
-$forYouTitles = getUserRecTitles(getCurrentUserID());
+$forYouTitles = array();
+if (isLoggedIn()) {
+  $forYouTitles = getUserRecTitles(getCurrentUserID());
+}
 
 ?>
 <html>
@@ -83,7 +86,8 @@ $forYouTitles = getUserRecTitles(getCurrentUserID());
         </div>
         <?php
           $resultsHTML = "";
-          foreach($forYouTitles as $key => $title) {
+          foreach($forYouTitles as $key => $movie) {
+            $title = getElementByID($movie['movie_id'], 'titles');
             $movieImg = "
             <div class='col-2 '>
               <div class='' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>
