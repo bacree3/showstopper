@@ -22,9 +22,7 @@ if (isset($_POST['edit'])) {
 	$actorNotification = isset($_POST['actorNotification']) ? 1 : 0;
 	$titleNotification = isset($_POST['titleNotification']) ? 1 : 0;
 	$query = "UPDATE users SET delivery = " . str($delivery) . ", actorNotification = " . $actorNotification . ", titleNotification = " . $titleNotification . " WHERE id = " . str($_SESSION['userID']) . ";";
-	//echo $query;
 	query($query, false);
-	//changeNotifications($_SESSION['userID'], $delivery, $actorNotification, $titleNotification);
 	header("Location:/account");
 } else {
 	echo "form not detected";
