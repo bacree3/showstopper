@@ -562,9 +562,11 @@ function scrapePlatforms($title) {
 }
 
 /**
- * [findPatterns description] SAM
- * @param  [type] $favorites [description]
- * @return [type]            [description]
+ * Generates user genre and platform preferences based on their favorites
+ * @param  array $favorites An array of a user's favorited titles
+ * @return array An array with two keys, "genres" which points to
+ * an mapping of genre to the number of titles representing that genre
+ * in the user's favorites, and $platforms which does the same for platforms
  */
 function findPatterns($favorites) {
   if (!$favorites || $favorites == "false") {
@@ -602,22 +604,26 @@ function findPatterns($favorites) {
 }
 
 /**
- * [addWeight description] SAM
- * @param [type] $title  [description]
- * @param [type] $amount [description]
+ * Add value to the "weight" of a movie in the db
+ * to be used in calculating global recommendations
+ * @param string $title  name of title
+ * @param int $amount the amount of weight to be added
  */
 function addWeight($title, $amount) {
   $titleData = getElementByID($title, 'titles');
   $query = "UPDATE titles SET weight = " . ($titleData['weight'] + $amount) . " WHERE id = " . str($title) . ";";
   if (is_null($titleData['weight'])) {
-    $query = "UPDATE titles SET weight = " . 1 . " WHERE id = " . str($title) . ";";
+    $query = "UPDATE titles SET weight = " . $amount . " WHERE id = " . str($title) . ";";
   }
   query($query, false);
 }
 
 /**
- * [getPopularTitles description] SAM
- * @return [type] [description]
+ * Add value to or create might_like relationship between
+ * a user and a title.
+ * @param string $userID identifier for the user, usually the current user
+ * @param string $title imdb id for a movie title
+ * @param int $amount the amount of weight to be added
  */
 function addUserWeight($userID, $title, $amount) {
   $query = "SELECT * FROM might_like WHERE (user_id = '" . $userID . "' AND movie_id = '" . $title . "');";
@@ -632,8 +638,8 @@ function addUserWeight($userID, $title, $amount) {
 }
 
 /**
- * [getPopularTitles description] SAM
- * @return [type] [description]
+ * Get the list of most popular titles by weight from the database
+ * @return array Array of the 5 or fewer most popular titles
  */
 function getPopularTitles() {
   $query = "SELECT * FROM titles WHERE weight IS NOT NULL ORDER BY weight DESC;";
@@ -642,8 +648,10 @@ function getPopularTitles() {
 }
 
 /**
- * [getPopularTitles description] SAM
- * @return [type] [description]
+ * Get the list of titles user is most likely to be interested in based on
+ * their weights in the might_like relation
+ * @param $userID Identifier for the user
+ * @return array Array of the 5 or fewer highest weighted titles for the user
  */
 function getUserRecTitles($userID) {
   $query = "SELECT movie_id, weight FROM might_like WHERE user_id = '" . $userID . "' ORDER BY weight DESC;";
