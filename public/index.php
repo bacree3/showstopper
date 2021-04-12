@@ -81,7 +81,7 @@ if (isLoggedIn()) {
       <div class="row" id = "reccs">
         <div class="col-2 pt-4 text-center">
           <div class="">
-            <h3 class="text-white">Reccomended For You</p>
+            <h3 class="text-white">Recommended For You</p>
           </div>
         </div>
         <?php
