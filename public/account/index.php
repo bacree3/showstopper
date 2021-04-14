@@ -53,6 +53,15 @@ if (!isLoggedIn()) {
     					</div>
 							<hr />
 							<div class="row">
+    						<div class="col-sm-5 col-md-4 col-5">
+    							<label style="font-weight:bold;">Search History</label>
+    						</div>
+    						<div class="col-md-8 col-6">
+    							<a href="/history">View Search History</a>
+    						</div>
+    					</div>
+							<hr />
+							<div class="row">
 								<div class="col-sm-5 col-md-4 col-5">
 									<label style="font-weight:bold;">Receive Notifications Through</label>
 								</div>
