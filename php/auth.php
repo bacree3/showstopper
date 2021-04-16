@@ -44,7 +44,7 @@ function sendMail($address, $type) {
 	} else if ($type == "verify") {
 		$subject = 'ShowStopper Email Verification';
 		$bodyHtml = "
-			<h1>Verify your email by clicking the following link.</h1>
+			<h1>Verify your email by clicking the following link and continue your registration.</h1>
 			<p>If this was a mistake, you may want to reset your password.</p>
 			<a href='http://" . $_SERVER['HTTP_HOST'] . "/actsetup?s=" . $secureString . "'>Verify Email</a>";
 	}
