@@ -28,7 +28,7 @@ if (isset($_GET['email'])) {
 							<h1>Verify Your Email</h1>
 						</div>
               <div class="logo col-md-12 text-center">
-								<p>A verification email was sent to the address you signed up with. Go to your email and click to verification link to continue.</p>
+								<p>A verification email was sent to the address you signed up with. Go to your email and click to verify your address so you can complete your registration.</p>
 							</div>
 					</div>
 				</div>
