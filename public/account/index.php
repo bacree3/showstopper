@@ -174,7 +174,7 @@ if (!isLoggedIn()) {
 							</div>
 							<div class="row">
 								<div class="col-md-6 text-center">
-									<button type="submit" class="btn btn-block loginbtn btn-danger">Cancels</button>
+									<button onClick="window.location.reload(); return false;" class="btn btn-block loginbtn btn-danger">Cancel</button>
 								</div>
 								<div class="col-md-6 text-center">
 									<button type="submit" class="btn btn-block loginbtn btn-primary">Save Changes</button>
