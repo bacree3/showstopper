@@ -12,7 +12,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 		<!-- BODY -->
     <div class="container">
-          <div class="srow rounded">
+          <div style = "background-color: white;" class="srow rounded">
             <div class="row">
               <div class="col-md-5 mx-auto">
                 <div class="logo col-md-12 text-center my-2">
