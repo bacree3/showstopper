@@ -4,8 +4,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 $popTitles = getPopularTitles();
 // $forYouTitles = getDemoForYouTitles();
 $forYouTitles = array();
+$name = "";
 if (isLoggedIn()) {
   $forYouTitles = getUserRecTitles(getCurrentUserID());
+  $info = getUserInfo($_SESSION['userID']);
+  $name = " ";
+  $name .= $info['name'];
 }
 
 ?>
@@ -21,7 +25,7 @@ if (isLoggedIn()) {
       <p class="lead text-center">Get the most out of your streaming services</p>
       <div class="d-flex justify-content-around">
         <p id="signup" class="mr-1">Don't have an account?</p>
-        <p id="welcome" class="mr-1">Welcome Back!</p>
+        <p id="welcome" class="mr-1">Welcome Back <?php echo $name; ?>!</p>
         <a id="signuplink"href="/register">Sign up today</a>
       </div>
     </div>
