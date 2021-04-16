@@ -172,9 +172,14 @@ if (!isLoggedIn()) {
 										</div>
 									</div>
 							</div>
-    						<div class="col-md-12 text-center">
-    							<button type="submit" class="btn btn-block loginbtn btn-primary">Save Changes</button>
-    						</div>
+							<div class="row">
+								<div class="col-md-6 text-center">
+									<button type="submit" class="btn btn-block loginbtn btn-danger">Cancels</button>
+								</div>
+								<div class="col-md-6 text-center">
+									<button type="submit" class="btn btn-block loginbtn btn-primary">Save Changes</button>
+								</div>
+							</div>
     					</form>
     				</div>
     			</div>
