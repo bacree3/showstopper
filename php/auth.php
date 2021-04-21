@@ -313,6 +313,21 @@ function getFavorites() {
 }
 
 /**
+ * Get an array of timestamps of a user's history corresponding to the content they visited
+ * @return array array of user history
+ */
+function getHistory() {
+  $user = getCurrentUserID();
+  $history = query("SELECT title, person, updated FROM history WHERE user_id = " . str($user) . " ORDER BY updated desc;", true);
+  return $history;
+}
+
+function clearHistory() {
+	$user = getCurrentUserID();
+	$result = query("DELETE FROM history WHERE user_id = " . str($user) . ";", false);
+}
+
+/**
  * Verify an email if the link was followed
  * @param  string $email email to verify
  */

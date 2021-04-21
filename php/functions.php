@@ -799,6 +799,12 @@ function getNotifications($userId) {
   return $notifications;
 }
 
+/**
+ * Add content to user's history in db
+ * @param string $user    the id of the user currently logged in
+ * @param string $content id of the content being added to the history
+ * @param string $col     the type of content being added, either a person or a title
+ */
 function addToHistory($user, $content, $col) {
   $columns = "(id, user_id, " . $col . ")";
   $values = "(" . str(uniqid()) . ", " . str($user) . ", " . str($content) . ")";
