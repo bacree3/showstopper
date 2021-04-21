@@ -24,27 +24,28 @@ if (!isLoggedIn()) {
     <nav class= "header navbar navbar-expand-lg sticky-top navbar-dark"></nav>
 		<!-- BODY -->
 
-    <div class="container">
-      <div class="row pt-4 bg-light pb-4 mt-4 rounded text-center">
-        <div class="col-xl-12 col-md-4 text-center">
-            <h3>User Search History</h3>
-            <a class="btn btn-danger" href="/history/?action=clear" role="button">Delete Search History</a>
-            <hr>
-            <?php
-            if ($history == NULL) {
-              echo "View some of the content on the platform to start generating a history!";
+      <div class="mx-4 pt-4 bg-light pb-4 mt-4 rounded">
+        <div class = "text-center">
+          <h3>User Search History</h3>
+          <a class="btn btn-danger" href="/history/?action=clear" role="button">Delete Search History</a>
+        </div>
+        <hr>
+        <div class = "history">
+          <?php
+          if ($history == NULL) {
+            echo "View some of the content on the platform to start generating a history!";
+          }
+          foreach ($history as $key => $line) {
+            if ($line['title'] != NULL) {
+              $html = "<div class = 'row'><div class = 'col-3 text-left'><a href = '/movie/?title=" . $line['title']. "'>" . getElementByID($line['title'], 'titles')['name'] . "</a></div><div class = 'col-6'></div><div class = 'col-3 text-right'>" . $line['updated'] . "</div></div>";
+            } else {
+              $html = "<div class = 'row'><div class = 'col-3 text-left'><a href = '/search/?actor=" . $line['person']. "'>" . getElementByID($line['person'], 'people')['name'] . "</a></div><div class = 'col-6'></div><div class = 'col-3 text-right'>" . $line['updated'] . "</div></div>";
             }
-            foreach ($history as $key => $line) {
-              if ($line['title'] != NULL) {
-                echo getElementByID($line['title'], 'titles')['name'] . " " . $line['updated'] . "<br>";
-              } else {
-                echo getElementByID($line['person'], 'people')['name'] . " " . $line['updated'] . "<br>";
-              }
-            }
-            ?>
+            echo $html;
+          }
+          ?>
         </div>
       </div>
-    </div>
 
 		<!-- END BODY -->
 		<div class = "footer mt-4 pt-4"></div>
