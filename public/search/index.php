@@ -4,10 +4,16 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 if (isset($_GET['search'])) {
 	$searchString = steralizeString($_GET['search']);
+	$searchString = str_replace("\\'s", "'s", $searchString);
 	$id = searchByTitle($searchString); // get data from api if not in cache
+	if (isLoggedIn()) {
+		addToHistory(getCurrentUserID(), $id, "title");
+	}
 	$title = getElementByID($id, 'titles');
 	$likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
 	$results = query("SELECT * FROM titles " . $likeStatment . " ORDER BY `name`, `release` desc;", true);
+
+	array_unshift($results, getElementByID($id, 'titles'));
 
 	foreach ($results as $key => $title) {
 		$results[$title['id']] = $title;
@@ -79,6 +85,9 @@ if (isset($_GET['search'])) {
 } else if (isset($_GET['actor'])) {
 	$searchString = steralizeString($_GET['actor']);
 	$actorId = steralizeString($_GET['actor']);
+	if (isLoggedIn()) {
+		addToHistory(getCurrentUserID(), $actorId, "person");
+	}
 	$results = searchByActor($searchString);
 	$searchString = getElementByID($searchString, 'people')['name'];
 	$searchString .= "<div style = 'display: inline-block;' onclick='changeFavStatus(" . str($actorId) . ")'>

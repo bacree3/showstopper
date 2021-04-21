@@ -799,4 +799,11 @@ function getNotifications($userId) {
   return $notifications;
 }
 
+function addToHistory($user, $content, $col) {
+  $columns = "(id, user_id, " . $col . ")";
+  $values = "(" . str(uniqid()) . ", " . str($user) . ", " . str($content) . ")";
+  $query = "INSERT INTO history " . $columns . " VALUES " . $values . ";";
+  query($query, false);
+}
+
 ?>

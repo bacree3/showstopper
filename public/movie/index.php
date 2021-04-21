@@ -7,6 +7,9 @@ if (isset($_GET['title']) && !empty($_GET['title'])) {
 	$title = steralizeString($_GET['title']);
 	//updateTitle($_GET['title']);
 	$titleData = getElementByID($title, 'titles');
+	if (isLoggedIn()) {
+		addToHistory(getCurrentUserID(), $title, "title");
+	}
 	if (!$titleData) {
 		goTo404();
 	} else {
