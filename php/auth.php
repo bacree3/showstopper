@@ -325,6 +325,7 @@ function getHistory() {
 function clearHistory() {
 	$user = getCurrentUserID();
 	$result = query("DELETE FROM history WHERE user_id = " . str($user) . ";", false);
+	header("Location:/history");
 }
 
 /**

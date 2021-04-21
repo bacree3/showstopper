@@ -13,6 +13,8 @@ if ($conn->connect_errno) {
   echo "Failed to connect to MySQL: " . $conn->connect_error();
 }
 
+query("SET time_zone = 'EST';", false);
+
 /**
  * Steralizes input from user to block SQL injection attacks
  * @param  string $str raw input string from user
