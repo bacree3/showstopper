@@ -770,7 +770,7 @@ function post_async($url, array $params) {
  */
 function getNotifications($userId) {
   //$results = query("SELECT * FROM notifications;", true);
-  $results = query("SELECT * FROM notifications WHERE userId = " . $userId . ";", true);
+  $results = query("SELECT * FROM notifications WHERE userId = " . str($userId) . ";", true);
   // implement query above when notifications are finalized
   $notifications = "";
   if (count($results) == 0) {
