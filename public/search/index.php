@@ -120,68 +120,72 @@ echo $titleData['src/src/img']; */
 ?>
 
 <html>
-  <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-  <body>
-    <nav class= "header navbar navbar-expand-lg sticky-top navbar-dark"></nav>
+  	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+  	<body>
+    	<nav class= "header navbar navbar-expand-lg sticky-top navbar-dark"></nav>
 		<!-- BODY -->
 
-
-
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="srow rounded">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="srow rounded">
 					<p style = "display: inline;" class="lead font-weight-bold mr-2">Showing Results for: <?php echo $searchString; ?></p>
+				</div>
 			</div>
-		</div>
-		<div class="row dropdown justify-content-center mt-3">
-			<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Filter by Platform
-			</button>
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<form id="filterform">
-					<li class="m-1 pl-2">
-						<input name="netflix" id="netflix" type="checkbox" onchange="updatefilter(this, 'Netflix')">
-						<label for="netflix">Netflix</label>
-					</li>
-					<li class="m-1 pl-2">
-						<input name="hulu" id="hulu" type="checkbox" onchange="updatefilter(this, 'Hulu')">
-						<label for="hulu">Hulu</label>
-					</li>
-					<li class="m-1 pl-2">
-						<input name="amazon" id="amazon" type="checkbox" onchange="updatefilter(this, 'Amazon Prime Video')">
-						<label for="amazon">Amazon Prime</label>
-					</li>
-					<li class="m-1 pl-2">
-						<input name="disney" id="disney" type="checkbox" onchange="updatefilter(this, 'Disney+')">
-						<label for="disney">Disney+</label>
-					</li>
-					<li class="m-1 pl-2">
-						<input name="hbo" id="hbo" type="checkbox" onchange="updatefilter(this, 'HBO Max')">
-						<label for="hbo">HBO Max</label>
-					</li>
-				</form>
+
+			<!-- platform filter -->
+			<div class="row dropdown justify-content-center mt-3">
+				<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Filter by Platform
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<form id="filterform">
+						<li class="m-1 pl-2">
+							<input name="netflix" id="netflix" type="checkbox" onchange="updatefilter(this, 'Netflix')">
+							<label for="netflix">Netflix</label>
+						</li>
+						<li class="m-1 pl-2">
+							<input name="hulu" id="hulu" type="checkbox" onchange="updatefilter(this, 'Hulu')">
+							<label for="hulu">Hulu</label>
+						</li>
+						<li class="m-1 pl-2">
+							<input name="amazon" id="amazon" type="checkbox" onchange="updatefilter(this, 'Amazon Prime Video')">
+							<label for="amazon">Amazon Prime</label>
+						</li>
+						<li class="m-1 pl-2">
+							<input name="disney" id="disney" type="checkbox" onchange="updatefilter(this, 'Disney+')">
+							<label for="disney">Disney+</label>
+						</li>
+						<li class="m-1 pl-2">
+							<input name="hbo" id="hbo" type="checkbox" onchange="updatefilter(this, 'HBO Max')">
+							<label for="hbo">HBO Max</label>
+						</li>
+					</form>
+				</div>
 			</div>
-		</div>
 
-					<?php
-					$resultsHTML = "";
-					foreach ($results as $key => $title) {
-							if ($title['services'] == '[]' || $title['services'] == '' || $title['services'] == NULL) {
-								$services = "
-								<div class='spinner-border text-danger' role='status'>
-									<span class='sr-only'>Loading...</span>
-								</div>
-								";
-							} else {
-								$services = getServicesHTML(json_decode($title['services'], true));
-							}
+			<!-- display results -->
 
-							//$services = $title['services'] == '[]' || $title['services'] == 'false' ? "test" : getServicesHTML(json_decode($title['services'], true));
-					  	$row = "
-					    	<div class='row pt-4 bg-light pb-4 mt-4 rounded movie" . $title['id'] ."'>
-								<div class='col-xs-4 col-md-1 text-center' onclick='changeFavStatus(" . str($title['id']) . ")'>
+			<?php
+			$resultsHTML = "";
+			foreach ($results as $key => $title) {
+				if ($title['services'] == '[]' || $title['services'] == '' || $title['services'] == NULL) {
+					$services = "
+					<div class='spinner-border text-danger' role='status'>
+						<span class='sr-only'>Loading...</span>
+					</div>
+					";
+				} else {
+					$services = getServicesHTML(json_decode($title['services'], true));
+				}
+
+				//$services = $title['services'] == '[]' || $title['services'] == 'false' ? "test" : getServicesHTML(json_decode($title['services'], true));
+				$row = "
+					<div class='bg-light pt-4 pb-4 mt-4 rounded movie" . $title['id'] ."'>
+						<div class='row'>
+							<div class='col-6 col-md-1 text-center'>
+								<div class='justify-content-center ml-3' onclick='changeFavStatus(" . str($title['id']) . ")'>
 									<svg id='".$title['id'] . "isNotFavorite' xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='#283a59' class='bi bi-heart' viewBox='0 0 16 16'>
 										<path d='M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z'/>
 									</svg>
@@ -189,31 +193,38 @@ echo $titleData['src/src/img']; */
 										<path fill-rule='evenodd' d='M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z'/>
 									</svg>
 								</div>
-								<div class='col-xs-8 col-md-3 text-center' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>
-					        		<img src='" . $title['img'] . "' class='rounded title movieImg' alt='...'>
-					      		</div>
-					      		<div id = " . $title['id'] . " class='movie-content col-xs-12 col-md-8 text-left'>
-					        		<h1 class='mb-3 display-4' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>" . $title['name'] . "</h1>
-									<p class='lead'>
-										<span class='font-weight-bold'>Release Date:</span> " . $title['release'] . "
-									</p>
-					        		<p class='lead'>
-										<span class='font-weight-bold'>Platforms:</span>
-									</p>
-									<div class='row platforms ml-2'>
-										" . $services . "
-									</div>
-					      		</div>
-					    	</div>"
-					  	;
-					  	$resultsHTML .= $row;
-					}
-					echo $resultsHTML;
-					?>
 
-        	</div>
+								<div class='d-md-none text-center mt-4 ml-3' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>
+									<img src='" . $title['img'] . "' class='rounded movieImg' alt='...'>
+								</div>
+							</div>
+							
+							<div class='d-none d-md-block col-3 text-center' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>
+								<img src='" . $title['img'] . "' class='rounded movieImg' alt='...'>
+							</div>
+							
+							<div id=" . $title['id'] . " class='col-6 col-md-8 text-left movie-content'>
+								<h1 class='d-none d-md-block mb-3 display-4' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>" . $title['name'] . "</h1>
+								<h1 class='d-md-none mb-3' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>" . $title['name'] . "</h1>
+								
+								<p class='lead'>
+									<span class='font-weight-bold'>Release Date:</span> " . $title['release'] . "
+								</p>
+								<p class='lead'>
+									<span class='font-weight-bold'>Platforms:</span>
+								</p>
+								<div class='row platforms ml-1'>
+									" . $services . "
+								</div>
+							</div>
+						</div>
+					</div>
+				";
+				$resultsHTML .= $row;
+			}
+			echo $resultsHTML;
+			?>
       	</div>
-    </div>
 
 		<!-- END BODY -->
 		<div class = "footer mt-4 pt-4"></div>
