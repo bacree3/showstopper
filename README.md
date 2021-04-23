@@ -48,7 +48,7 @@ This is a web application so no build is required. Simply run the PHP files with
 ### Installation Instructions
 1. Run the 'database/data_structure.sql' file inside your database to set up the proper tables for the database.
 2. If you acquired our API keys, simply move on to the next step and replace the proper values.
-3. Once you have cloned the repository within the root of the web server, run the following command to configure the application based on your MySQL server configuration and your AWS SES credentials by replacing the variables prexied with 'YOUR' with the proper values (you can also just edit duplicate and edit the file with the proper name in your favorite text editor):
+3. Once you have cloned the repository within the root of the web server, run the following command to configure the application based on your MySQL server configuration and your AWS SES credentials by replacing the variables prexied with 'YOUR' with the proper values (you can also just duplicate and edit the file with the proper name in your favorite text editor):
 ```
 cp php/parameters-example.php php/parameters.php
 nano php/parameters.php
