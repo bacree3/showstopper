@@ -32,7 +32,7 @@ This is your one stop-shop for your streaming services. Users can search across 
   <li>Clone this git repository within the root directory of the web-server.</li>
   <li>Obtain an API key for the public facing OMDB API. <a href = "http://www.omdbapi.com/apikey.aspx">OMDB Key's</a></li>
 </ul>
-### Download Instructions
+<h3>Download Instructions</h3>
 <ul>
    <li><a href = "https://www.apachefriends.org/download.html">Download XAMPP for a local web and MySQL server if you do not have a web server or database instance readily available.</a></li>
    <li>Clone this repository by using the following commands the terminal of your web server:</li>
@@ -42,7 +42,7 @@ cd /path/to/web/server/root
 git clone https://github.com/bacree3/showstopper.git
 cd showstopper
 ```
-<h3>Dependencies</h3>
+### Dependencies
 All dependencies for the application are included within the repository.
 
 Some features of the application require the use of a proprietary API that is not public facing. If you wish to obtain the credentials please contact us, otherwise, you can deploy your own version of this API with the source code included within the 'scrape' directory.
