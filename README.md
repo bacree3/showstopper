@@ -36,10 +36,10 @@ cd showstopper
 ```
 1. Edit the document root of the web server to point to the cloned repository by editing the httpd.conf file for your webserver.
 2. Running the following command will allow you to edit the file within the terminal of linux based web servers.
-3. Find the 'DocumentRoot' variable and added '/showstopper' to the end of the path.
 ```bash
 sudo nano /etc/httpd/conf/httpd.conf
 ```
+3. Find the 'DocumentRoot' variable and added '/showstopper' to the end of the path.
 4. If you are using XAMPP, edit the file by going to the settings of the Apache web server and opening the httpd.conf file.
 ### Dependencies
 All dependencies for the application are included within the repository.
