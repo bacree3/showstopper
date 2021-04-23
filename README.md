@@ -48,10 +48,10 @@ This is a web application so no build is required. Simply run the PHP files with
 ### Installation Instructions
 1. Run the 'database/data_structure.sql' file inside your database to set up the proper tables for the database.
 2. If you acquired our API keys, simply move on to the next step and replace the proper values.
-3. Once you have cloned the repository within the root of the web server, run the following command to configure the application based on your MySQL server configuration and your AWS SES credentials by replacing the variables prexied with 'YOUR' with the proper values:
+3. Once you have cloned the repository within the root of the web server, run the following command to configure the application based on your MySQL server configuration and your AWS SES credentials by replacing the variables prexied with 'YOUR' with the proper values (you can also just edit duplicate and edit the file with the proper name in your favorite text editor):
 ```
 cp php/parameters-example.php php/parameters.php
-touch php/parameters.php
+nano php/parameters.php
 ```
 3. If you are deploying your own API rather than acquiring the keys for our private API, create 4 Lambda functions inside your AWS account, with names corresponding to the names of the file EXCLUDING the file extensions, and attach the necessary layers provided in the 'scrape' directory.
 4. Create and attach an API gateway to point to your functions, and use this URL within the new parameters file.
