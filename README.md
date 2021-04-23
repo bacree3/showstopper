@@ -23,7 +23,7 @@ This is your one stop-shop for your streaming services. Users can search across 
 - Install and configure an Apache web server with PHP 7.4 installed (either locally or hosted within the cloud).
 - Clone this git repository within the root directory of the web-server.
 - Obtain an API key for the public facing OMDB API. <a href = "http://www.omdbapi.com/apikey.aspx">OMDB Key's</a>
-<h3>Download Instructions</h3>
+### Download Instructions
 - Download<a href = "https://www.apachefriends.org/download.html"> XAMPP </a>for a local web and MySQL server if you do not have a web server or database instance readily available.
 - Clone this repository by using the following commands the terminal of your web server:
 ```bash
