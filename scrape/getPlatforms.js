@@ -5,6 +5,8 @@
  * needed using the AWS API.
  * ********
  *
+ * This file requires the Lambda layer 'puppeteerLayer'
+ *
  * This file contains the function that constructs, executes, and scrapes the
  * results of a Google search to find the platforms on which a particular movie
  * is currently available.

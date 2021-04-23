@@ -6,14 +6,20 @@ if (isset($_GET['search'])) {
 	$searchString = steralizeString($_GET['search']);
 	$searchString = str_replace("\\'s", "'s", $searchString);
 	$id = searchByTitle($searchString); // get data from api if not in cache
-	if (isLoggedIn()) {
-		addToHistory(getCurrentUserID(), $id, "title");
-	}
-	$title = getElementByID($id, 'titles');
+	$title = array();
+	if (!is_null($id)) {
+    	if (isLoggedIn()) {
+    		addToHistory(getCurrentUserID(), $id, "title");
+    	}
+    	$title = getElementByID($id, 'titles');
+    }
+	// $title = getElementByID($id, 'titles');
 	$likeStatment = formLike(extractCommonWords($searchString), 'name'); // get keywords for search in cache
 	$results = query("SELECT * FROM titles " . $likeStatment . " ORDER BY `name`, `release` desc;", true);
 
-	array_unshift($results, getElementByID($id, 'titles'));
+	if (!is_null($id)) {
+        array_unshift($results, getElementByID($id, 'titles'));
+    }
 
 	foreach ($results as $key => $title) {
 		$results[$title['id']] = $title;
@@ -34,7 +40,7 @@ if (isset($_GET['search'])) {
     }
   }
 
-	if ($title['related'] != '' && $title['related'] != '[]') {
+	if (!is_null($id) && $title['related'] != '' && $title['related'] != '[]') {
 		$related = json_decode($title['related']);
 		//$related = array_unique($related, SORT_REGULAR);
 	} else {
@@ -72,9 +78,12 @@ if (isset($_GET['search'])) {
 
 	// Filtering the array
 	$results = array_filter($results, "myFilter");
-	$query = "UPDATE titles SET `related` = " . json(json_encode($related)) . " WHERE id = " . str($title['id']) . ";";
+	if (array_key_exists('id', $title)) {
+    	$query = "UPDATE titles SET `related` = " . json(json_encode($related)) . " WHERE id = " . str($title['id']) . ";";
 
-	query($query, false);
+    	query($query, false);
+    }
+
 	//$query = "UPDATE titles SET actors = " . json(json_encode($actors)) . " WHERE id = " . str($id) . ";";
 	$results = array_unique($results, SORT_REGULAR);
 	$actorId = "";
