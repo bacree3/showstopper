@@ -37,7 +37,7 @@ cd showstopper
 1. Edit the document root of the web server to point to the cloned repository by editing the httpd.conf file for your webserver.
 2. Running the following command will allow you to edit the file within the terminal of linux based web servers.
 3. Find the 'DocumentRoot' variable and added '/showstopper' to the end of the path.
-```
+```bash
 sudo nano /etc/httpd/conf/httpd.conf
 ```
 4. If you are using XAMPP, edit the file by going to the settings of the Apache web server and opening the httpd.conf file.
@@ -51,7 +51,7 @@ This is a web application so no build is required. Simply run the PHP files with
 1. Run the 'database/data_structure.sql' file inside your database to set up the proper tables for the database.
 2. If you acquired our API keys, simply move on to the next step and replace the proper values.
 3. Once you have cloned the repository within the root of the web server, run the following command to configure the application based on your MySQL server configuration and your AWS SES credentials by replacing the variables prexied with 'YOUR' with the proper values (you can also just duplicate and edit the file with the proper name in your favorite text editor):
-```
+```bash
 cp php/parameters-example.php php/parameters.php
 nano php/parameters.php
 ```
