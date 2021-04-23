@@ -16,7 +16,7 @@ This is your one stop-shop for your streaming services. Users can search across 
     <li>Fixed issues with typos in search for mispelled titles.</li>
     <li>Fixed escape string issues on search input for certain titles.</li>
   </ul>
-<blockquote>
+</blockquote>
 
 ### Known Bugs and Defects
 <ul>
