@@ -4,14 +4,14 @@ This is your one stop-shop for your streaming services. Users can search across 
 ## Release Notes
 
 <blockquote>
-  ## v1.2.2 (4/23/2021)
-  ###### Enchancements:
+  <h2>v1.2.2 (4/23/2021)</h2>
+  <h4>Enchancements:</h4>
   <ul>
     <li>Added a view for user's to view their activity history.</li>
     <li>Added ability to clear search history.</li>
     <li>Improved overall responsiveness on main user pages.</li>
   </ul>
-  ###### Bug Fixes:
+  <h4>Bug Fixes:</h4>
   <ul>
     <li>Fixed issues with typos in search for mispelled titles.</li>
     <li>Fixed escape string issues on search input for certain titles.</li>
