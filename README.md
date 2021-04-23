@@ -37,7 +37,7 @@ This is your one stop-shop for your streaming services. Users can search across 
    <li>Download<a href = "https://www.apachefriends.org/download.html"> XAMPP </a>for a local web and MySQL server if you do not have a web server or database instance readily available.</li>
    <li>Clone this repository by using the following commands the terminal of your web server:</li>
 </ul>
-```bash
+```
 cd /path/to/web/server/root
 git clone https://github.com/bacree3/showstopper.git
 cd showstopper
