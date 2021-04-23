@@ -20,7 +20,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
                 </div>
               </div>
               <?php
-              echo getNotifications("test");
+              echo getNotifications(getCurrentUserID());
               ?>
           </div>
         </div>
