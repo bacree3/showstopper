@@ -2,16 +2,16 @@
 This is your one stop-shop for your streaming services. Users can search across a variety of platforms to help decide what they can watch and where they can watch it.
 
 ## Release Notes
-<blockquote>
-  <h2>v1.2.2 (4/23/2021)</h2>
-  <h4>Enchancements:</h4>
-  - Added a view for user's to view their activity history.</li>
-  - Added ability to clear search history.</li>
-  - Improved overall responsiveness on main user pages.</li>
-  <h4>Bug Fixes:</h4>
-  - Fixed issues with typos in search for mispelled titles.
-  - Fixed escape string issues on search input for certain titles.
-</blockquote>
+>
+>  ## v1.2.2 (4/23/2021)
+>  #### Enchancements:
+>  - Added a view for user's to view their activity history.
+>  - Added ability to clear search history.
+>  - Improved overall responsiveness on main user pages.
+>  ##### Bug Fixes:
+>  - Fixed issues with typos in search for mispelled titles.
+>  - Fixed escape string issues on search input for certain titles.
+>
 
 ### Known Bugs and Defects
 - API requests are limited and tend to throttle at high usage.
