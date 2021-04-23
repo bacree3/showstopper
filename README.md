@@ -19,12 +19,13 @@ This is your one stop-shop for your streaming services. Users can search across 
 
 ## Install Guide
 ### Prerequisites
+- Access to an AWS account. Create a free account: <a target = "_blank" href = "https://aws.amazon.com/free/?trk=ps_a131L0000085DvcQAE&trkCampaign=acq_paid_search_brand&sc_channel=ps&sc_campaign=acquisition_US&sc_publisher=google&sc_category=core&sc_country=US&sc_geo=NAMER&sc_outcome=acq&sc_detail=aws%20free%20tier&sc_content=Account_e&sc_segment=432339156165&sc_medium=ACQ-P|PS-GO|Brand|Desktop|SU|AWS|Core|US|EN|Text&s_kwcid=AL!4422!3!432339156165!e!!g!!aws%20free%20tier&ef_id=Cj0KCQjw4ImEBhDFARIsAGOTMj8N81JmKn0X-FE5Axfk9u2xhRTMiYp-89ERUkrinHyb6Joyp7eE5JwaAgX0EALw_wcB:G:s&s_kwcid=AL!4422!3!432339156165!e!!g!!aws%20free%20tier&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all">AWS Free Tier</a>
 - Install and configure a MySQL server.
 - Install and configure an Apache web server with PHP 7.4 installed (either locally or hosted within the cloud).
 - Clone this git repository within the root directory of the web-server.
-- Obtain an API key for the public facing OMDB API. <a href = "http://www.omdbapi.com/apikey.aspx">OMDB Key's</a>
+- Obtain an API key for the public facing OMDB API. <a target = "_blank" href = "http://www.omdbapi.com/apikey.aspx">OMDB Key's</a>
 ### Download Instructions
-- Download<a href = "https://www.apachefriends.org/download.html"> XAMPP </a>for a local web and MySQL server if you do not have a web server or database instance readily available.
+- Download<a target = "_blank" href = "https://www.apachefriends.org/download.html"> XAMPP </a>for a local web and MySQL server if you do not have a web server or database instance readily available.
 - Clone this repository by using the following commands the terminal of your web server:
 ```bash
 cd /path/to/web/server/root
@@ -38,11 +39,11 @@ Some features of the application require the use of a proprietary API that is no
 ### Build Instructions
 This is a web application so no build is required. Simply run the PHP files with the proper database connection in any Apache Web Server with PHP 7.4 installed by going to the address of the web server in your preferred browser.
 ### Installation Instructions
-- Once you have cloned the repository within the root of the web server, run the following command to configure the application based on your MySQL server configuration and your AWS SES credentials:
+- Once you have cloned the repository within the root of the web server, run the following command to configure the application based on your MySQL server configuration and your AWS SES credentials by replacing the variables prexied with 'YOUR' with the proper values:
 ```
 cp php/parameters-example.php php/parameters.php
 touch php/parameters.php
 ```
 ### Run Instructions
-Navigate to the web address of the web server you configured. For example, there is a live version of the application on <a href = "https://showstopper.app">ShowStopper.app</a>, or if you configured a local web server, try <a href = "http://localhost">localhost</a>, or <a href = "http://127.0.0.1">127.0.0.1</a>.
+Navigate to the web address of the web server you configured. For example, there is a live version of the application on <a target = "_blank" href = "https://showstopper.app">ShowStopper.app</a>, or if you configured a local web server, try <a target = "_blank" href = "http://localhost">localhost</a>, or <a target = "_blank" href = "http://127.0.0.1">127.0.0.1</a>.
 ### Troubleshooting
