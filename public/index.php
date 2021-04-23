@@ -25,26 +25,27 @@ if (isLoggedIn()) {
       <p class="lead text-center">Get the most out of your streaming services</p>
       <div class="d-flex justify-content-around">
         <p id="signup" class="mr-1">Don't have an account?</p>
-        <p id="welcome" class="mr-1">Welcome Back <?php echo $name; ?>!</p>
+        <p id="welcome" class="mr-1">Welcome back, <?php echo $name; ?>!</p>
         <a id="signuplink"href="/register">Sign up today</a>
       </div>
     </div>
 
+    <!-- movies container -->
     <div class="container">
-      <div class="row pb-4">
-        <div class="col-2 pt-4 text-center">
-          <div class="">
-            <h3 class="text-white">Trending</p>
-          </div>
+
+      <!-- trending movies -->
+      <div class="row pb-5">
+        <div class="col-12 col-lg-3 align-self-center text-center">
+            <h3 class="text-white pr-4">Trending</p>
         </div>
 
         <?php
           $resultsHTML = "";
           foreach($popTitles as $key => $title) {
             $movieImg = "
-            <div class='col-2 '>
+            <div class='col'>
               <div class='' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>
-                <img src='" . $title['img'] . "' class='rounded title homemoviepic' alt='...'>
+                <img src='" . $title['img'] . "' class='rounded title movieImg' alt='...'>
               </div>
             </div>
             ";
@@ -52,50 +53,26 @@ if (isLoggedIn()) {
           }
           echo $resultsHTML;
         ?>
-
-       <!--  <div class="col-2 ">
-          <div class="">
-            <img src="/src/img/avengers.jpg" class="rounded title homemoviepic" alt="...">
-          </div>
-        </div>
-        <div class="col-2">
-          <div class="">
-            <img src="/src/img/avengers.jpg" class="rounded title homemoviepic" alt="...">
-          </div>
-        </div>
-        <div class="col-2">
-          <div>
-            <img src="/src/img/star-wars.jpg" class="rounded title homemoviepic" alt="...">
-          </div>
-        </div>
-        <div class="col-2">
-          <div>
-            <img src="/src/img/harry-potter.jpg" class="rounded title homemoviepic" alt="...">
-          </div>
-        </div>
-        <div class="col-2">
-          <div>
-            <img src="/src/img/extraction.jpg" class="rounded title homemoviepic" alt="...">
-          </div>
-        </div> -->
       </div>
-      <div class="row justify-content-center" id = "seereccs">
+
+      <!-- displays if not logged in -->
+      <div class="row justify-content-center" id="seereccs">
         <h4 class="text-white text-center">Sign in to see recommendations made just for you!</p>
       </div>
-      <div class="row" id = "reccs">
-        <div class="col-2 pt-4 text-center">
-          <div class="">
-            <h3 class="text-white">Recommended For You</p>
-          </div>
+
+      <!-- displays if logged in -->
+      <div class="row" id="reccs">
+        <div class="col-12 col-lg-3 align-self-center text-center">
+          <h3 class="text-white">Recommended For You</p>
         </div>
         <?php
           $resultsHTML = "";
           foreach($forYouTitles as $key => $movie) {
             $title = getElementByID($movie['movie_id'], 'titles');
             $movieImg = "
-            <div class='col-2 '>
+            <div class='col'>
               <div class='' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>
-                <img src='" . $title['img'] . "' class='rounded title homemoviepic' alt='...'>
+                <img src='" . $title['img'] . "' class='rounded title movieImg' alt='...'>
               </div>
             </div>
             ";
