@@ -36,7 +36,13 @@ All dependencies for the application are included within the repository.
 
 Some features of the application require the use of a proprietary API that is not public facing. If you wish to obtain the credentials please contact us, otherwise, you can deploy your own version of this API with the source code included within the 'scrape' directory.
 ### Build Instructions
-This is a web application so no build is required. Simply run the PHP files with the proper database connection in any Apache Web Server with PHP 7.4 installed by going to the address of the web server in your preferred browswer.
+This is a web application so no build is required. Simply run the PHP files with the proper database connection in any Apache Web Server with PHP 7.4 installed by going to the address of the web server in your preferred browser.
 ### Installation Instructions
+- Once you have cloned the repository within the root of the web server, run the following command to configure the application based on your MySQL server configuration and your AWS SES credentials:
+```
+cp php/parameters-example.php php/parameters.php
+touch php/parameters.php
+```
 ### Run Instructions
+Navigate to the web address of the web server you configured. For example, there is a live version of the application on <a href = "https://showstopper.app">ShowStopper.app</a>, or if you configured a local web server, try <a href = "http://localhost">localhost</a>, or <a href = "http://127.0.0.1">127.0.0.1</a>.
 ### Troubleshooting
