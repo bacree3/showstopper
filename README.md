@@ -42,7 +42,7 @@ cd /path/to/web/server/root
 git clone https://github.com/bacree3/showstopper.git
 cd showstopper
 ```
-### Dependencies
+<h3>Dependencies</h3>
 All dependencies for the application are included within the repository.
 
 Some features of the application require the use of a proprietary API that is not public facing. If you wish to obtain the credentials please contact us, otherwise, you can deploy your own version of this API with the source code included within the 'scrape' directory.
