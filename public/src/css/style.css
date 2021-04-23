@@ -39,7 +39,7 @@ img {
 
 .movieImg {
     width: 100%;
-		max-width: 215px;
+	max-width: 215px;
     height: auto;
 }
 
@@ -151,11 +151,6 @@ img {
 	opacity: 0.1 !important;
 }
 
-.homemoviepic {
-	display: inline-block;
-	width: 150px;
-}
-
 .sidenav {
   height: 100%;
   width: 160px;
@@ -164,7 +159,7 @@ img {
   top: 0;
   left: 0;
   background-color: #AAC1E9;
-  overflow-x: hidden;x
+  overflow-x: hidden;
   padding-top: 30px;
 	margin-top: 75px;
 }

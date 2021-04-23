@@ -20,73 +20,71 @@ if (isset($_GET['s']) && !empty($_GET['s'])) {
 
 		<!-- BODY -->
     	<div class="container mt-5">
-        	<div class="row">
-				<div class="col-md-5 mx-auto">
-					<div class="loginform form">
-						<div class="logo col-md-12 text-center">
-							<h1>Tell us some more about yourself!</h1>
-						</div>
-						<form action="../register/register.php" method="post" name="actdetails">
-              <input type="hidden" name="setup" value=""/>
-							<div class="form-group">
-								<label>What's your name?</label>
-								<input type="text" name="name" class="form-control" placeholder="Enter first name">
-							</div>
-							<div class="form-group">
-								<label>What subscription services are you already subscribed to?</label>
-								<div class="row">
-                                    <div class="col-md-4 mb-2">
-                                        <div class="custom-control custom-checkbox image-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name = "netflix" id="ck1a">
-                                            <label class="custom-control-label" for="ck1a">
-                                                <img src="/src/img/netflix.jpg" alt="Netflix" class="img-fluid">
-                                            </label>
-                                        </div>
+            <div class="mx-auto" style="max-width:400px">
+                <div class="loginform form">
+                    <div class="logo col-md-12 text-center">
+                        <h1>Tell us some more about yourself!</h1>
+                    </div>
+                    <form action="../register/register.php" method="post" name="actdetails">
+                        <input type="hidden" name="setup" value=""/>
+                        <div class="form-group">
+                            <label>What's your name?</label>
+                            <input type="text" name="name" class="form-control" placeholder="Enter first name">
+                        </div>
+                        <div class="form-group">
+                            <label>What subscription services are you already subscribed to?</label>
+                            <div class="row">
+                                <div class="col-4 mb-2">
+                                    <div class="custom-control custom-checkbox image-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name = "netflix" id="ck1a">
+                                        <label class="custom-control-label" for="ck1a">
+                                            <img src="/src/img/netflix.jpg" alt="Netflix" class="img-fluid">
+                                        </label>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="custom-control custom-checkbox image-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name = "hulu" id="ck1b">
-                                            <label class="custom-control-label" for="ck1b">
-                                                <img src="/src/img/hulu.png" alt="Hulu" class="img-fluid">
-                                            </label>
-                                        </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="custom-control custom-checkbox image-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name = "hulu" id="ck1b">
+                                        <label class="custom-control-label" for="ck1b">
+                                            <img src="/src/img/hulu.png" alt="Hulu" class="img-fluid">
+                                        </label>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="custom-control custom-checkbox image-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name = "disney+" id="ck1c">
-                                            <label class="custom-control-label" for="ck1c">
-                                                <img src="/src/img/disneyplus.jpg" alt="Disney+" class="img-fluid">
-                                            </label>
-                                        </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="custom-control custom-checkbox image-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name = "disney+" id="ck1c">
+                                        <label class="custom-control-label" for="ck1c">
+                                            <img src="/src/img/disneyplus.jpg" alt="Disney+" class="img-fluid">
+                                        </label>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="custom-control custom-checkbox image-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name = "prime" id="ck1d">
-                                            <label class="custom-control-label" for="ck1d">
-                                                <img src="/src/img/prime.jpg" alt="Amazon Prime Video" class="img-fluid">
-                                            </label>
-                                        </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="custom-control custom-checkbox image-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name = "prime" id="ck1d">
+                                        <label class="custom-control-label" for="ck1d">
+                                            <img src="/src/img/prime.jpg" alt="Amazon Prime Video" class="img-fluid">
+                                        </label>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="custom-control custom-checkbox image-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name = "hbo" id="ck1e">
-                                            <label class="custom-control-label" for="ck1e">
-                                                <img src="/src/img/hbo.png" alt="HBO Max" class="img-fluid">
-                                            </label>
-                                        </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="custom-control custom-checkbox image-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name = "hbo" id="ck1e">
+                                        <label class="custom-control-label" for="ck1e">
+                                            <img src="/src/img/hbo.png" alt="HBO Max" class="img-fluid">
+                                        </label>
                                     </div>
                                 </div>
                             </div>
-							<div class="col-md-12 text-center mb-3">
-								<button type="submit" class="btn btn-block loginbtn btn-primary">Submit</button>
-							</div>
-                            <div class="col-md-12 text-center">
-								<button type="submit" class="btn loginbtn btn-secondary">Skip</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
+                        </div>
+                        <div class="col-md-12 text-center mb-3">
+                            <button type="submit" class="btn btn-block loginbtn btn-primary">Submit</button>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn loginbtn btn-secondary">Skip</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
       	</div>
 
 		<!-- END BODY -->

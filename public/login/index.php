@@ -29,40 +29,38 @@ if (isset($_GET['error'])) {
 
 		<!-- BODY -->
     	<div class="container mt-5">
-        	<div class="row">
-				<div class="col-md-5 mx-auto">
-					<?php echo $error; ?>
-					<div class="loginform form">
-						<div class="logo col-md-12 text-center">
-							<h1>Login</h1>
-						</div>
-						<form action="login.php" method="post" name="login" onsubmit="return loginAttempt()">
-              				<input type="hidden" name="login" value=""/>
-							<div class="form-group">
-								<label>Email address</label>
-								<input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
-							</div>
-							<div class="form-group">
-								<label>Password</label>
-								<input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
-							</div>
-							<div class="col-md-12 text-center">
-								<button type="submit" class="btn btn-block loginbtn btn-primary">Login</button>
-							</div>
-							<div class="form-group mt-2">
-								<p class="text-center">Forgot Password? <a href="/forgot-password">Reset Password</a></p>
-							</div>
-							<div class="col-md-12">
-								<div class="login-or">
-									<hr class="hr-or">
-									<span class="span-or">or</span>
-								</div>
-							</div>
-							<div class="form-group">
-								<p class="text-center">Don't have account? <a href="/register" id="signup">Sign up here</a></p>
-							</div>
-						</form>
+			<div class="mx-auto" style="max-width:400px">
+				<?php echo $error; ?>
+				<div class="loginform form">
+					<div class="logo col-md-12 text-center">
+						<h1>Login</h1>
 					</div>
+					<form action="login.php" method="post" name="login" onsubmit="return loginAttempt()">
+						<input type="hidden" name="login" value=""/>
+						<div class="form-group">
+							<label>Email address</label>
+							<input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+						</div>
+						<div class="form-group">
+							<label>Password</label>
+							<input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
+						</div>
+						<div class="col-md-12 text-center">
+							<button type="submit" class="btn btn-block loginbtn btn-primary">Login</button>
+						</div>
+						<div class="form-group mt-3">
+							<p class="text-center">Forgot Password? <a href="/forgot-password">Reset Password</a></p>
+						</div>
+						<div class="col-md-12">
+							<div class="login-or">
+								<hr class="hr-or">
+								<span class="span-or">or</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<p class="text-center">Don't have account? <a href="/register" id="signup">Sign up here</a></p>
+						</div>
+					</form>
 				</div>
 			</div>
       	</div>

@@ -25,45 +25,43 @@ if (isset($_GET['error'])) {
 
 		<!-- BODY -->
     	<div class="container mt-5">
-        	<div class="row">
-				<div class="col-md-5 mx-auto">
-          <?php echo $error; ?>
-					<div class="loginform form">
-						<div class="logo col-md-12 text-center">
-							<h1>Register</h1>
-						</div>
-						<form action="register.php" method="post" name="register" onsubmit="return createNewUser()">
-              <input type="hidden" name="register" value=""/>
-							<div class="form-group">
-								<label>Email address</label>
-								<input type="email" name="email" id="email" class="form-control validate" placeholder="Enter Email">
-							</div>
-							<div class="form-group">
-								<label>Password</label>
-								<input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
-							</div>
-              				<div class="form-group">
-								<label>Confirm Password</label>
-								<input type="password" name="confirmpassword" id="confirmpassword" class="form-control" placeholder="Confirm Password">
-							</div>
-							<div class="col-md-12 text-center">
-								<!-- <a href="/actsetup" type="submit" class="btn btn-block loginbtn btn-primary">Next</a> -->
-								<button type="submit" class="btn btn-block loginbtn btn-primary">Next</button>
-							</div>
-							<div class="col-md-12">
-								<div class="login-or">
-									<hr class="hr-or">
-									<span class="span-or">or</span>
-								</div>
-							</div>
-							<div class="form-group">
-								<p class="text-center">Already have an account? <a href="/login" id="login">Login here</a></p>
-							</div>
-						</form>
+			<div class="mx-auto" style="max-width:400px">
+          		<?php echo $error; ?>
+				<div class="loginform form">
+					<div class="logo col-md-12 text-center">
+						<h1>Register</h1>
 					</div>
+					<form action="register.php" method="post" name="register" onsubmit="return createNewUser()">
+						<input type="hidden" name="register" value=""/>
+						<div class="form-group">
+							<label>Email address</label>
+							<input type="email" name="email" id="email" class="form-control validate" placeholder="Enter Email">
+						</div>
+						<div class="form-group">
+							<label>Password</label>
+							<input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
+						</div>
+						<div class="form-group">
+							<label>Confirm Password</label>
+							<input type="password" name="confirmpassword" id="confirmpassword" class="form-control" placeholder="Confirm Password">
+						</div>
+						<div class="col-md-12 text-center pb-2">
+							<!-- <a href="/actsetup" type="submit" class="btn btn-block loginbtn btn-primary">Next</a> -->
+							<button type="submit" class="btn btn-block loginbtn btn-primary">Next</button>
+						</div>
+						<div class="col-md-12">
+							<div class="login-or">
+								<hr class="hr-or">
+								<span class="span-or">or</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<p class="text-center">Already have an account? <a href="/login" id="login">Login here</a></p>
+						</div>
+					</form>
 				</div>
 			</div>
-      	</div>
+		</div>
 
 		<!-- END BODY -->
 		<div class = "footer mt-4 pt-4"></div>
