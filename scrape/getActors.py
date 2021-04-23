@@ -5,6 +5,8 @@ This file is hosted on AWS Lambda. You will not find any references to
 needed using the AWS API.
 ********
 
+This file requires the Lambda layer 'soupLayer'
+
 This file contains the function that scrapes the cast list from the a movie's
 IMDb page.
 

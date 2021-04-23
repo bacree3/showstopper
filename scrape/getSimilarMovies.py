@@ -10,6 +10,8 @@ a serach for related movies on Google.com. The results of this search are
 scraped, their full titles retrieved from a scrape of IMDb.com if needed,
 and returned.
 
+This file requires the Lambda layer 'soupLayer'
+
 Requires the json, requests, time, and BeautifulSoup python libraries in order
 to execute the HTTP requests and properly scrape the response.
 
