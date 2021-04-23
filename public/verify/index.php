@@ -20,16 +20,14 @@ if (isset($_GET['email'])) {
 
 		<!-- BODY -->
     	<div class="container mt-5">
-        	<div class="row">
-				<div class="col-md-5 mx-auto">
-          <?php echo $error; ?>
-					<div class="loginform form">
-						<div class="logo col-md-12 text-center">
-							<h1>Verify Your Email</h1>
-						</div>
-              <div class="logo col-md-12 text-center">
-								<p>A verification email was sent to the address you signed up with. Go to your email and click to verify your address so you can complete your registration.</p>
-							</div>
+			<div class="col-md-5 mx-auto">
+          	<?php echo $error; ?>
+				<div class="loginform form">
+					<div class="logo col-md-12 text-center">
+						<h1>Verify Your Email</h1>
+					</div>
+              		<div class="logo col-md-12 text-center">
+						<p>A verification email has been sent to the address you signed up with. Follow the link in the email to complete your registration.</p>
 					</div>
 				</div>
 			</div>
