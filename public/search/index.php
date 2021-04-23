@@ -326,18 +326,35 @@ echo $titleData['src/src/img']; */
 		}
 	}
 
+	var servicesFilterValues = {'Netflix': false, 'Hulu': false, 'HBO Max': false, 'Amazon Prime Video': false, 'Disney+': false};
 	function updatefilter(obj, service) {
-		var action;
 		if ($(obj).is(":checked")) {
-			for (r in results) {
-				if (!results[r].servicesBool[service]) {
-					$(".movie" + results[r].id).hide();
-				}
-			}
+			servicesFilterValues[service] = true;
 		} else {
-			for (r in results) {
-				if (!results[r].servicesBool[service]) {
+			servicesFilterValues[service] = false;
+		}
+		var checkedServices = [];
+		for (service in servicesFilterValues) {
+			if (servicesFilterValues[service]) {
+				checkedServices.push(service);
+			}
+		}
+	
+		for (r in results) {
+			if (!checkedServices.length) {
+				$(".movie" + results[r].id).show();
+			} else {
+				var isOneTrue = false;
+				for (service of checkedServices) {
+					if (results[r].servicesBool[service]) {
+						isOneTrue = true;
+						break;
+					}
+				}
+				if (isOneTrue) {
 					$(".movie" + results[r].id).show();
+				} else {
+					$(".movie" + results[r].id).hide();
 				}
 			}
 		}
