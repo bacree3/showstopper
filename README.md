@@ -2,16 +2,16 @@
 This is your one stop-shop for your streaming services. Users can search across a variety of platforms to help decide what they can watch and where they can watch it.
 
 ## Release Notes
-<blockquote>
-  <h2>v1.2.2 (4/23/2021)</h2>
-  <h4>Enchancements:</h4>
-  - Added a view for user's to view their activity history.</li>
-  - Added ability to clear search history.</li>
-  - Improved overall responsiveness on main user pages.</li>
-  <h4>Bug Fixes:</h4>
-  - Fixed issues with typos in search for mispelled titles.
-  - Fixed escape string issues on search input for certain titles.
-</blockquote>
+>
+>  ## v1.2.2 (4/23/2021)
+>  #### Enchancements:
+>  - Added a view for user's to view their activity history.
+>  - Added ability to clear search history.
+>  - Improved overall responsiveness on main user pages.
+>  ##### Bug Fixes:
+>  - Fixed issues with typos in search for mispelled titles.
+>  - Fixed escape string issues on search input for certain titles.
+>
 
 ### Known Bugs and Defects
 - API requests are limited and tend to throttle at high usage.
@@ -46,18 +46,22 @@ Some features of the application require the use of a proprietary API that is no
 ### Build Instructions
 This is a web application so no build is required. Simply run the PHP files with the proper database connection in any Apache Web Server with PHP 7.4 installed by going to the address of the web server in your preferred browser.
 ### Installation Instructions
-- Once you have cloned the repository within the root of the web server, run the following command to configure the application based on your MySQL server configuration and your AWS SES credentials by replacing the variables prexied with 'YOUR' with the proper values:
+1. Run the 'database/data_structure.sql' file inside your database to set up the proper tables for the database.
+2. If you acquired our API keys, simply move on to the next step and replace the proper values.
+3. Once you have cloned the repository within the root of the web server, run the following command to configure the application based on your MySQL server configuration and your AWS SES credentials by replacing the variables prexied with 'YOUR' with the proper values (you can also just duplicate and edit the file with the proper name in your favorite text editor):
 ```
 cp php/parameters-example.php php/parameters.php
-touch php/parameters.php
+nano php/parameters.php
 ```
+3. If you are deploying your own API rather than acquiring the keys for our private API, create 4 Lambda functions inside your AWS account, with names corresponding to the names of the file EXCLUDING the file extensions, and attach the necessary layers provided in the 'scrape' directory.
+4. Create and attach an API gateway to point to your functions, and use this URL within the new parameters file.
+5. Repeat step 2 with the new credentials you created.
 ### Run Instructions
 Navigate to the web address of the web server you configured. For example, there is a live version of the application on <a href = "https://showstopper.app">ShowStopper.app</a>, or if you configured a local web server, try <a href = "http://localhost">localhost</a>, or <a href = "http://127.0.0.1">127.0.0.1</a>.
 ### Troubleshooting
 1. Ensure the PHP version is correct.
-2. Ensure file structure is correct by confirming the repository has been specified in the document root of the web server.
-3. Ensure the connection to the database is correct.
-4. Ensure the account you created to access the database instance has the proper credentials to view and edit the schema.
-5. Ensure sure you created the proper parameters file from the example one provided within the php directory and that the values you replaced are correct.
-6.  
-
+2. Ensure your web server is running properly (be sure to hit start if you are using XAMPP, you may need to restart the server if you edited the httpd.conf file while it was running.)
+3. Ensure file structure is correct by confirming the repository has been specified in the document root of the web server.
+4. Ensure the connection to the database is correct (be sure to make sure the port is open to reach the database if you launched the database in the cloud).
+5. Ensure the account you created to access the database instance has the proper credentials to view and edit the schema you created from data_structure.sql.
+6. Ensure sure you created the proper parameters file from the example one provided within the php directory and that the values you replaced are correct.
