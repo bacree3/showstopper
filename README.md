@@ -8,6 +8,7 @@ This is your one stop-shop for your streaming services. Users can search across 
 >  - Added a view for user's to view their activity history.
 >  - Added ability to clear search history.
 >  - Improved overall responsiveness on main user pages.
+>  - Improved Filtering options on search.
 >  ##### Bug Fixes:
 >  - Fixed issues with typos in search for mispelled titles.
 >  - Fixed escape string issues on search input for certain titles.
@@ -16,6 +17,7 @@ This is your one stop-shop for your streaming services. Users can search across 
 ### Known Bugs and Defects
 - API requests are limited and tend to throttle at high usage.
 - Ability to delete a user's account within the app is still not active.
+- Inconsistent notification experience.
 
 ## Install Guide
 ### Prerequisites
@@ -33,12 +35,12 @@ git clone https://github.com/bacree3/showstopper.git
 cd showstopper
 ```
 1. Edit the document root of the web server to point to the cloned repository by editing the httpd.conf file for your webserver.
-2. Running the following command will allow you to edit the file within the terminal of linux based web servers. 
+2. Running the following command will allow you to edit the file within the terminal of linux based web servers.
 3. Find the 'DocumentRoot' variable and added '/showstopper' to the end of the path.
 ```
 sudo nano /etc/httpd/conf/httpd.conf
 ```
-4. If you are using XAMPP, edit the file by going to the settings of the Apache web server and opening the httpd.conf file. 
+4. If you are using XAMPP, edit the file by going to the settings of the Apache web server and opening the httpd.conf file.
 ### Dependencies
 All dependencies for the application are included within the repository.
 
