@@ -10,7 +10,7 @@ This is your one stop-shop for your streaming services. Users can search across 
 >  - Improved overall responsiveness on main user pages.
 >  - Improved Filtering options on search.
 >  ##### Bug Fixes:
->  - Fixed issues with typos in search for mispelled titles.
+>  - Fixed issues with typos in search for misspelled titles.
 >  - Fixed escape string issues on search input for certain titles.
 >
 
