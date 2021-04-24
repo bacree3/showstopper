@@ -207,15 +207,15 @@ echo $titleData['src/src/img']; */
 									<img src='" . $title['img'] . "' class='rounded movieImg' alt='...'>
 								</div>
 							</div>
-							
+
 							<div class='d-none d-md-block col-3 text-center' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>
 								<img src='" . $title['img'] . "' class='rounded movieImg' alt='...'>
 							</div>
-							
+
 							<div id=" . $title['id'] . " class='col-6 col-md-8 text-left movie-content'>
 								<h1 class='d-none d-md-block mb-3 display-4' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>" . $title['name'] . "</h1>
 								<h1 class='d-md-none mb-3' onclick='location.href=" . "\"" . '/movie/?title=' . $title['id'] . "\"" .  "' style='cursor: pointer;'>" . $title['name'] . "</h1>
-								
+
 								<p class='lead'>
 									<span class='font-weight-bold'>Release Date:</span> " . $title['release'] . "
 								</p>
@@ -258,7 +258,7 @@ echo $titleData['src/src/img']; */
 			array_push($needsUpdate, $title['id']);
 		}
 	}
-	print_r($favorites);
+	//print_r($favorites);
 ?>
 
 <script type="text/javascript">
@@ -339,7 +339,7 @@ echo $titleData['src/src/img']; */
 				checkedServices.push(service);
 			}
 		}
-	
+
 		for (r in results) {
 			if (!checkedServices.length) {
 				$(".movie" + results[r].id).show();
