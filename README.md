@@ -10,7 +10,7 @@ This is your one stop-shop for your streaming services. Users can search across 
 >  - Improved overall responsiveness on main user pages.
 >  - Improved Filtering options on search.
 >  ##### Bug Fixes:
->  - Fixed issues with typos in search for mispelled titles.
+>  - Fixed issues with typos in search for misspelled titles.
 >  - Fixed escape string issues on search input for certain titles.
 >
 
@@ -35,7 +35,7 @@ git clone https://github.com/bacree3/showstopper.git
 cd showstopper
 ```
 1. Edit the document root of the web server to point to the cloned repository by editing the httpd.conf file for your webserver.
-2. Running the following command will allow you to edit the file within the terminal of linux based web servers.
+2. Running the following command will allow you to edit the file within the terminal of Linux based web servers.
 ```bash
 sudo nano /etc/httpd/conf/httpd.conf
 ```
