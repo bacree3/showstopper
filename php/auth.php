@@ -336,6 +336,16 @@ function verifyEmail($email) {
   query("UPDATE users SET verified = 1 WHERE email = " . str($email) . ";", false);
 }
 
+/**
+ * Delete a user's account data
+ */
+function deleteAccount() {
+  $userID = getCurrentUserID();
+	$query = "DELETE FROM users WHERE id = " . str($userID) . ";";
+	//echo $query;
+	query($query, false);
+}
+
 ?>
 
 <script>

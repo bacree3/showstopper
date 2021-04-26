@@ -173,10 +173,13 @@ if (!isLoggedIn()) {
 									</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6 text-center">
-									<button onClick="window.location.reload(); return false;" class="btn btn-block loginbtn btn-danger">Cancel</button>
+								<div class="col-md-4 text-center">
+									<button onClick="deleteAccount(); return false;" class="btn btn-block loginbtn btn-danger">Delete Account</button>
 								</div>
-								<div class="col-md-6 text-center">
+								<div class="col-md-4 text-center">
+									<button onClick="window.location.reload(); return false;" class="btn btn-block loginbtn btn-warning">Cancel</button>
+								</div>
+								<div class="col-md-4 text-center">
 									<button type="submit" class="btn btn-block loginbtn btn-primary">Save Changes</button>
 								</div>
 							</div>

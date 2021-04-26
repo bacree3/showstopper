@@ -154,6 +154,12 @@ function getServicesBoolean(services) {
   return servicesBool;
 }
 
+function deleteAccount() {
+  if (confirm('Are you sure? This will result in all data associated with your account being deleted permanently.')) {
+    window.location.href = '/account/delete-account.php';
+  }
+}
+
 /* $('.movie').each(function(i, obj) {
     var title = $(obj).attr('class').split(' ').pop();
 		$(obj).click(function() {
