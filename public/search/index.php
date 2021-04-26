@@ -342,7 +342,7 @@ echo $titleData['src/src/img']; */
 	var servicesFilterValues = {'Netflix': false, 'Hulu': false, 'HBO Max': false, 'Amazon Prime Video': false, 'Disney+': false};
 	function updatefilter(obj, service) {
 		var checkedServices = [];
-		if (service='myServices') {
+		if (service=='myServices') {
 			checkedServices = myServices;
 		} else {
 			if ($(obj).is(":checked")) {
