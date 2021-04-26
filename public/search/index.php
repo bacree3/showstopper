@@ -170,6 +170,13 @@ echo $titleData['src/src/img']; */
 							<input name="hbo" id="hbo" type="checkbox" onchange="updatefilter(this, 'HBO Max')">
 							<label for="hbo">HBO Max</label>
 						</li>
+						<div class="m-2" id="filterSeparator">
+							<hr class="hr-or">
+						</div>
+						<li class="m-1 pt-1 pl-2" id="myServicesLi">
+							<input name="myServices" id="myServices" type="checkbox" onchange="updatefilter(this, 'myServices')">
+							<label for="myServices">My Services</label>
+						</li>
 					</form>
 				</div>
 			</div>
@@ -326,19 +333,31 @@ echo $titleData['src/src/img']; */
 		}
 	}
 
+	if (!loggedin) {
+		document.getElementById("filterSeparator").style.display = "none";
+		document.getElementById("myServicesLi").style.display = "none";
+	}
+	
+
 	var servicesFilterValues = {'Netflix': false, 'Hulu': false, 'HBO Max': false, 'Amazon Prime Video': false, 'Disney+': false};
 	function updatefilter(obj, service) {
-		if ($(obj).is(":checked")) {
-			servicesFilterValues[service] = true;
-		} else {
-			servicesFilterValues[service] = false;
-		}
 		var checkedServices = [];
-		for (service in servicesFilterValues) {
-			if (servicesFilterValues[service]) {
-				checkedServices.push(service);
+		if (service='myServices') {
+			checkedServices = myServices;
+		} else {
+			if ($(obj).is(":checked")) {
+				servicesFilterValues[service] = true;
+			} else {
+				servicesFilterValues[service] = false;
+			}
+			
+			for (service in servicesFilterValues) {
+				if (servicesFilterValues[service]) {
+					checkedServices.push(service);
+				}
 			}
 		}
+		
 
 		for (r in results) {
 			if (!checkedServices.length) {
