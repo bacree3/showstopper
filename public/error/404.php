@@ -7,7 +7,7 @@
 
     <div class="container">
       <div class="row pt-4 bg-light pb-4 mt-4 rounded text-center">
-        <div class="col-xl-12 col-md-4 text-center">
+        <div class="col-12 text-center">
             <h1>ERROR 404: PAGE NOT FOUND</h1>
             <p class="lead">The page you are trying to reach does not exist in this dimension.</p>
             <img src="/src/img/sad_chris.png" class="rounded title" alt="...">
