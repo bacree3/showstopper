@@ -77,7 +77,7 @@ if (!isLoggedIn()) {
                     <p class = 'lead text-center'>Actor</p>
                   </div>
                 </div>
-                <h1 class = 'display-4 text-center favorite-actor'>" . $actor['name'] . "</h1>
+                <h1 class = 'text-center favorite-actor'>" . $actor['name'] . "</h1>
               </div>
               ";
             }
