@@ -409,7 +409,7 @@ function getTitlePath($id) {
  * @return array  all titles related to a genre
  */
 function searchByGenre($genre) {
-  $query = "SELECT * FROM titles WHERE genre LIKE " . str('%' . $genre . '%') . " ORDER BY `name`;";
+  $query = "SELECT * FROM titles WHERE genre LIKE " . str('%' . $genre . '%') . " ORDER BY `name` LIMIT 100;";
   return query($query, true);
 }
 
