@@ -372,9 +372,12 @@ function sendPushNotification($user) {
 		// check if user is logged in to set session veriable
 		if (isset($_SESSION['isLoggedIn'])) {
 			$loggedIn = true;
+			$myServices = getElementById(getCurrentUserID(), 'users')['services'];
 		} else {
 			$loggedIn = false;
+			$myServices = NULL;
 		}
 	?>
   var loggedin = "<?php echo $loggedIn; ?>";
+	var myServices = <?php echo $myServices; ?>;
 </script>
