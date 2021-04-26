@@ -375,7 +375,7 @@ function sendPushNotification($user) {
 			$myServices = getElementById(getCurrentUserID(), 'users')['services'];
 		} else {
 			$loggedIn = false;
-			$myServices = NULL;
+			$myServices = "[]";
 		}
 	?>
   var loggedin = "<?php echo $loggedIn; ?>";
