@@ -141,6 +141,7 @@ function updateTitle($id) {
     str($updatedData["Genre"])
   ];
   update($id, 'titles', $titleColumns, $values);
+  pushUpdatedContent($title);
 }
 
 /**
@@ -810,6 +811,38 @@ function addToHistory($user, $content, $col) {
   $values = "(" . str(uniqid()) . ", " . str($user) . ", " . str($content) . ")";
   $query = "INSERT INTO history " . $columns . " VALUES " . $values . ";";
   query($query, false);
+}
+
+/**
+ * Called from Update data on change with content data change element
+ * @param array $content data pertinent to data updated for content
+ */
+function pushUpdatedContent($content) {
+  $users = query("SELECT id FROM users WHERE favorites LIKE " . $content['id'] . ";", true);
+  foreach ($users as $key => $userID) {
+    $actor = NULL;
+    if (isset($content['actor'])) {
+      $actor = $content['actor'];
+    }
+    sendNotification($userID, $content['action'], $content['name'], $actor());
+  }
+}
+
+/**
+ * Send notification to user
+ * @param  string $user    user id
+ * @param  string $action  whether content was added or deleted
+ * @param  string $content name of content
+ * @param  string $actor   name of actor if applicable
+ */
+function sendNotification($user, $action, $content, $actor) {
+  $userData = getElementByID($user, 'users');
+  createNotification($user, $action, $content, $actor);
+  if ($userData['delivery' == 'Email']) {
+    sendEmailNotification($user);
+  } else {
+    sendPushNotification($user);
+  }
 }
 
 ?>

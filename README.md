@@ -3,12 +3,13 @@ This is your one stop-shop for your streaming services. Users can search across 
 
 ## Release Notes
 >
->  ## v1.2.2 (4/23/2021)
+>  ## v1.4.2 (4/23/2021)
 >  #### Enchancements:
 >  - Added a view for user's to view their activity history.
 >  - Added ability to clear search history.
 >  - Improved overall responsiveness on main user pages.
 >  - Improved Filtering options on search.
+>  - Added delete account option.
 >  ##### Bug Fixes:
 >  - Fixed issues with typos in search for misspelled titles.
 >  - Fixed escape string issues on search input for certain titles.
@@ -16,7 +17,8 @@ This is your one stop-shop for your streaming services. Users can search across 
 
 ### Known Bugs and Defects
 - API requests are limited and tend to throttle at high usage.
-- Ability to delete a user's account within the app is still not active.
+- Push Notification permissions are causing bugs for client side verification.
+- Non-cached content have slow load times if the Lambda functions for web-scraping are cold and need to spin up after no recent usage.
 - Inconsistent notification experience.
 
 ## Install Guide
