@@ -323,7 +323,7 @@ function getFavorites() {
  */
 function getHistory() {
   $user = getCurrentUserID();
-  $history = query("SELECT title, person, updated FROM history WHERE user_id = " . str($user) . " ORDER BY updated desc;", true);
+  $history = query("SELECT title, person, updated FROM history WHERE user_id = " . str($user) . " ORDER BY updated desc LIMIT 25;", true);
   return $history;
 }
 
