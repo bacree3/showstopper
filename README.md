@@ -19,7 +19,7 @@ This is your one stop-shop for your streaming services. Users can search across 
 - API requests are limited and tend to throttle at high usage.
 - Push Notification permissions are causing bugs for client side verification.
 - Non-cached content have slow load times if the Lambda functions for web-scraping are cold and need to spin up after no recent usage.
-- Inconsistent notification experience.
+- New data for content refreshes based on user interaction and how stale the data is over time, leading to an inconsistent notification experience.
 
 ## Install Guide
 ### Prerequisites
