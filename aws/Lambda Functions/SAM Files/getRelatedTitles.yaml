@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  getRelatedTitles:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs14.x
+      CodeUri: .
+      Description: ''
+      MemorySize: 512
+      Timeout: 60
+      Role: 'arn:aws:iam::544763292920:role/service-role/getPlatforms-role-6bfxl4im'
+      Events:
+        Api1:
+          Type: Api
+          Properties:
+            Path: /getRelatedTitles
+            Method: ANY
+        Api2:
+          Type: Api
+          Properties:
+            Path: /MyResource
+            Method: ANY
+      Layers:
+        - 'arn:aws:lambda:us-east-1:544763292920:layer:puppeteerLayer:1'
